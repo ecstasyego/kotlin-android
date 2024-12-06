@@ -6,7 +6,9 @@
 - https://developer.android.com/reference/packages
 
 
-## Application Component
+## Application Architecture
+- https://developer.android.com/topic/architecture
+
 ### Activity
 ```kotlin
 onCreate()
