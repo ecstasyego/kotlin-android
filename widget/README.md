@@ -31,7 +31,7 @@ class ResultActivity: AppCompatActivity() {
         val width = intent.getIntExtra("width", 0)
         Log.d("ResultActivity", "height : $height , weight : $weight")
 
-        val widget = findViewById<[[OutputWidget]]>(R.id.[WidgetID])
+        val widget = findViewById<[OutputWidget]>(R.id.[WidgetID])
         widget.text = height * width  
     }
 }
