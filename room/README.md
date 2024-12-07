@@ -1,9 +1,9 @@
 
 ## Gradle
 
-## Entity
+## Entity: Table
 
-## DAO
+## DAO: Query Interface
 
 ## Database
 
