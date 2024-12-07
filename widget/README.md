@@ -11,7 +11,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout) // res/layout/main_layout.xml
 
-        val widget = findViewById<[InputWidget]>(R.id.[WidgetID]) // *.xml
+        val widget = findViewById<[InputWidgetClass]>(R.id.[WidgetID]) // *.xml
         widget.setClickable(true)
         widget.setOnClickListener{
             val intent = Intent(this, ResultActivity::class.java)
@@ -31,12 +31,57 @@ class ResultActivity: AppCompatActivity() {
         val width = intent.getIntExtra("width", 0)
         Log.d("ResultActivity", "height : $height , width : $width")
 
-        val widget = findViewById<[OutputWidget]>(R.id.[WidgetID])
+        val widget = findViewById<[OutputWidgetClass]>(R.id.[WidgetID])
         widget.text = height * width  
     }
 }
 ```
 
+```kotlin
+package com.example.myapplication
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.widget.*
+import android.content.Intent
+
+class MainActivity : ComponentActivity() {
+    private val widget: [InputWidgetClass] by lazy { findViewById<[InputWidgetClass]>(R.id.[WidgetID]) }  // *.xml
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout) // res/layout/main_layout.xml
+        [inputWidget]()
+        }
+
+    private fun [inputWidget]() {
+        widget.setClickable(true)
+        widget.setOnClickListener{
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("height", 50.0)
+            intent.putExtra("width", 200.0)
+            startActivity(intent)
+        }
+    }
+}
+
+class ResultActivity: AppCompatActivity() {
+    private val widget:[OutputWidgetClass] by lazy { findViewById<[OutputWidgetClass]>(R.id.[WidgetID]) }  // *.xml
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_result) // res/layout/activity_result.xml
+
+        val height = intent.getIntExtra("height", 0)
+        val width = intent.getIntExtra("width", 0)
+        Log.d("ResultActivity", "height : $height , width : $width")
+
+        widget.text = height * width  
+    }
+}
+```
+
+
+<br><br><br>
 ## Tools
 View > Tool Windows > Layout Validation
 ![image](https://github.com/user-attachments/assets/f616a8ff-dc9b-4bad-ad8d-e1f3782fc288)
