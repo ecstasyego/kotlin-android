@@ -4,9 +4,10 @@ View > Tool Windows > Layout Validation
 
 
 ## API Reference
-### Core
+### Input
 - https://developer.android.com/reference/android/widget/Button
 - https://developer.android.com/reference/android/widget/CheckBox
+- https://developer.android.com/reference/android/widget/EditText
 
 
 ### Layout
