@@ -9,7 +9,7 @@ import android.content.Intent
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout) // main_layout.xml
+        setContentView(R.layout.main_layout) // res/layout/main_layout.xml
 
         val widget = findViewById<[InputWidget]>(R.id.[WidgetID]) // *.xml
         widget.setClickable(true)
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
 class ResultActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result) // activity_result.xml
+        setContentView(R.layout.activity_result) // res/layout/activity_result.xml
 
         val height = intent.getIntExtra("height", 0)
         val width = intent.getIntExtra("width", 0)
