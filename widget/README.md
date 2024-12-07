@@ -8,7 +8,18 @@ View > Tool Windows > Layout Validation
 - https://developer.android.com/reference/android/widget/Button
 - https://developer.android.com/reference/android/widget/CheckBox
 - https://developer.android.com/reference/android/widget/EditText
-
+- https://developer.android.com/reference/android/widget/RadioButton
+- https://developer.android.com/reference/android/widget/RadioGroup
+- https://developer.android.com/reference/android/widget/Spinner
+- https://developer.android.com/reference/android/widget/AutoCompleteTextView
+- https://developer.android.com/reference/android/widget/MultiAutoCompleteTextView
+- https://developer.android.com/reference/android/widget/SeekBar
+- https://developer.android.com/reference/android/widget/RatingBar
+- https://developer.android.com/reference/android/widget/DatePicker
+- https://developer.android.com/reference/android/widget/TimePicker
+- https://developer.android.com/reference/android/widget/NumberPicker
+- https://developer.android.com/reference/android/widget/Switch
+- https://developer.android.com/reference/android/widget/ToggleButton
 
 ### Layout
 - https://developer.android.com/reference/android/widget/LinearLayout
