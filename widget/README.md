@@ -4,6 +4,17 @@ View > Tool Windows > Layout Validation
 
 
 ## API Reference
+
+### Layout
+- https://developer.android.com/reference/android/widget/LinearLayout
+- https://developer.android.com/reference/android/widget/FrameLayout
+- https://developer.android.com/reference/android/widget/TableLayout
+- https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout
+- https://developer.android.com/reference/androidx/swiperefreshlayout/widget/SwipeRefreshLayout
+- https://developer.android.com/reference/androidx/coordinatorlayout/widget/CoordinatorLayout
+- https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout
+- https://developer.android.com/reference/com/google/android/material/appbar/AppBarLayout
+
 ### Input
 - https://developer.android.com/reference/android/widget/Button
 - https://developer.android.com/reference/android/widget/CheckBox
@@ -21,21 +32,13 @@ View > Tool Windows > Layout Validation
 - https://developer.android.com/reference/android/widget/Switch
 - https://developer.android.com/reference/android/widget/ToggleButton
 
-### Layout
-- https://developer.android.com/reference/android/widget/LinearLayout
-- https://developer.android.com/reference/android/widget/FrameLayout
-- https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout
-- https://developer.android.com/reference/androidx/swiperefreshlayout/widget/SwipeRefreshLayout
-- https://developer.android.com/reference/androidx/coordinatorlayout/widget/CoordinatorLayout
-- https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout
-- https://developer.android.com/reference/com/google/android/material/appbar/AppBarLayout
-
-### View
+### Output(View)
 - https://developer.android.com/reference/android/widget/ScrollView
 - https://developer.android.com/reference/android/widget/TextView
 - https://developer.android.com/reference/android/widget/ImageView
 - https://developer.android.com/reference/androidx/cardview/widget/CardView
 - https://developer.android.com/reference/androidx/core/widget/NestedScrollView
 - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView
-
+- https://developer.android.com/reference/android/widget/ProgressBar
+- 
 
