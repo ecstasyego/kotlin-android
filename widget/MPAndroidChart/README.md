@@ -1,1 +1,9 @@
-- https://mimisongsong.tistory.com/96
+
+## Installation
+`build.gradle.kts`
+```
+dependencies {
+    implementation("com.plotly:plotly-android:2.0.0")
+}
+```
+
