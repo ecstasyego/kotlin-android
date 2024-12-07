@@ -1,5 +1,8 @@
 
 ## Installation
+`build.gradle.kts`
 ```
-implementation 'com.github.QuadFlask:colorpicker:0.0.13'
+dependencies {
+    implementation("com.github.QuadFlask:colorpicker:0.0.13")
+}
 ```
