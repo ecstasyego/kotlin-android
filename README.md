@@ -108,7 +108,7 @@ onDestroy()
 
 
 
-## Gradle
+## Build System: Gradle
 `build.gradle.kts`
 ```
 dependencies {
