@@ -3,11 +3,36 @@
 package com.example.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import android.content.Intent
+import android.widget.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(R.layout.main_layout) // main_layout.xml
+
+        val widget = findViewById<[InputWidget]>(R.id.[WidgetID]) // *.xml
+        widget.setClickable(true)
+        widget.setOnClickListener{
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("height", 50.0)
+            intent.putExtra("width", 200.0)
+            startActivity(intent)
+        }
+    }
+}
+
+class ResultActivity: AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_result) // activity_result.xml
+
+        val height = intent.getIntExtra("height", 0)
+        val width = intent.getIntExtra("width", 0)
+        Log.d("ResultActivity", "height : $height , weight : $weight")
+
+        val widget = findViewById<[[OutputWidget]]>(R.id.[WidgetID])
+        widget.text = height * width  
     }
 }
 ```
