@@ -1,1 +1,13 @@
 
+## Installation
+`build.gradle.kts`
+```
+dependencies {
+    implementation("com.jjoe64:graphview:4.2.2")
+}
+```
+
+
+
+
+
