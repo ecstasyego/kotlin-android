@@ -1,3 +1,17 @@
+## Activity
+```kotlin
+package com.example.myapplication
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+    }
+}
+```
+
 ## Tools
 View > Tool Windows > Layout Validation
 ![image](https://github.com/user-attachments/assets/f616a8ff-dc9b-4bad-ad8d-e1f3782fc288)
