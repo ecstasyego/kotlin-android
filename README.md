@@ -109,12 +109,13 @@ onDestroy()
 
 
 <br><br><br>
-## Build System: Gradle
+## Build System: Gradle / kts
 `build.gradle.kts`
 ```
 dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha07")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha07")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -132,5 +133,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+```
+
+`settings.gradle.kts`
+```
+maven (url  = "https://jitpack.io")
 ```
 
