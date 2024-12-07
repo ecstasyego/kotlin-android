@@ -1,5 +1,5 @@
 # kotlin-android
-
+`MainActivity.kt`
 ```kotlin
 package com.example.myapplication
 import android.os.Bundle
@@ -12,6 +12,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
+`main_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
