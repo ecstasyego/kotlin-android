@@ -21,3 +21,5 @@ View > Tool Windows > Layout Validation
 - https://developer.android.com/reference/androidx/cardview/widget/CardView
 - https://developer.android.com/reference/androidx/core/widget/NestedScrollView
 - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView
+
+
