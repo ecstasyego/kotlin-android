@@ -1,5 +1,5 @@
-// PROJECT-LEVEL
 ```
+// PROJECT-LEVEL
 buildscript {
     repositories {
         google()
