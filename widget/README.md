@@ -3,8 +3,8 @@
 package com.example.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import android.content.Intent
 import android.widget.*
+import android.content.Intent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
