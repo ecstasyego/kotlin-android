@@ -4,6 +4,10 @@ View > Tool Windows > Layout Validation
 
 
 ## API Reference
+### Core
+- https://developer.android.com/reference/android/widget/Button
+- https://developer.android.com/reference/android/widget/CheckBox
+
 
 ### Layout
 - https://developer.android.com/reference/android/widget/LinearLayout
