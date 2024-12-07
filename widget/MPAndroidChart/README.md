@@ -3,7 +3,7 @@
 `build.gradle.kts`
 ```
 dependencies {
-    implementation("com.plotly:plotly-android:2.0.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
 ```
 
