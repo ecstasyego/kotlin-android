@@ -2,6 +2,7 @@
 ## Gradle
 - https://developer.android.com/training/data-storage/room
 
+`APP-LEVEL`: Application/app/build.gralde.kts
 ```kts
 dependencies {
     val room_version = "2.6.1"
