@@ -40,6 +40,7 @@ class ResultActivity: AppCompatActivity() {
 
 ```kotlin
 package com.example.myapplication
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import android.widget.*
