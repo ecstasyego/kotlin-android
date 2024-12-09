@@ -1,5 +1,6 @@
-```
-// PROJECT-LEVEL
+
+`PROJECT-LEVEL[PROJECT]`: Application/gradle/build.gradle.kts
+```kts
 buildscript {
     repositories {
         google()
@@ -11,8 +12,10 @@ buildscript {
         classpath("com.chaquo.python:gradle:12.2.0")
     }
 }
+```
 
-// APP-LEVEL
+`APP-LEVEL[MODULE]`: Application/app/build.gradle.kts
+```kts
 plugins {
     id 'com.android.application'
     id 'com.chaquo.python'
@@ -36,6 +39,6 @@ android {
 }
 
 dependencies {
-    implementation "com.chaquo.python:chaquopy:12.2.0"
+    implementation("com.chaquo.python:chaquopy:12.2.0")
 }
 ```
