@@ -2,7 +2,40 @@
 
 
 
-### Examples
+## Examples
+### Usage: *.kt
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+#### File System
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+    }
+}
+```
+
+<br>
+
+### Usage: *.xml
 ![image](https://github.com/user-attachments/assets/7bea5dcf-d1c9-40d2-9ec9-5783d67f4004)
 
 #### File System
