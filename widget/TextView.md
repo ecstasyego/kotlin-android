@@ -1,4 +1,6 @@
 ### Examples
+![image](https://github.com/user-attachments/assets/001fe0e0-c48b-47c5-82ff-f76e30343040)
+
 #### File System
 ```
 .Project
@@ -7,6 +9,7 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
+│   │       ├── res/values/strings.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -64,4 +67,11 @@ class MainActivity : ComponentActivity() {
 </LinearLayout>
 ```
 
-![image](https://github.com/user-attachments/assets/001fe0e0-c48b-47c5-82ff-f76e30343040)
+`strings.xml`
+```xml
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="greeting">Hello, Android!</string>
+</resources>
+```
+
