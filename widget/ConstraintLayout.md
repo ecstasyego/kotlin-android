@@ -2,6 +2,7 @@
 
 https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout
 
+### XML attributes
 - Layout Constraints    
     - layout_constraintLeft_toLeftOf
     - layout_constraintLeft_toRightOf
@@ -47,6 +48,7 @@ https://developer.android.com/reference/androidx/constraintlayout/widget/Constra
 
 
 
+### Examples
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
