@@ -46,6 +46,10 @@ class MainActivity : ComponentActivity() {
         textView.setOnClickListener {
             Toast.makeText(this, "TextView clicked", Toast.LENGTH_SHORT).show()
         }
+        textView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, // WIDTH
+            LinearLayout.LayoutParams.WRAP_CONTENT  // HEIGHT
+        )
 
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
