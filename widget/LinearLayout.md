@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
 ```
 
 
-<br><br><br>
 ### Usage: *.xml
 ![image](https://github.com/user-attachments/assets/f0a2f228-44d7-4146-bfa5-34ad0c7532e8)
 
