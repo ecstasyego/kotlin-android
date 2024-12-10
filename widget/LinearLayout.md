@@ -12,7 +12,53 @@ https://developer.android.com/reference/android/widget/LinearLayout
 - android:weightSum : Defines the maximum weight sum. 
 
 
-### Examples
+<br><br><br>
+
+---
+
+### Example01
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```koltin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val button01 = Button(this); button01.text = "Button01"
+        val button02 = Button(this); button02.text = "Button02"
+
+        val linearLayout = LinearLayout(this)
+        linearLayout.addView(button01)
+        linearLayout.addView(button02)
+        setContentView(linearLayout)
+    }
+}
+```
+
+
+<br><br><br>
+### Example02
+![image](https://github.com/user-attachments/assets/f0a2f228-44d7-4146-bfa5-34ad0c7532e8)
+
 #### File System
 ```
 .Project
@@ -48,34 +94,6 @@ class MainActivity : ComponentActivity() {
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello, World!" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello, World!" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello, World!" />
-
-</LinearLayout>
-```
-
-![image](https://github.com/user-attachments/assets/b7c35f7c-e6c6-4981-8eb5-315740872c66)
-
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="horizontal">
 
     <TextView
@@ -99,6 +117,5 @@ class MainActivity : ComponentActivity() {
 </LinearLayout>
 ```
 
-![image](https://github.com/user-attachments/assets/f0a2f228-44d7-4146-bfa5-34ad0c7532e8)
 
 
