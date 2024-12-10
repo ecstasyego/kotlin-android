@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
         val button02 = Button(this); button02.text = "Button02"
 
         val linearLayout = LinearLayout(this)
+        linearLayout.orientation = LinearLayout.HORIZONTAL
         linearLayout.addView(button01)
         linearLayout.addView(button02)
         setContentView(linearLayout)
