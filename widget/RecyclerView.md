@@ -16,7 +16,7 @@
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
 ```
-#### File System
+
 #### Source Code
 `MainActivity.kt`
 ```kotlin
