@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Usage: *.xml
+### Usage: *.xml(findViewById)
 ![image](https://github.com/user-attachments/assets/f0a2f228-44d7-4146-bfa5-34ad0c7532e8)
 
 #### File System
