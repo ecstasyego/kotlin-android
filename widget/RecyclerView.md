@@ -95,3 +95,9 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyViewHo
     android:textSize="16sp"/>
 ```
 
+`build.gradle.kts:APP-LEVEL`
+```kts
+dependencies {
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
+}
+```
