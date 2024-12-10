@@ -19,12 +19,23 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+
+        val textView = TextView(this)
+        textView.text = "Hello, Kotlin!"
+        textView.textSize = 24f
+
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.addView(textView)
+        setContentView(layout)
     }
 }
 ```
