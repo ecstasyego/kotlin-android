@@ -13,7 +13,22 @@
 ```
 
 #### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+    }
+}
+```
+
+`main_layout.xml`
 ```xml
 <ScrollView
     android:layout_width="match_parent"
