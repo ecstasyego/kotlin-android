@@ -1,3 +1,11 @@
+## LinearLayout
+
+https://developer.android.com/reference/android/widget/LinearLayout
+
+### XML attributes
+
+
+### Examples
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
