@@ -31,7 +31,7 @@ https://developer.android.com/reference/android/widget/LinearLayout
 
 #### Source Code
 `MainActivity.kt`
-```koltin
+```kotlin
 package com.example.myapplication
 
 import android.os.Bundle
