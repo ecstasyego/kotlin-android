@@ -63,7 +63,22 @@ https://developer.android.com/reference/androidx/constraintlayout/widget/Constra
 ```
 
 #### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+    }
+}
+```
+
+`main_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
