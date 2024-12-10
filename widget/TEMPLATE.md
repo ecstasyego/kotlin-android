@@ -19,12 +19,16 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+
+        val linearLayout = LinearLayout(this)
+        linearLayout.orientation = LinearLayout.HORIZONTAL
+        setContentView(linearLayout)
     }
 }
 ```
