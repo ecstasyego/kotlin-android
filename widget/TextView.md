@@ -17,13 +17,29 @@
 ```kotlin
 package com.example.myapplication
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
+
+        val textView: TextView = findViewById(R.id.textView)
+        textView.text = "New Text"
+        textView.setTextColor(Color.RED)
+        textView.setTypeface(null, Typeface.BOLD) // FONT
+        textView.setTypeface(Typeface.SERIF)  // FONT
+        textView.setShadowLayer(1.5f, 5f, 5f, Color.GRAY)  // SHADE
+        textView.gravity = Gravity.CENTER  // ALIGN
+        textView.setOnClickListener {
+            Toast.makeText(this, "TextView clicked", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 ```
