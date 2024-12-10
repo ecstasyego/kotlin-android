@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Usage: *.xml
+### Usage: *.xml(findViewById)
 #### File System
 ```
 .Project
