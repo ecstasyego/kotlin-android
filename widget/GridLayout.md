@@ -19,16 +19,28 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.widget.Button
 import androidx.activity.ComponentActivity
+import androidx.gridlayout.widget.GridLayout
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val linearLayout = LinearLayout(this)
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-        setContentView(linearLayout)
+        val gridLayout = GridLayout(this).apply {
+            rowCount = 2
+            columnCount = 2
+        }
+
+        for (i in 1..4) {
+            val button = Button(this).apply {
+                text = "Button $i"
+            }
+            gridLayout.addView(button)
+        }
+
+        setContentView(gridLayout)
     }
 }
 ```
