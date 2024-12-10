@@ -43,13 +43,13 @@ class MainActivity : ComponentActivity() {
         textView.setTypeface(Typeface.SERIF)  // FONT
         textView.setShadowLayer(1.5f, 5f, 5f, Color.GRAY)  // SHADE
         textView.gravity = Gravity.CENTER  // ALIGN
-        textView.setOnClickListener {
-            Toast.makeText(this, "TextView clicked", Toast.LENGTH_SHORT).show()
-        }
         textView.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, // WIDTH
             LinearLayout.LayoutParams.WRAP_CONTENT  // HEIGHT
         )
+        textView.setOnClickListener {
+            Toast.makeText(this, "TextView clicked", Toast.LENGTH_SHORT).show()
+        }
 
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
