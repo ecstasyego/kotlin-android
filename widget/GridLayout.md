@@ -33,8 +33,8 @@ class MainActivity : ComponentActivity() {
             rowCount = 2
             columnCount = 5
             layoutParams = LayoutParams().apply {
-                width = LayoutParams.MATCH_PARENT 
-                height = LayoutParams.MATCH_PARENT
+                width = LayoutParams.MATCH_PARENT // MATCH_PARENT, WRAP_CONTENT
+                height = LayoutParams.MATCH_PARENT // MATCH_PARENT, WRAP_CONTENT
             }
         }
 
@@ -43,9 +43,9 @@ class MainActivity : ComponentActivity() {
                 val button = Button(this).apply {
                     text = "Button $i, $j"
                     layoutParams = LayoutParams().apply {
-                        width = 0 // MATCH_PARENT, WRAP_CONTENT
-                        height = 0 // MATCH_PARENT, WRAP_CONTENT
-                        rowSpec = GridLayout.spec(i-1, 1f)
+                        width = 0
+                        height = LayoutParams.WRAP_CONTENT
+                        rowSpec = GridLayout.spec(i-1)
                         columnSpec = GridLayout.spec(j-1, 1f)
                     }
                 }
