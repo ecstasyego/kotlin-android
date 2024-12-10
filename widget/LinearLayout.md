@@ -3,6 +3,13 @@
 https://developer.android.com/reference/android/widget/LinearLayout
 
 ### XML attributes
+- android:baselineAligned	When set to false, prevents the layout from aligning its children's baselines. 
+- android:baselineAlignedChildIndex	When a linear layout is part of another layout that is baseline aligned, it can specify which of its children to baseline align to (that is, which child TextView). 
+- android:divider	Drawable to use as a vertical divider between buttons. 
+- android:gravity	Specifies how an object should position its content, on both the X and Y axes, within its own bounds. 
+- android:measureWithLargestChild	When set to true, all children with a weight will be considered having the minimum size of the largest child. 
+- android:orientation	Should the layout be a column or a row? Use "horizontal" for a row, "vertical" for a column. 
+- android:weightSum	Defines the maximum weight sum. 
 
 
 ### Examples
