@@ -18,10 +18,15 @@
 ```kotlin
 package com.example.myapplication
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
 
@@ -30,7 +35,17 @@ class MainActivity : ComponentActivity() {
 
         val textView = TextView(this)
         textView.text = "Hello, Kotlin!"
+        textView.text = getString(R.string.greeting)
         textView.textSize = 24f
+        textView.setTextColor(Color.RED)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.purple_700))
+        textView.setTypeface(null, Typeface.BOLD) // FONT
+        textView.setTypeface(Typeface.SERIF)  // FONT
+        textView.setShadowLayer(1.5f, 5f, 5f, Color.GRAY)  // SHADE
+        textView.gravity = Gravity.CENTER  // ALIGN
+        textView.setOnClickListener {
+            Toast.makeText(this, "TextView clicked", Toast.LENGTH_SHORT).show()
+        }
 
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
