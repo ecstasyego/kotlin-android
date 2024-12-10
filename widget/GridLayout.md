@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.gridlayout.widget.GridLayout
+import androidx.gridlayout.widget.GridLayout.LayoutParams
 
 class MainActivity : ComponentActivity() {
 
@@ -30,14 +31,26 @@ class MainActivity : ComponentActivity() {
 
         val gridLayout = GridLayout(this).apply {
             rowCount = 2
-            columnCount = 2
+            columnCount = 5
+            layoutParams = LayoutParams().apply {
+                width = LayoutParams.MATCH_PARENT 
+                height = LayoutParams.MATCH_PARENT
+            }
         }
 
-        for (i in 1..4) {
-            val button = Button(this).apply {
-                text = "Button $i"
+        for (i in 1..2) {
+            for (j in 1..5) {
+                val button = Button(this).apply {
+                    text = "Button $i, $j"
+                    layoutParams = LayoutParams().apply {
+                        width = 0 // MATCH_PARENT, WRAP_CONTENT
+                        height = 0 // MATCH_PARENT, WRAP_CONTENT
+                        rowSpec = GridLayout.spec(i-1, 1f)
+                        columnSpec = GridLayout.spec(j-1, 1f)
+                    }
+                }
+                gridLayout.addView(button)
             }
-            gridLayout.addView(button)
         }
 
         setContentView(gridLayout)
