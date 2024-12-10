@@ -4,19 +4,19 @@ https://developer.android.com/reference/androidx/constraintlayout/widget/Constra
 
 ### XML attributes
 - Layout Constraints    
-    - layout_constraintLeft_toLeftOf
-    - layout_constraintLeft_toRightOf
-    - layout_constraintRight_toLeftOf
-    - layout_constraintRight_toRightOf
-    - layout_constraintTop_toTopOf
-    - layout_constraintTop_toBottomOf
-    - layout_constraintBottom_toTopOf
-    - layout_constraintBottom_toBottomOf
-    - layout_constraintBaseline_toBaselineOf
-    - layout_constraintStart_toEndOf
-    - layout_constraintStart_toStartOf
-    - layout_constraintEnd_toStartOf
-    - layout_constraintEnd_toEndOf
+    - app:layout_constraintLeft_toLeftOf
+    - app:layout_constraintLeft_toRightOf
+    - app:layout_constraintRight_toLeftOf
+    - app:layout_constraintRight_toRightOf
+    - app:layout_constraintTop_toTopOf
+    - app:layout_constraintTop_toBottomOf
+    - app:layout_constraintBottom_toTopOf
+    - app:layout_constraintBottom_toBottomOf
+    - app:layout_constraintBaseline_toBaselineOf
+    - app:layout_constraintStart_toEndOf
+    - app:layout_constraintStart_toStartOf
+    - app:layout_constraintEnd_toStartOf
+    - app:layout_constraintEnd_toEndOf
 - Margins
     - android:layout_marginStart
     - android:layout_marginEnd
@@ -26,20 +26,20 @@ https://developer.android.com/reference/androidx/constraintlayout/widget/Constra
     - android:layout_marginBottom
     - layout_marginBaseline
 - Margins when connected to a GONE widget
-    - layout_goneMarginStart
-    - layout_goneMarginEnd
-    - layout_goneMarginLeft
-    - layout_goneMarginTop
-    - layout_goneMarginRight
-    - layout_goneMarginBottom
-    - layout_goneMarginBaseline
+    - app:layout_goneMarginStart
+    - app:layout_goneMarginEnd
+    - app:layout_goneMarginLeft
+    - app:layout_goneMarginTop
+    - app:layout_goneMarginRight
+    - app:layout_goneMarginBottom
+    - app:layout_goneMarginBaseline
 - Bias
-    - layout_constraintHorizontal_bias
-    - layout_constraintVertical_bias
+    - app:layout_constraintHorizontal_bias
+    - app:layout_constraintVertical_bias
 - Circular positioning
-    - layout_constraintCircle : references another widget id
-    - layout_constraintCircleRadius : the distance to the other widget center
-    - layout_constraintCircleAngle : which angle the widget should be at (in degrees, from 0 to 360)
+    - app:layout_constraintCircle : references another widget id
+    - app:layout_constraintCircleRadius : the distance to the other widget center
+    - app:layout_constraintCircleAngle : which angle the widget should be at (in degrees, from 0 to 360)
 - Minimum dimensions
     - android:minWidth set the minimum width for the layout
     - android:minHeight set the minimum height for the layout
