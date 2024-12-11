@@ -47,8 +47,59 @@ https://developer.android.com/reference/androidx/constraintlayout/widget/Constra
     - android:maxHeight set the maximum height for the layout
 
 
+---
 
-### Examples
+
+## Examples
+### Usage: *.kt
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import androidx.activity.ComponentActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val constraintLayout = ConstraintLayout(this).apply { id = View.generateViewId() }
+        val button = Button(this).apply { id = View.generateViewId(); text = "Click Me" }
+        constraintLayout.addView(button)
+
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+        constraintSet.connect(button.id, ConstraintSet.TOP, constraintLayout.id, ConstraintSet.TOP, 100)
+        constraintSet.connect(button.id, ConstraintSet.START, constraintLayout.id, ConstraintSet.START, 100)
+        constraintSet.applyTo(constraintLayout)
+
+        setContentView(constraintLayout)
+    }
+}
+```
+
+
+<br>
+
+### Usage: *.xml(findViewById)
 #### File System
 ```
 .Project
