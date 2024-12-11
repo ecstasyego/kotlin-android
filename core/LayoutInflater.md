@@ -1,7 +1,40 @@
 
 ## Examples
-### Usage: *.xml(findViewById)
+
 #### Example01
+##### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+##### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.widget.LinearLayout
+
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(LinearLayout(this))
+    }
+}
+```
+
+<br>
+
+#### Example02
 ##### File System
 ```
 .Project
@@ -60,7 +93,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-#### Example02
+#### Example03
 ##### File System
 ```
 .Project
@@ -124,7 +157,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-#### Example03
+#### Example04
 ##### File System
 ```
 .Project
