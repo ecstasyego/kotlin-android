@@ -125,12 +125,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        // TextView 3개 초기화
         val textView1: TextView = findViewById(R.id.textView1)
         val textView2: TextView = findViewById(R.id.textView2)
         val textView3: TextView = findViewById(R.id.textView3)
 
-        // Button 설정
         val button1: Button = findViewById(R.id.button1)
         val button2: Button = findViewById(R.id.button2)
         val button3: Button = findViewById(R.id.button3)
