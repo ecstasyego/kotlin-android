@@ -23,8 +23,6 @@ package com.example.myapplication
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.ComponentActivity
-import android.widget.Button
-import android.widget.TextView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
