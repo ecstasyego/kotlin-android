@@ -177,6 +177,22 @@ class MainFragment : Fragment() {
 </manifest>
 ```
 
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+```
+
 `themes.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -214,7 +230,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -236,9 +251,7 @@ class MainActivity : AppCompatActivity() {
 
 class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
-        }
+        return inflater.inflate(R.layout.fragment_layout, container, false)
     }
 }
 ```
@@ -271,6 +284,23 @@ class MainFragment : Fragment() {
         </activity>
     </application>
 </manifest>
+```
+
+`fragment_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, Fragment!"
+        android:textSize="24sp" />
+</LinearLayout>
 ```
 
 `themes.xml`
