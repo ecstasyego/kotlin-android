@@ -246,3 +246,74 @@ class MainActivity : AppCompatActivity() {
 ```
 
 
+
+<br>
+
+## Example04
+
+### Usage: *.kt
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val Layout = LinearLayout(this)
+        Layout.addView(TextView(this).apply {text = "TEXTVIEW01"})
+        Layout.addView(TextView(this).apply {text = "TEXTVIEW02"})
+        Layout.addView(TextView(this).apply {text = "TEXTVIEW03"})
+        Layout.addView(TextView(this).apply {text = "TEXTVIEW04"}, 3)
+        Layout.addView(TextView(this).apply {text = "TEXTVIEW05"}, 4)
+
+        Layout.childCount // 5
+        val textview00 = Layout.getChildAt(0)
+        val textview01 = Layout.getChildAt(1)
+        val textview02 = Layout.getChildAt(2)
+        val textview03 = Layout.getChildAt(3)
+        val textview04 = Layout.getChildAt(4)
+
+        Layout.indexOfChild(textview00) // 0
+        Layout.indexOfChild(textview01) // 1
+        Layout.indexOfChild(textview02) // 2
+        Layout.indexOfChild(textview03) // 3
+        Layout.indexOfChild(textview04) // 4
+        setContentView(Layout)
+
+        Layout.removeViewAt(4)
+        Layout.removeView(textview03)
+        Layout.removeViews(1, 2)
+        Layout.requestLayout()
+
+        Layout.removeAllViews()
+        Layout.removeAllViewsInLayout()
+    }
+}
+```
+
+
+
+
+
+
+
