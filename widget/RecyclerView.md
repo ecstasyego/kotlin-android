@@ -71,18 +71,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        // Adapter
+        // Item
         val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-        val adapter = MyAdapter(items)
 
-        // layoutManager
-        val layoutManager = LinearLayoutManager(this)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL // VERTICAL, HORIZONTAL
-
-        // RecyclerView
+        // RecyclerView: adapter + layoutManager
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
+        recyclerView.apply{
+            adapter = MyAdapter(items)
+            layoutManager = LinearLayoutManager(this@MainActivity).apply{
+                orientation = LinearLayoutManager.VERTICAL // VERTICAL, HORIZONTAL
+            }
+        }
     }
 }
 
