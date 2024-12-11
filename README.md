@@ -2,7 +2,10 @@
 - https://developer.android.com/studio/run/oem-usb
     - 소프트웨어 정보 -> 빌드번호
     - 개발자 옵션 -> USB 디버깅
-
+- C:\Users\user\AppData\Local\Android\Sdk\icons\material
+    - icons_metadata.txt
+        - read-only
+    
 ## File System
 - C:\Users\user\AndroidStudioProjects\Project
 
