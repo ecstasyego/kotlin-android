@@ -193,9 +193,9 @@ class MainActivity : ComponentActivity() {
         val view02 = inflater.inflate(R.layout.custom_layout02, parentLayout, false)
         val view03 = inflater.inflate(R.layout.custom_layout03, parentLayout, false)
 
-        parentLayout.addView(view01)
-        parentLayout.addView(view02)
-        parentLayout.addView(view03)
+        parentLayout.addView(view01, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        parentLayout.addView(view02, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        parentLayout.addView(view03, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
 
         setContentView(parentLayout)
     }
