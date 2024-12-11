@@ -177,12 +177,12 @@ class MainActivity : AppCompatActivity() {
 
         childLayout1.addView(
             TextView(this).apply {
-                text = "첫 번째 자식 레이아웃"
+                text = "First Child Layout"
             }
         )
         childLayout2.addView(
             TextView(this).apply {
-                text = "두 번째 자식 레이아웃"
+                text = "Second Child Layout"
             }
         )
         parentLayout.addView(childLayout1)
