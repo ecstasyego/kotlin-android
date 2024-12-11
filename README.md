@@ -4,6 +4,8 @@
     - 개발자 옵션 -> USB 디버깅
 
 ## File System
+- C:\Users\user\AndroidStudioProjects\Project
+
 ```
 .Project
 ├── app
