@@ -1,4 +1,7 @@
 # kotlin-android
+- https://developer.android.com/studio/run/oem-usb
+
+
 ## File System
 ```
 .Project
