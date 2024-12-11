@@ -208,7 +208,7 @@ class Fragment03 : Fragment() {
 <br>
 
 
-### Example02
+### Example02: with Navigation Header
 #### File System
 ```
 .Project
