@@ -2,6 +2,13 @@
 ```kotlin
 package com.example.myapplication
 
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity(R.layout.main_layout)
+```
+```kotlin
+package com.example.myapplication
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 
