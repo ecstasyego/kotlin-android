@@ -375,6 +375,7 @@ class Fragment03 : Fragment() {
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
 ```
@@ -416,7 +417,6 @@ class Fragment03 : Fragment() {
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
-
 </LinearLayout>
 ```
 
