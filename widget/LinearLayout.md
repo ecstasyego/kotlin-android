@@ -16,7 +16,7 @@ https://developer.android.com/reference/android/widget/LinearLayout
 
 ---
 
-## Examples
+## Example01
 ### Usage: *.kt
 #### File System
 ```
@@ -119,5 +119,77 @@ class MainActivity : ComponentActivity() {
 </LinearLayout>
 ```
 
+<br>
+
+## Example02
+
+### Usage: *.kt
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val parentLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+        }
+
+        val childLayout1 = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+
+        val childLayout2 = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+
+        childLayout1.addView(
+            TextView(this).apply {
+                text = "첫 번째 자식 레이아웃"
+            }
+        )
+        childLayout2.addView(
+            TextView(this).apply {
+                text = "두 번째 자식 레이아웃"
+            }
+        )
+        parentLayout.addView(childLayout1)
+        parentLayout.addView(childLayout2)
+        setContentView(parentLayout)
+    }
+}
+```
 
 
