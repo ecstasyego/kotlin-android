@@ -54,7 +54,6 @@ class MainActivity : ComponentActivity() {
 package com.example.myapplication
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
