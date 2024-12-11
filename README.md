@@ -1,6 +1,7 @@
 # kotlin-android
 - https://developer.android.com/studio/run/oem-usb
-
+    - 소프트웨어 정보 -> 빌드번호
+    - 개발자 옵션 -> USB 디버깅
 
 ## File System
 ```
