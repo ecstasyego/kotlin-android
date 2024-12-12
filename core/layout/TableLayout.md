@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-### Example02
+### Example02: with HorizontalScrollView and ScrollView
 #### File System
 ```
 .Project
@@ -68,6 +68,47 @@ class MainActivity : ComponentActivity() {
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.HorizontalScrollView
+import android.widget.ScrollView
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val horizontalScrollView = HorizontalScrollView(this)
+        val scrollView = ScrollView(this)
+        val tableLayout = TableLayout(this)
+        tableLayout.layoutParams = TableLayout.LayoutParams(
+            TableLayout.LayoutParams.MATCH_PARENT,
+            TableLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        val row1 = TableRow(this).apply {
+            addView(TextView(this@MainActivity).apply { text = "Row 1, Column 1" })
+            addView(TextView(this@MainActivity).apply { text = "Row 1, Column 2" })
+        }
+
+        val row2 = TableRow(this).apply {
+            addView(TextView(this@MainActivity).apply { text = "Row 2, Column 1" })
+            addView(TextView(this@MainActivity).apply { text = "Row 2, Column 2" })
+        }
+
+        tableLayout.addView(row1)
+        tableLayout.addView(row2)
+
+        scrollView.addView(tableLayout)
+        horizontalScrollView.addView(scrollView)
+
+        setContentView(horizontalScrollView)
+    }
+}
 ```
 
 <br>
