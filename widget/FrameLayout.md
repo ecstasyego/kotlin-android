@@ -15,6 +15,47 @@
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    private var counter = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val mainLayout = LinearLayout(this).apply{
+            addView(Button(this@MainActivity).apply{text="Click Me!";      id=View.generateViewId()})
+            addView(
+                FrameLayout(this@MainActivity).apply{
+                    id=View.generateViewId()
+                    addView(TextView(this@MainActivity).apply{text = "TEXT01"; visibility=View.INVISIBLE; id=View.generateViewId()})
+                    addView(TextView(this@MainActivity).apply{text = "TEXT02"; visibility=View.INVISIBLE; id=View.generateViewId()})
+                    addView(TextView(this@MainActivity).apply{text = "TEXT03"; visibility=View.VISIBLE  ; id=View.generateViewId()})
+                }
+            )
+        }
+        setContentView(mainLayout)
+
+        val button = mainLayout.getChildAt(0) as Button
+        val frameLayout = mainLayout.getChildAt(1) as FrameLayout
+        val textViews = (0..<frameLayout.childCount).map{frameLayout.getChildAt(it) as TextView}.toMutableList()
+
+        button.setOnClickListener {
+            counter++
+            val visibilities = List(textViews.size){it == counter%textViews.size}.map{ if (it) View.VISIBLE else View.INVISIBLE }.toList()
+            for ( idx in 0..<visibilities.size ){
+                textViews[idx].apply{ visibility = visibilities[idx] }
+            }
+        }
+    }
+}
 ```
 
 <br>
