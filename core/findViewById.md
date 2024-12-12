@@ -1,5 +1,5 @@
 ## Examples
-## Example01: Value View
+## Example01: View-Value 
 #### File System
 ```
 .Project
@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-## Example02: Value View
+## Example02: View-Value(by lazy)
 #### File System
 ```
 .Project
@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-## Example03: Value View
+## Example03: View-Value(by lazy)
 #### File System
 ```
 .Project
@@ -200,7 +200,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-## Example04: Variable View
+## Example04: View-Variable
 #### File System
 ```
 .Project
@@ -268,7 +268,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-## Example05: Variable View
+## Example05: View-Variable(lateinit)
 #### File System
 ```
 .Project
