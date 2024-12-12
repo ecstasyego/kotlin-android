@@ -1,6 +1,7 @@
 # kotlin-android
 - Physical Device Emulator
-    - Installation: https://developer.android.com/studio/run/oem-usb
+    - PC Installation: https://developer.android.com/studio/run/oem-usb
+    - Mobile Developer Mode
         - 소프트웨어 정보 -> 빌드번호
         - 개발자 옵션 -> USB 디버깅
 - Vector Asset Icons
