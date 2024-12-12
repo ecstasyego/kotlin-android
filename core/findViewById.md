@@ -446,9 +446,10 @@ class MainActivity : ComponentActivity() {
         })
 
         setContentView(layout)
-        val textview00 = findViewById<TextView>( layout.getChildAt(0).id )
-        val textview01 = findViewById<TextView>( layout.getChildAt(1).id )
+        val textview00 = layout.getChildAt(0) as TextView
+        val textview01:TextView = findViewById( layout.getChildAt(1).id )
         val textview02 = findViewById<TextView>( layout.getChildAt(2).id )
+
         val textview03 = findViewById<TextView>( (layout.getChildAt(3) as LinearLayout).getChildAt(0).id )
         val textview04 = findViewById<TextView>( (layout.getChildAt(3) as LinearLayout).getChildAt(1).id )
 
