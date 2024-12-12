@@ -336,3 +336,56 @@ class MainActivity : ComponentActivity() {
 ```
 
 
+
+<br>
+
+
+## Example06: View ID
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val layout = LinearLayout(this)
+        layout.addView(TextView(this).apply{id = View.generateViewId()})
+        layout.addView(TextView(this).apply{id = View.generateViewId()})
+        layout.addView(TextView(this).apply{id = View.generateViewId()})
+        layout.addView(LinearLayout(this).apply{
+            id = View.generateViewId()
+            addView(TextView(this@MainActivity).apply{id = View.generateViewId()})
+            addView(TextView(this@MainActivity).apply{id = View.generateViewId()})
+        })
+
+        setContentView(layout)
+        val textview00 = findViewById<TextView>( layout.getChildAt(0).id )
+        val textview01 = findViewById<TextView>( layout.getChildAt(1).id )
+        val textview02 = findViewById<TextView>( layout.getChildAt(2).id )
+        val textview03 = findViewById<TextView>( (layout.getChildAt(3) as LinearLayout).getChildAt(0).id )
+        val textview04 = findViewById<TextView>( (layout.getChildAt(3) as LinearLayout).getChildAt(1).id )
+
+    }
+}
+```
+
