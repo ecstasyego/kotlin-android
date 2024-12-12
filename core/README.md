@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Change Layout
+### Example01: Change Layout without LayoutInflater
 #### File System
 ```
 .Project
@@ -19,7 +19,6 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import android.widget.LinearLayout
