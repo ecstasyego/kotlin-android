@@ -29,9 +29,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        val view01 = findViewById<LinearLayout>(R.id.mainLayout)
-        val view02 = findViewById<TextView>(R.id.textView)
-        val view03 = findViewById<Button>(R.id.button)
+        val view01:LinearLayout = findViewById(R.id.mainLayout)
+        val view02:TextView = findViewById(R.id.textView)
+        val view03:Button = findViewById(R.id.button)
     }
 }
 ```
@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-## Example02: View-Value(by lazy)
+## Example02: View-Value(generic)
 #### File System
 ```
 .Project
@@ -95,9 +95,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        val view01:LinearLayout = findViewById(R.id.mainLayout)
-        val view02:TextView = findViewById(R.id.textView)
-        val view03:Button = findViewById(R.id.button)
+        val view01 = findViewById<LinearLayout>(R.id.mainLayout)
+        val view02 = findViewById<TextView>(R.id.textView)
+        val view03 = findViewById<Button>(R.id.button)
     }
 }
 ```
