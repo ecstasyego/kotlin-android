@@ -1,4 +1,4 @@
-## Examples
+## Change View
 ### Example01: change layout without LayoutInflater
 #### File System
 ```
