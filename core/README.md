@@ -1,5 +1,5 @@
 ## Change View
-### Example01: change layout
+### Example01: change layout with LinearLayout
 #### File System
 ```
 .Project
