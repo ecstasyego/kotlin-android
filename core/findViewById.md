@@ -132,8 +132,75 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
+## Example03: (Declaration) View-Value(type casting: as)
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
 
-## Example03: (Declaration) View-Value(by lazy)
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import android.widget.LinearLayout
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+
+        val view01 = findViewById(R.id.mainLayout) as LinearLayout
+        val view02 = findViewById(R.id.textView) as TextView
+        val view03 = findViewById(R.id.button) as Button
+    }
+}
+```
+
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, World!"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click Me" />
+
+</LinearLayout>
+```
+
+
+<br>
+
+
+
+## Example04: (Declaration) View-Value(by lazy)
 #### File System
 ```
 .Project
@@ -200,7 +267,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-## Example04: (Declaration) View-Variable
+## Example05: (Declaration) View-Variable
 #### File System
 ```
 .Project
@@ -268,7 +335,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-## Example05: (Declaration) View-Variable(lateinit)
+## Example06: (Declaration) View-Variable(lateinit)
 #### File System
 ```
 .Project
@@ -340,7 +407,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-## Example06: View ID
+## Example07: View ID
 #### File System
 ```
 .Project
