@@ -1,5 +1,5 @@
 ## Change View
-### Example01: change layout with LinearLayout
+### Example01: change layout through functions of removal and creation
 #### File System
 ```
 .Project
@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example02: change layout with FrameLayout(1)
+### Example02: change layout with FrameLayout(1: visibility control) 
 #### File System
 ```
 .Project
@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example03: change layout with FrameLayout(2)
+### Example03: change layout with FrameLayout(2: removal and creation)
 #### File System
 ```
 .Project
