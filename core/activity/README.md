@@ -116,3 +116,39 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
+
+### setContentView
+```kotlin
+package com.example.myapplication
+
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity(R.layout.main_layout)
+```
+
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity(R.layout.main_layout) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+}
+```
+
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+    }
+}
+```
