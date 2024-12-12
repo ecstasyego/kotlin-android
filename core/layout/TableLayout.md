@@ -143,7 +143,7 @@ import androidx.activity.ComponentActivity
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val table = tableCreate(100, 10)
+        val table = createTable(100, 10)
         setContentView(table)
     }
 
@@ -160,7 +160,7 @@ class MainActivity : ComponentActivity() {
             for (row in 0..<numRow){
                 addView(TableRow(this@MainActivity).apply {
                     for (col in 0..<numCol){
-                        addView(TextView(this@MainActivity).apply { text = "Row $row, Column $col" })
+                        addView(TextView(this@MainActivity).apply { text = "[$row, $col]   " })
                     }
                 })
             }
