@@ -98,7 +98,11 @@ class MainActivity : ComponentActivity() {
 
 
 ## Application Architecture
+![image](https://github.com/user-attachments/assets/31e0c027-96ab-43b7-b7d0-081fcfa35726)
+
 - https://developer.android.com/topic/architecture
+- https://developer.android.com/topic/architecture/recommendations
+- https://github.com/android/architecture-templates/tree/base
 
 ### Activity
 ```kotlin
