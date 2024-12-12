@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Change Layout without LayoutInflater
+### Example01: change layout without LayoutInflater
 #### File System
 ```
 .Project
