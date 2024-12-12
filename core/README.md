@@ -252,7 +252,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example04: change layout with FragmentManager
+### Example04: change layout with ViewSwitcher
 #### File System
 ```
 .Project
@@ -278,7 +278,61 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example05: change layout with Intent on activity
+### Example05: change layout with ViewFlipper
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+
+
+
+<br>
+
+### Example06: change layout with FragmentTransaction
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+
+<br>
+
+### Example07: change layout with Intent
 #### File System
 ```
 .Project
