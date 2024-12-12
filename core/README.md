@@ -96,10 +96,59 @@ class MainActivity : ComponentActivity() {
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+
+        val frameLayout = findViewById<FrameLayout>(R.id.viewLayout)
+        val button = findViewById<Button>(R.id.button)
+
+        button.setOnClickListener {
+            frameLayout.removeAllViews()
+            frameLayout.addView(TextView(this@MainActivity).apply{text = "NEW TEXT"})
+        }
+    }
+}
 ```
 
 `main_layout.xml`
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click Me" />
+
+    <FrameLayout
+        android:id="@+id/viewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INITIAL TEXT"
+            android:textSize="18sp"/>
+    </FrameLayout>
+
+</LinearLayout>
 ```
 
 
