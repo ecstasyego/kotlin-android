@@ -114,7 +114,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-### Example03: tableCreate-method with HorizontalScrollView and ScrollView
+### Example03: createTable-method with HorizontalScrollView and ScrollView
 #### File System
 ```
 .Project
@@ -147,7 +147,7 @@ class MainActivity : ComponentActivity() {
         setContentView(table)
     }
 
-    private fun tableCreate(numRow:Int, numCol:Int):HorizontalScrollView {
+    private fun createTable(numRow:Int, numCol:Int):HorizontalScrollView {
 
         val horizontalScrollView = HorizontalScrollView(this)
         val scrollView = ScrollView(this)
