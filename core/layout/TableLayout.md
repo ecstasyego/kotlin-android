@@ -160,7 +160,7 @@ class MainActivity : ComponentActivity() {
             for (row in 0..<numRow){
                 addView(TableRow(this@MainActivity).apply {
                     for (col in 0..<numCol){
-                        addView(TextView(this@MainActivity).apply { text = "[$row, $col]   " })
+                        addView(TextView(this@MainActivity).apply { text = "D[$row, $col]" })
                     }
                 })
             }
