@@ -1,5 +1,5 @@
 ## Change View
-### Example01: change layout without LayoutInflater
+### Example01: change layout
 #### File System
 ```
 .Project
@@ -170,3 +170,61 @@ class MainActivity : ComponentActivity() {
         android:text="NEW TEXT"/>
 </LinearLayout>
 ```
+
+
+<br>
+
+### Example03: change layout with fragmentmanager
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+`main_layout.xml`
+```xml
+```
+
+
+<br>
+
+### Example04: change layout with intent on activity
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+
