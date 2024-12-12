@@ -76,9 +76,38 @@ class MainActivity : ComponentActivity() {
 </LinearLayout>
 ```
 
+
 <br>
 
-### Example02: change layout with LayoutInflater
+### Example02: change layout with FrameLayout
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+
+<br>
+
+
+
+### Example03: change layout with LayoutInflater
 #### File System
 ```
 .Project
@@ -174,7 +203,33 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example03: change layout with FragmentManager
+### Example04: change layout with FragmentManager
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+
+<br>
+
+### Example05: change layout with Intent on activity
 #### File System
 ```
 .Project
@@ -195,32 +250,6 @@ class MainActivity : ComponentActivity() {
 
 `AndroidManifest.xml`
 ```xml
-```
-
-`main_layout.xml`
-```xml
-```
-
-
-<br>
-
-### Example04: change layout with Intent on activity
-#### File System
-```
-.Project
-├── app
-│   ├── src
-│   │   └── main
-│   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
-│   │       └── AndroidManifest.xml
-│   └── build.gradle.kts # APP-LEVEL
-└── build.gradle.kts # PROJECT-LEVEL
-```
-
-#### Source Code
-`MainActivity.kt`
-```kotlin
 ```
 
 `main_layout.xml`
