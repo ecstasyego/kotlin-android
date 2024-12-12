@@ -76,10 +76,27 @@ class MainActivity : ComponentActivity() {
 </LinearLayout>
 ```
 
+<br>
+
+### Example02: change layout with FrameLayout(1)
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+
 
 <br>
 
-### Example02: change layout with FrameLayout
+### Example03: change layout with FrameLayout(2)
 #### File System
 ```
 .Project
@@ -156,7 +173,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example03: change layout with LayoutInflater
+### Example04: change layout with LayoutInflater
 #### File System
 ```
 .Project
@@ -252,7 +269,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example04: change layout with ViewSwitcher
+### Example05: change layout with ViewSwitcher
 #### File System
 ```
 .Project
@@ -278,7 +295,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example05: change layout with ViewFlipper
+### Example06: change layout with ViewFlipper
 #### File System
 ```
 .Project
@@ -306,7 +323,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example06: change layout with FragmentTransaction
+### Example07: change layout with FragmentTransaction
 #### File System
 ```
 .Project
@@ -332,7 +349,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example07: change layout with Intent
+### Example08: change layout with Intent
 #### File System
 ```
 .Project
