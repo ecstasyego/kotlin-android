@@ -174,7 +174,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example03: change layout with fragmentmanager
+### Example03: change layout with FragmentManager
 #### File System
 ```
 .Project
@@ -204,7 +204,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example04: change layout with intent on activity
+### Example04: change layout with Intent on activity
 #### File System
 ```
 .Project
