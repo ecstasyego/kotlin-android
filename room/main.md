@@ -8,7 +8,8 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
-│   │       ├── res/layout/history_layout.xml
+│   │       ├── res/layout/table_layout.xml
+│   │       ├── res/layout/row_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -22,6 +23,7 @@ package com.example.myapplication
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.room.ColumnInfo
@@ -49,20 +51,25 @@ class MainActivity : ComponentActivity() {
 
         Thread(Runnable {
             db.historyDao().insertHistory(History(null, "Hello", "World!"))
+            db.historyDao().insertHistory(History(null, "abcde", "ABCDE"))
+            db.historyDao().insertHistory(History(null, "GOOD", "BAD"))
         }).start()
 
         val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
+        val tableLayoutView = LayoutInflater.from(this).inflate(R.layout.table_layout, null, false)
+        val tableLayout = tableLayoutView.findViewById<TableLayout>(R.id.tableLayout)
         Thread(Runnable {
             val historyList = db.historyDao().getAll().reversed() // latest
             runOnUiThread {
                 historyList.forEach {
-                    val historyView = LayoutInflater.from(this).inflate(R.layout.history_layout, null, false)
+                    val historyView = LayoutInflater.from(this).inflate(R.layout.row_layout, null, false)
                     historyView.findViewById<TextView>(R.id.textView00).text = it.uid.toString()
                     historyView.findViewById<TextView>(R.id.textView01).text = it.expression
-                    historyView.findViewById<TextView>(R.id.textView02).text = "= ${it.result}"
-                    mainLayout.addView(historyView)
+                    historyView.findViewById<TextView>(R.id.textView02).text = it.result
+                    tableLayout.addView(historyView)
                 }
             }
+            mainLayout.addView(tableLayout)
         }).start()
 
         Thread(Runnable {
@@ -108,15 +115,22 @@ data class History(
 </LinearLayout>
 ```
 
-`history_layout.xml`
+`table_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/historyLayout"
-    android:orientation="vertical"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:stretchColumns="1"
+    android:orientation="vertical">
+</TableLayout>
+```
 
+`row_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:id="@+id/textView00"
         android:layout_width="wrap_content"
@@ -131,9 +145,9 @@ data class History(
         android:id="@+id/textView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-</LinearLayout>
+</TableRow>
 ```
+
 
 
 `build.gradle.kts(APP-LEVEL)`
