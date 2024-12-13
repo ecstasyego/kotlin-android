@@ -457,3 +457,75 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
+
+
+
+<br>
+
+
+## Example08: LayoutInflater
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/custom_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val mainLayout = LinearLayout(this)
+        val customLayout = LayoutInflater.from(this).inflate(R.layout.custom_layout, null, false)
+        customLayout.findViewById<TextView>(R.id.textView00).text = "NEW VIEW00"
+        customLayout.findViewById<TextView>(R.id.textView01).text = "NEW VIEW01"
+        customLayout.findViewById<TextView>(R.id.textView02).text = "NEW VIEW02"
+        mainLayout.addView(customLayout)
+
+        setContentView(mainLayout)
+    }
+}
+```
+
+`custom_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/textView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/textView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+```
+
