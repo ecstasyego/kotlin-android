@@ -187,6 +187,7 @@ package com.example.myapplication
 import android.annotation.SuppressLint
 import android.database.Cursor
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TableLayout
@@ -229,7 +230,7 @@ class MainActivity : ComponentActivity() {
                         val expression = cursor.getString(cursor.getColumnIndex("expression"))
                         val result = cursor.getInt(cursor.getColumnIndex("result"))
 
-                        println("history: $uid, $expression, $result")
+                        Log.i("MainActivity", "history: $uid, $expression, $result")
                     } while (cursor.moveToNext())
                 }
             cursor.close()
