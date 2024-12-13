@@ -463,7 +463,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-## Example08: LayoutInflater
+## Example08: from LayoutInflater
 #### File System
 ```
 .Project
