@@ -18,19 +18,36 @@
 #### Source Code
 `MainActivity.kt`
 ```kotlin
-package com.example.myapplication
-
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val linearLayout = LinearLayout(this)
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-        setContentView(linearLayout)
+        val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        val graph = GraphView(this)
+
+        val series = LineGraphSeries<DataPoint>()
+        for (i in 0 until 10) {
+            val x = i.toDouble()
+            val y = Random.nextDouble(-3.0, 3.0)
+            series.appendData(DataPoint(x, y), true, 10)
+        }
+
+        graph.addSeries(series)
+        graph.viewport.isScalable = true
+        graph.viewport.isScrollable = true
+        graph.gridLabelRenderer.isHorizontalLabelsVisible = false
+        graph.gridLabelRenderer.isVerticalLabelsVisible = true
+        layout.addView(graph)
+        setContentView(layout)
     }
 }
 ```
