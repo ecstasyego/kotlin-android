@@ -184,26 +184,28 @@ dependencies {
 ```kotlin
 package com.example.myapplication
 
+import android.annotation.SuppressLint
+import android.database.Cursor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
-import androidx.room.Insert
 import androidx.room.PrimaryKey
-import androidx.room.Query
+import androidx.room.RawQuery
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
 
+    @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
@@ -217,16 +219,20 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        Thread(Runnable {
-            db.historyDao().insert(History(null, "Hello", "World!"))
-        }).start()
+        Thread( Runnable {
+        val query:String = "select * from history"
+            val supportSQLiteQuery: SupportSQLiteQuery = SimpleSQLiteQuery(query)
+            val cursor: Cursor = db.historyDao().getTableByQuery(supportSQLiteQuery)
+                if (cursor.moveToFirst()) {
+                    do {
+                        val uid = cursor.getInt(cursor.getColumnIndex("uid"))
+                        val expression = cursor.getString(cursor.getColumnIndex("expression"))
+                        val result = cursor.getInt(cursor.getColumnIndex("result"))
 
-        Thread(Runnable {
-            val historyList:List<History> = db.historyDao().get() 
-        }).start()
-
-        Thread(Runnable {
-            db.historyDao().delete()
+                        println("history: $uid, $expression, $result")
+                    } while (cursor.moveToNext())
+                }
+            cursor.close()
         }).start()
     }
 }
@@ -238,14 +244,8 @@ abstract class AppDatabase : RoomDatabase() {
 
 @Dao // DAO: Data Access Object
 interface HistoryDao {
-    @Query("DELETE FROM history")
-    fun delete()
-
-    @Query("SELECT * FROM history")
-    fun get(): List<History>
-
-    @Insert
-    fun insert(history: History)
+    @RawQuery
+    fun getTableByQuery(query: SupportSQLiteQuery): Cursor
 }
 
 @Entity(tableName = "history")
