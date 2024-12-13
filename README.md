@@ -98,6 +98,10 @@ class MainActivity : ComponentActivity() {
 
 
 ## Application Architecture
+- data: Entity, Database, Repository
+- network: Service, Request, Response
+- screen: Activity, Fragement, ViewModel, State
+- widgets: ViewHolder, Listener, Adapter
 ![image](https://github.com/user-attachments/assets/31e0c027-96ab-43b7-b7d0-081fcfa35726)
 
 - https://developer.android.com/topic/architecture
