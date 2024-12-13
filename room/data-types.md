@@ -1,5 +1,5 @@
 
-## ListOf<Map<String, Any>>
+## 'List<Map<String, Any>>'
 ```kotlin
 val mlist = mutableListOf<Map<String, Any>>()
 mlist.add(mapOf("C0" to 1, "C1" to 0, "C2" to 3))
@@ -18,7 +18,7 @@ for (row in mlist){
 }
 ```
 
-## MapOf<String, List<Any>>
+## 'Map<String, List<Any>>'
 ```kotlin
 import kotlin.random.Random
 
