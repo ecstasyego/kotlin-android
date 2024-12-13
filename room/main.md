@@ -163,7 +163,7 @@ dependencies {
 <br>
 
 
-### Example02: Query
+### Example02: Cursor
 #### File System
 ```
 .Project
