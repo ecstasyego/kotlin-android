@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-`build.gradle.kts`
+`build.gradle.kts(APP-LEVEL)`
 ```kotlin
 dependencies {
     implementation("com.jjoe64:graphview:4.2.2")
