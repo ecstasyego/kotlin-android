@@ -25,6 +25,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.room.ColumnInfo
@@ -44,37 +45,37 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
+        val tableLayout = LayoutInflater.from(this).inflate(R.layout.table_layout, null, false) as TableLayout
+
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
-            "historyDB"
+            "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
         Thread(Runnable {
-            db.historyDao().insertHistory(History(null, "Hello", "World!"))
-            db.historyDao().insertHistory(History(null, "abcde", "ABCDE"))
-            db.historyDao().insertHistory(History(null, "GOOD", "BAD"))
+            db.historyDao().insert(History(null, "Hello", "World!"))
+            db.historyDao().insert(History(null, "abcde", "ABCDE"))
+            db.historyDao().insert(History(null, "GOOD", "BAD"))
         }).start()
 
-        val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
-        val tableLayoutView = LayoutInflater.from(this).inflate(R.layout.table_layout, null, false)
-        val tableLayout = tableLayoutView.findViewById<TableLayout>(R.id.tableLayout)
         Thread(Runnable {
-            val historyList = db.historyDao().getAll().reversed() // latest
+            val historyList = db.historyDao().get().reversed() // latest
             runOnUiThread {
                 historyList.forEach {
-                    val historyView = LayoutInflater.from(this).inflate(R.layout.row_layout, null, false)
-                    historyView.findViewById<TextView>(R.id.textView00).text = it.uid.toString()
-                    historyView.findViewById<TextView>(R.id.textView01).text = it.expression
-                    historyView.findViewById<TextView>(R.id.textView02).text = it.result
-                    tableLayout.addView(historyView)
+                    val tableRow = LayoutInflater.from(this).inflate(R.layout.row_layout, null, false) as TableRow
+                    tableRow.findViewById<TextView>(R.id.textView00).text = it.uid.toString()
+                    tableRow.findViewById<TextView>(R.id.textView01).text = it.expression
+                    tableRow.findViewById<TextView>(R.id.textView02).text = it.result
+                    tableLayout.addView(tableRow)
                 }
             }
             mainLayout.addView(tableLayout)
         }).start()
 
         Thread(Runnable {
-            db.historyDao().deleteAll()
+            db.historyDao().delete()
         }).start()
     }
 }
@@ -84,19 +85,19 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 }
 
-@Dao
+@Dao // DAO: Data Access Object
 interface HistoryDao {
+    @Query("DELETE FROM history")
+    fun delete()
+
     @Query("SELECT * FROM history")
-    fun getAll(): List<History>
+    fun get(): List<History>
 
     @Insert
-    fun insertHistory(history: History)
-
-    @Query("DELETE FROM history")
-    fun deleteAll()
+    fun insert(history: History)
 }
 
-@Entity
+@Entity(tableName = "history")
 data class History(
     @PrimaryKey(autoGenerate = true) val uid: Int? = null,
     @ColumnInfo(name = "expression") val expression: String?,
