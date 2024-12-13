@@ -20,6 +20,8 @@ for (row in mlist){
 
 ## MapOf<String, List<Any>>
 ```kotlin
+import kotlin.random.Random
+
 val mmap = mutableMapOf<String, List<Any>>()
 mmap["C0"] = Array(5) { Random.nextInt(0, 10) }.toList()
 mmap["C1"] = Array(5) { Random.nextDouble(-3.14, 3.14) }.toList()
