@@ -20,6 +20,8 @@
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
