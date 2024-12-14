@@ -242,7 +242,7 @@ dependencies {
 
 <br>
 
-### Example03: UI without XML
+### Example03: UI Update
 #### File System
 ```
 .Project
