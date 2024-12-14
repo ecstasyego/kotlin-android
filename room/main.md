@@ -262,7 +262,6 @@ dependencies {
 package com.example.myapplication
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -282,11 +281,12 @@ class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // [1] Main Thread
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
         val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
-        val tableLayout = LayoutInflater.from(this).inflate(R.layout.table_layout, null, false) as TableLayout
+        val tableLayout = TableLayout(this)
 
         db = Room.databaseBuilder(
             applicationContext,
@@ -294,31 +294,39 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
+        // [2] Insert data
         Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
             db.historyDao().insert(History(null, "abcde", "ABCDE"))
             db.historyDao().insert(History(null, "GOOD", "BAD"))
         }).start()
 
+        // [3] UI Update
         Thread(Runnable {
-            val historyList = db.historyDao().get().reversed() // latest
-            runOnUiThread {
-                historyList.forEach {
-                    val tableRow = LayoutInflater.from(this).inflate(R.layout.row_layout, null, false) as TableRow
-                    tableRow.findViewById<TextView>(R.id.textView00).text = it.uid.toString()
-                    tableRow.findViewById<TextView>(R.id.textView01).text = it.expression
-                    tableRow.findViewById<TextView>(R.id.textView02).text = it.result
-                    tableLayout.addView(tableRow)
+            val historyList = db.historyDao().get().reversed()
+            val rows = mutableListOf<TableRow>()
+            historyList.forEach {
+                val tableRow = TableRow(this).apply {
+                    addView(TextView(this@MainActivity).apply { text = it.uid.toString() })
+                    addView(TextView(this@MainActivity).apply { text = it.expression })
+                    addView(TextView(this@MainActivity).apply { text = it.result })
                 }
+                rows.add(tableRow)
             }
-            mainLayout.addView(tableLayout)
+
+            runOnUiThread {
+                rows.forEach { tableLayout.addView(it) }
+                mainLayout.addView(tableLayout)
+            }
         }).start()
 
+        // [4] Remove data
         Thread(Runnable {
             db.historyDao().delete()
         }).start()
     }
 }
+
 
 @Database(entities = [History::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
