@@ -9,8 +9,6 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
-│   │       ├── res/layout/table_layout.xml
-│   │       ├── res/layout/row_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -44,9 +42,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
-
-        val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
-        val tableLayout = LayoutInflater.from(this).inflate(R.layout.table_layout, null, false) as TableLayout
 
         db = Room.databaseBuilder(
             applicationContext,
@@ -103,39 +98,6 @@ data class History(
     android:layout_height="match_parent">
 
 </LinearLayout>
-```
-
-`table_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1"
-    android:orientation="vertical">
-</TableLayout>
-```
-
-`row_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        android:id="@+id/textView00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/textView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/textView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</TableRow>
 ```
 
 
