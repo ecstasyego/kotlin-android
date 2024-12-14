@@ -357,40 +357,6 @@ data class History(
 </LinearLayout>
 ```
 
-`table_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1"
-    android:orientation="vertical">
-</TableLayout>
-```
-
-`row_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        android:id="@+id/textView00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/textView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/textView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</TableRow>
-```
-
-
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
