@@ -455,16 +455,19 @@ class MainActivity : ComponentActivity() {
 
         Thread(Runnable {
             val historyList = db.historyDao().get().reversed() // latest
-            runOnUiThread {
-                historyList.forEach {
-                    val tableRow = LayoutInflater.from(this).inflate(R.layout.row_layout, null, false) as TableRow
-                    tableRow.findViewById<TextView>(R.id.textView00).text = it.uid.toString()
-                    tableRow.findViewById<TextView>(R.id.textView01).text = it.expression
-                    tableRow.findViewById<TextView>(R.id.textView02).text = it.result
-                    tableLayout.addView(tableRow)
-                }
+            val rows = mutableListOf<TableRow>()
+            historyList.forEach {
+                val tableRow = LayoutInflater.from(this).inflate(R.layout.row_layout, null, false) as TableRow
+                tableRow.findViewById<TextView>(R.id.textView00).text = it.uid.toString()
+                tableRow.findViewById<TextView>(R.id.textView01).text = it.expression
+                tableRow.findViewById<TextView>(R.id.textView02).text = it.result
+                rows.add(tableRow)
             }
-            mainLayout.addView(tableLayout)
+
+            runOnUiThread {
+                rows.forEach{ tableLayout.addView(it) }
+                mainLayout.addView( tableLayout )
+            }
         }).start()
 
         Thread(Runnable {
