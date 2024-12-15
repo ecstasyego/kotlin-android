@@ -167,6 +167,39 @@ fun rowsIter(dataMMap: MutableMap<String, List<Any?>>): List<Map<String, Any?>>{
 }
 ```
 
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</LinearLayout>
+```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+plugins {
+    id("kotlin-kapt") // for Room annotation processing
+}
+
+android {
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
+dependencies {
+    implementation("androidx.room:room-runtime:2.6.0") // Room
+    implementation("androidx.room:room-ktx:2.6.0") // Room KTX (for Coroutines)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4") // Coroutines
+    kapt("androidx.room:room-compiler:2.6.0") // Room annotation processor
+}
+```
+
+
 <br>
 
 ### Usage: *.xml(findViewById)
