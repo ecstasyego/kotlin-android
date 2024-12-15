@@ -178,6 +178,8 @@ fun rowsIter(dataMMap: MutableMap<String, List<Any?>>): List<Map<String, Any?>>{
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
+│   │       ├── res/layout/table_layout.xml
+│   │       ├── res/layout/row_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
