@@ -129,10 +129,26 @@ interface GithubApiService {
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
+plugins {
+    id("kotlin-kapt") // for Room annotation processing
+}
+
+android {
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
 dependencies {
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4") // Coroutines
+
+    implementation("androidx.room:room-runtime:2.6.0") // Room
+    implementation("androidx.room:room-ktx:2.6.0") // Room KTX (for Coroutines)
+    kapt("androidx.room:room-compiler:2.6.0") // Room annotation processor
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0") // Retrofit
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0") // Retrofit GSON
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0") // Retrofit SCALARS
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 }
 ```
