@@ -230,6 +230,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.widget.NestedScrollView
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -249,7 +250,8 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.main_layout)
 
         val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
-        val tableLayout = LayoutInflater.from(this).inflate(R.layout.table_layout, null, false) as TableLayout
+        val nestedScrollView = LayoutInflater.from(this).inflate(R.layout.table_layout, mainLayout, false) as NestedScrollView
+        val tableLayout = nestedScrollView.getChildAt(0) as TableLayout
 
         // Database
         db = Room.databaseBuilder(
@@ -301,7 +303,7 @@ class MainActivity : ComponentActivity() {
             // [DATA] DAO GET
             runOnUiThread {
                 rows.forEach { tableLayout.addView(it) }
-                mainLayout.addView(tableLayout)
+                mainLayout.addView(nestedScrollView)
             }
 
         }).start()
@@ -371,13 +373,18 @@ fun rowsIter(dataMMap: MutableMap<String, List<Any?>>): List<Map<String, Any?>>{
 `table_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1"
-    android:orientation="vertical">
-</TableLayout>
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:orientation="vertical">
+    </TableLayout>
+</androidx.core.widget.NestedScrollView>
 ```
 
 `row_layout.xml`
