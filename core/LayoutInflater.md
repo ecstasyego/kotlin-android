@@ -177,6 +177,7 @@ class MainActivity : ComponentActivity() {
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.ComponentActivity
 import com.example.myapplication.databinding.MainLayoutBinding
 
@@ -185,6 +186,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainLayoutBinding.inflate(layoutInflater)
+        binding = MainLayoutBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
     }
 }
