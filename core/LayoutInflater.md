@@ -90,9 +90,10 @@ class MainActivity : ComponentActivity() {
 ```
 
 
+
 <br>
 
-#### Example03
+#### Example03: LayoutInflater Basic
 ##### File System
 ```
 .Project
@@ -156,7 +157,80 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-#### Example04
+#### Example04: ViewBinding Inflater
+##### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+##### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.databinding.MainLayoutBinding
+
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: MainLayoutBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = MainLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+}
+```
+
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, World!"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click Me" />
+
+</LinearLayout>
+```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+```
+
+
+
+
+<br>
+
+#### Example05: Custom LayoutInflater(1)
 ##### File System
 ```
 .Project
@@ -277,7 +351,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-#### Example05
+#### Example06: Custom LayoutInflater(2)
 ##### File System
 ```
 .Project
