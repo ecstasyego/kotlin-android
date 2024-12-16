@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
             }
 
             // [DATA] DAO GET
-            val daolist = db.historyDao().get()
+            val daolist = db.historyDao().get().reversed()
             for ( (idx, dao) in (0 until daolist.size).zip(daolist)){
                 rows.add(
                     TableRow(this).apply{
