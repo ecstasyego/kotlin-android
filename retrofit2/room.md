@@ -32,7 +32,9 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -85,10 +87,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                        Toast.makeText(applicationContext, "SUCCESS", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "RETROFIT: SUCCESS", Toast.LENGTH_SHORT).show()
 
                         lifecycleScope.launch {
-                            saveDataToRoom(csvDaoData)
+                            withContext(Dispatchers.IO) {
+                                saveDataToRoom(csvDaoData)
+                            }
+                            Toast.makeText(applicationContext, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
                         }
 
                     }
