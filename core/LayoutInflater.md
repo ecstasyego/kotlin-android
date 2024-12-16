@@ -177,11 +177,10 @@ class MainActivity : ComponentActivity() {
 package com.example.myapplication
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import com.example.myapplication.databinding.MainLayoutBinding
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     private lateinit var binding: MainLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
