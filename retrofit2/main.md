@@ -29,6 +29,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
@@ -44,7 +45,8 @@ class MainActivity : ComponentActivity() {
 
         val apiService = retrofit.create(GithubApiService::class.java)
 
-        val call = apiService.downloadCsvFile()
+        val fileName = "005930.csv"
+        val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
@@ -73,8 +75,8 @@ class MainActivity : ComponentActivity() {
 }
 
 interface GithubApiService {
-    @GET("ecstasyego/CSV/main/005930.csv")
-    fun downloadCsvFile(): Call<ResponseBody>
+    @GET("ecstasyego/CSV/main/{fileName}")
+    fun downloadCsvFile(@Path("fileName") fileName: String): Call<ResponseBody>
 }
 ```
 
