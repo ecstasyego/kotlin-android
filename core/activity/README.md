@@ -82,6 +82,24 @@ class ResultActivity: AppCompatActivity() {
 }
 ```
 
+### Activity Control
+
+```kotlin
+val intent = Intent(this, TargetActivity::class.java)
+startActivity(intent)
+finish()
+finishAffinity()
+moveTaskToBack(true)
+onBackPressed()
+
+val intent = Intent(this, TargetActivity::class.java)
+startActivityForResult(intent, REQUEST_CODE)
+setResult(RESULT_OK, intent)
+finishActivity(REQUEST_CODE)
+
+
+```
+
 
 <br><br><br>
 
