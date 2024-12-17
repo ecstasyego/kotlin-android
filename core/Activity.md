@@ -82,3 +82,86 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
+
+
+<br>
+
+
+
+### Example02: Fragment
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+
+
+
+<br>
+
+
+
+### Example03: Intent
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+<br>
+
+
+
+### Example04: Service
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+
+
+`AndroidManifest.xml`
+```xml
+```
+
