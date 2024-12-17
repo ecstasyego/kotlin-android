@@ -1,9 +1,7 @@
 ## RecyclerView
 
-
-
 ## Examples
-### Usage: *.kt
+### Example01: *.kt
 #### File System
 ```
 .Project
@@ -68,7 +66,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Usage: *.xml(findViewById)
+### Example02: *.xml(findViewById)
 ![image](https://github.com/user-attachments/assets/7bea5dcf-d1c9-40d2-9ec9-5783d67f4004)
 
 #### File System
@@ -118,11 +116,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val textView: TextView = itemView.findViewById(R.id.textView)
-}
 
-class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyViewHolder>() {
+class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textView: TextView = itemView.findViewById(R.id.textView)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
         return MyViewHolder(view)
