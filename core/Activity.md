@@ -141,7 +141,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example04: Thraed
+### Example04: Background Thraed
 #### File System
 ```
 .Project
