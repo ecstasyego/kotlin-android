@@ -18,18 +18,42 @@ dependencies {
 ```
 
 ## Entity: Table
+```kotlin
+```
+
 
 ## DAO: Query Interface
+```kotlin
+```
 
 ## Database
+```kotlin
+db = Room.databaseBuilder(
+    applicationContext,
+    AppDatabase::class.java,
+    "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
+).build()
+
+```
 
 ## Transaction
+```kotlin
+```
+
 
 ## Migrations
+```kotlin
+```
 
 ## LiveData
+```kotlin
+```
 
 ## Flow
+```kotlin
+```
 
 ## Room Test
+```kotlin
+```
 
