@@ -17,6 +17,9 @@ dependencies {
 }
 ```
 
+
+<br><br><br>
+
 ## Usage
 ```kotlin
 db = Room.databaseBuilder(
