@@ -154,8 +154,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.IBinder
-import android.view.View
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -172,23 +170,21 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val layout = LinearLayout(this).apply{
-            addView(Button(this@MainActivity).apply { id= View.generateViewId(); text = "Start Service" })
-        }
-        setContentView(layout)
+        setContentView(LinearLayout(this))
 
-        val button = findViewById<Button>(layout.getChildAt(0).id)
-        button.setOnClickListener {
-            val serviceIntent = Intent(this, MyService::class.java)
-            startService(serviceIntent)  // Service Start
-        }
+        val serviceIntent = Intent(this, MyService::class.java)
+        startService(serviceIntent)  // Service Start
 
+    }
+
+    override fun onStart() {
+        super.onStart()
         val filter = IntentFilter("com.example.myapplication.RESULT_ACTION")
         LocalBroadcastManager.getInstance(this).registerReceiver(resultReceiver, filter)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(resultReceiver)
 
     }
