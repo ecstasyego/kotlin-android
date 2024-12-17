@@ -405,7 +405,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example06: Service without BoradCastManager
+### Example06: Service with BroadcastReceiver
 #### File System
 ```
 .Project
@@ -542,7 +542,7 @@ android {
 
 
 
-### Example07: Service with BoradCastManager
+### Example07: Service with LocalBroadcastManager
 #### File System
 ```
 .Project
