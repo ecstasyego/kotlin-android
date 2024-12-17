@@ -1,5 +1,35 @@
 ## Examples
 
+### Example01: Service with BroadcastReceiver
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+```
+
+
+<br>
+
+
 ### Example02: Service with LocalBroadcastManager
 #### File System
 ```
@@ -138,3 +168,64 @@ dependencies {
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 }
 ```
+
+<br>
+
+### Example03: Service with LiveData
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+```
+
+
+
+<br>
+
+
+
+### Example04: Service with EventBus
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+```
+
