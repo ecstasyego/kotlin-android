@@ -120,24 +120,44 @@ onDestroy()
 ```
 
 ### Fragment
+```kotlin
+```
 
 ### Intent
+```kotlin
+```
 
 ### Service
+```kotlin
+```
 
 ### Broadcast Receiver
+```kotlin
+```
 
 ### Content Provider
+```kotlin
+```
 
 ### View
+```kotlin
+```
 
 ### Context
+```kotlin
+```
 
 ### RecyclerView
+```kotlin
+```
 
 ### SharedPreferences
+```kotlin
+```
 
 ### Room Database
+```kotlin
+```
 
 
 
