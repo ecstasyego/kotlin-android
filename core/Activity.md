@@ -141,7 +141,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example04: Service without BoradCastManager
+### Example04: Thraed
 #### File System
 ```
 .Project
@@ -171,7 +171,66 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example05: Service with BoradCastManager
+
+### Example05: UI Thraed
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+<br>
+
+### Example06: Service without BoradCastManager
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+<br>
+
+
+
+### Example07: Service with BoradCastManager
 #### File System
 ```
 .Project
