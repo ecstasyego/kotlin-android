@@ -363,10 +363,44 @@ class MainActivity : ComponentActivity() {
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tableLayout = TableLayout(this)
+        setContentView(tableLayout)
+
+        // BACKGROUND THREAD
+        lifecycleScope.launch(Dispatchers.IO) {
+            val rows = mutableListOf<TableRow>()
+            List(100) { row ->
+                val rowView = TableRow(this@MainActivity)
+                List(10) { col ->
+                    rowView.addView(TextView(this@MainActivity).apply { text = "[$row, $col]" })
+                }
+                rows.add(rowView)
+            }
+
+            // UI THREAD
+            launch(Dispatchers.Main) {
+                rows.forEach { tableLayout.addView(it) }
+                Toast.makeText(this@MainActivity, "UI THREAD", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
 ```
-
-
-
 
 
 <br>
