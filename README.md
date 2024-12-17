@@ -193,3 +193,13 @@ dependencies {
 maven (url  = "https://jitpack.io")
 ```
 
+<br><br><br>
+
+## Android Studio
+- File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
+
+
+
+
+
+
