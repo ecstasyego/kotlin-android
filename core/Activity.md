@@ -473,7 +473,7 @@ class MyService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Thread {
             Thread.sleep(2000)
-            val result = "작업 완료!"
+            val result = "WORK DONE!"
             sendResultToActivity(result)
         }.start()
 
