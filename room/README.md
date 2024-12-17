@@ -17,39 +17,65 @@ dependencies {
 }
 ```
 
-## Entity: Table
-```kotlin
-```
-
-
-## DAO: Query Interface
-```kotlin
-```
-
-## Database
+## Usage
 ```kotlin
 db = Room.databaseBuilder(
     applicationContext,
     AppDatabase::class.java,
     "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
 ).build()
-
 ```
 
-## Transaction
+### Entity: Table
+```kotlin
+@Entity(tableName = "history")
+data class History(
+    @PrimaryKey(autoGenerate = true) val uid: Int? = null,
+    @ColumnInfo(name = "expression") val expression: String?,
+    @ColumnInfo(name = "result") val result: String?
+)
+```
+
+
+### DAO: Query Interface
+```kotlin
+@Dao // DAO: Data Access Object
+interface HistoryDao {
+    @Query("DELETE FROM history")
+    fun delete()
+
+    @Query("SELECT * FROM history")
+    fun get(): List<History>
+
+    @Insert
+    fun insert(history: History)
+}
+```
+
+### Database
+```kotlin
+@Database(entities = [History::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun historyDao(): HistoryDao
+}
+```
+
+
+
+### Transaction
 ```kotlin
 ```
 
 
-## Migrations
+### Migrations
 ```kotlin
 ```
 
-## LiveData
+### LiveData
 ```kotlin
 ```
 
-## Flow
+### Flow
 ```kotlin
 ```
 
