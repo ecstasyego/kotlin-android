@@ -1,5 +1,5 @@
 ## Examples
-### Usage: *.kt
+### Example01: *.kt
 #### File System
 ```
 .Project
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Usage: *.xml(findViewById)
+### Example02: *.xml(findViewById)
 #### File System
 ```
 .Project
