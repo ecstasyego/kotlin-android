@@ -22,11 +22,22 @@ dependencies {
 
 ## Usage
 ```kotlin
+// BUILD
 db = Room.databaseBuilder(
     applicationContext,
     AppDatabase::class.java,
     "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
 ).build()
+
+// CLEAR TABLES
+db.clearAllTables()
+
+// DELETE DATABASE
+val dbFile = applicationContext.getDatabasePath("my-database")
+if (dbFile.exists()) {
+    dbFile.delete()
+}
+
 ```
 
 ### Entity: Table
@@ -67,6 +78,11 @@ abstract class AppDatabase : RoomDatabase() {
 
 ### Transaction
 ```kotlin
+db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build() // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
+db.runInTransaction {
+    db.historyDao().insert(History(null, "Expression", "Result"))
+    db.historyDao().delete()
+}
 ```
 
 
