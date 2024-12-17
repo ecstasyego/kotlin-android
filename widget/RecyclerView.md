@@ -208,7 +208,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -233,19 +232,35 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
 class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(R.id.textView)
+        val textView00: TextView = itemView.findViewById(R.id.textView00)
+        val textView01: TextView = itemView.findViewById(R.id.textView01)
+
         init {
             itemView.setOnClickListener {
-                onItemClick(bindingAdapterPosition)
-            }
-        }
+                val position = bindingAdapterPosition
+                val scaleX = itemView.scaleX
+                val scaleY = itemView.scaleY
 
-        fun onItemClick(position:Int){
-            if (position != RecyclerView.NO_POSITION) {
-                Toast.makeText(itemView.context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+                itemView.animate()
+                    .scaleX(1.1f)
+                    .scaleY(1.1f)
+                    .setDuration(200)
+                    .withEndAction {
+                        itemView.animate()
+                            .scaleX(scaleX)
+                            .scaleY(scaleY)
+                            .setDuration(200)
+                            .start()
+                    }
+                    .start()
+
+                textView01.apply {
+                    text = "ITEM $position" 
+                    visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
+
+                }
             }
         }
     }
@@ -257,7 +272,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
-        holder.textView.text = item
+        holder.textView00.text = item
     }
 
     override fun getItemCount(): Int {
@@ -285,12 +300,27 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 `item_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/textView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:textSize="16sp"/>
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/textView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+</LinearLayout>
 ```
 
 `build.gradle.kts:APP-LEVEL`
