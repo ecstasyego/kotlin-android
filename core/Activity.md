@@ -141,7 +141,37 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example04: Service
+### Example04: Service without BoradCastManager
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+<br>
+
+
+
+### Example05: Service with BoradCastManager
 #### File System
 ```
 .Project
