@@ -303,9 +303,41 @@ class ResultActivity03: ComponentActivity() {
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
+import android.widget.Toast
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tableLayout = TableLayout(this)
+        setContentView(tableLayout)
+
+        // BACKGROUND THREAD
+        Thread(Runnable {
+            val rows = mutableListOf<TableRow>()
+            List(100) { row ->
+                val rowView = TableRow(this)
+                List(10) { col ->
+                    rowView.addView(TextView(this@MainActivity).apply { text = "[$row, $col]" })
+                }
+                rows.add(rowView)
+            }
+
+            // UI THREAD
+            runOnUiThread {
+                rows.forEach { tableLayout.addView(it) }
+                Toast.makeText(this@MainActivity, "UI THREAD", Toast.LENGTH_SHORT).show()
+            }
+        }).start()
+    }
+}
 ```
-
-
 
 
 
