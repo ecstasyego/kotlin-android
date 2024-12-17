@@ -1,5 +1,5 @@
 ## Examples
-### Usage: *.kt
+### Example01: Activity Life Cycle
 #### File System
 ```
 .Project
