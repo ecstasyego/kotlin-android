@@ -287,7 +287,7 @@ class ResultActivity03: ComponentActivity() {
 
 
 
-### Example04: Background Thraed
+### Example04: UI and Background Thraed
 #### File System
 ```
 .Project
@@ -315,7 +315,7 @@ class ResultActivity03: ComponentActivity() {
 
 
 
-### Example05: UI Thraed
+### Example05: Thraed with lifecycle (lifecycleScope.launch)
 #### File System
 ```
 .Project
