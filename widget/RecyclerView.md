@@ -239,7 +239,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
         val textView: TextView = itemView.findViewById(R.id.textView)
         init {
             itemView.setOnClickListener {
-                onItemClick(adapterPosition)
+                onItemClick(bindingAdapterPosition)
             }
         }
 
