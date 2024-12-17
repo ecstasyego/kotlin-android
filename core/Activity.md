@@ -161,9 +161,6 @@ class MainActivity : ComponentActivity() {
 
 
 
-`AndroidManifest.xml`
-```xml
-```
 
 
 
@@ -191,10 +188,6 @@ class MainActivity : ComponentActivity() {
 ```
 
 
-
-`AndroidManifest.xml`
-```xml
-```
 
 
 
