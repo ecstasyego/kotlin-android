@@ -193,7 +193,7 @@ while (calendar.time <= endDate) {
 
 ## Date ~ size
 
-### startDate ~ size
+### startDate ~ size: forward
 
 ```kotlin
 import java.text.SimpleDateFormat
@@ -215,16 +215,33 @@ for (i in 0 until numdays) {
 }
 ```
 
-### size ~ endDate
+### size ~ endDate: backward
 ```kotlin
 ```
 
-### today ~ size
+### today ~ size: forward
 ```kotlin
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+
+val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+val startDate = dateFormat.parse("2024-12-01")
+val endDate = dateFormat.parse("2024-12-31")
+val today = Date()
+
+
+val numdays = 100 
+val dateList = mutableListOf<Date>()
+val calendar = Calendar.getInstance().apply { time = today }
+for (i in 0 until numdays) {
+    dateList.add(calendar.time)
+    calendar.add(Calendar.DATE, 1)
+}
 ```
 
 
-### size ~ today
+### size ~ today: backward
 ```kotlin
 ```
 
