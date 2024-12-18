@@ -6,7 +6,7 @@ import java.util.Date
 
 // Date Object
 Date(1701388800000L) // from timestamp
-SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00") // from date string
+SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00") // from timestring
 
 // Timestamp: ~ milliseconds after 1970-01-01 00:00:00 UTC
 Date(1701388800000L).time
