@@ -129,6 +129,11 @@ onDestroy()
 
 ### Service
 ```kotlin
+val intent = Intent(this, MyService::class.java)
+startService(intent)
+stopService(intent)
+bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+unbindService(serviceConnection)
 ```
 
 ### Broadcast Receiver
