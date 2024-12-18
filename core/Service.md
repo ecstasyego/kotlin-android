@@ -311,7 +311,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
 
-        val serviceIntent = Intent(this, MyService::class.java)
+        val serviceIntent = Intent(this, ContentService::class.java)
         startService(serviceIntent)  // Service Start
     }
 
@@ -328,7 +328,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
-class MyService : Service() {
+class ContentService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Thread {
             Thread.sleep(2000)
@@ -367,6 +367,7 @@ class MyService : Service() {
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -374,14 +375,12 @@ class MyService : Service() {
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".MyService" android:exported="false" />
+        <service android:name=".ContentService" />
 
     </application>
-
 </manifest>
 ```
 
