@@ -1,6 +1,5 @@
 
 ## Examples
-- https://github.com/jjoe64/GraphView/wiki/Documentation
 
 ### Example01: Basic
 #### File System
