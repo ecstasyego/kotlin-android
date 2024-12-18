@@ -110,6 +110,7 @@ class MainActivity : ComponentActivity() {
 - https://github.com/android/architecture-templates/tree/base
 
 ### Activity
+`lifecycle`
 ```kotlin
 onCreate()
   onStart()
@@ -118,18 +119,27 @@ onCreate()
   onStop()
 onDestroy()
 ```
+```kotlin
+startActivity( Intent(this, Activity::class.java) )
+```
 
 ### Fragment
 ```kotlin
+val fragment = MainFragment()
+val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+transaction.replace(R.id.fragment_container, fragment)
+transaction.commit()
 ```
 
 ### Intent
 ```kotlin
+val intent = Intent(this, Activity::class.java)
+val intent = Intent(this, Service::class.java)
 ```
 
 ### Service
 ```kotlin
-val intent = Intent(this, MyService::class.java)
+val intent = Intent(this, Service::class.java)
 startService(intent)
 stopService(intent)
 bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
