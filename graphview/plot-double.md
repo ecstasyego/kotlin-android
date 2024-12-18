@@ -27,7 +27,6 @@ import androidx.activity.ComponentActivity
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
 
@@ -37,17 +36,27 @@ class MainActivity : ComponentActivity() {
         val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         val graph = GraphView(this)
 
-        val series = LineGraphSeries<DataPoint>()
+        val series1 = LineGraphSeries<DataPoint>()
+        val series2 = LineGraphSeries<DataPoint>()
+
         for (i in 0 until 10) {
             val x = i.toDouble()
-            val y = Random.nextDouble(-3.0, 3.0)
-            series.appendData(DataPoint(x, y), true, 10)
+            val y = Math.sin(x)
+            series1.appendData(DataPoint(x, y), true, 10)
         }
 
-        graph.addSeries(series)
+        for (i in 0 until 10) {
+            val x = i.toDouble()
+            val y = Math.cos(x)
+            series2.appendData(DataPoint(x, y), true, 10)
+        }
+
+        graph.addSeries(series1)
+        graph.addSeries(series2)
+
         graph.viewport.isScalable = true
         graph.viewport.isScrollable = true
-        graph.gridLabelRenderer.isHorizontalLabelsVisible = false
+        graph.gridLabelRenderer.isHorizontalLabelsVisible = true
         graph.gridLabelRenderer.isVerticalLabelsVisible = true
         layout.addView(graph)
         setContentView(layout)
