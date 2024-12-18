@@ -67,8 +67,23 @@ import org.jetbrains.kotlinx.dataframe.api.*
 val nameColumn = columnOf("Alice", "Bob", "Charlie")
 val ageColumn = columnOf(25, 30, 35)
 val heightColumn = columnOf(5.6, 5.8, 5.9)
-val df = dataFrameOf("Name", "Age", "Height")(
-    nameColumn, ageColumn, heightColumn
-)
+dataFrameOf("Name", "Age", "Height")(nameColumn, ageColumn, heightColumn)
+```
 
+```kotlin
+import org.jetbrains.kotlinx.dataframe.api.*
+
+val mmap = mutableMapOf<String, Array<Any>>()
+mmap["Name"] = arrayOf("Alice", "Bob", "Charlie")
+mmap["Age"] = arrayOf(25, 30, 35)
+mmap["Height"] = arrayOf(5.6, 5.8, 5.9)
+
+val nameColumn = columnOf(*mmap["Name"]!!)
+val ageColumn = columnOf(*mmap["Age"]!!)
+val heightColumn = columnOf(*mmap["Height"]!!)
+
+dataFrameOf("Name", "Age", "Height")(nameColumn, ageColumn, heightColumn)
+dataFrameOf(*mmap.keys.toTypedArray())(nameColumn, ageColumn, heightColumn)
+dataFrameOf("Name", "Age", "Height")(*mmap.values.indices.map{row -> mmap.values.map{it[row]}}.flatMap{it}.toTypedArray())
+dataFrameOf(*mmap.keys.toTypedArray())(*mmap.values.indices.map{row -> mmap.values.map{it[row]}}.flatMap{it}.toTypedArray())
 ```
