@@ -243,8 +243,8 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.GlobalContext.startKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.GlobalContext.startKoin
 import org.koin.dsl.module
 
 class UserApplication : Application() {
