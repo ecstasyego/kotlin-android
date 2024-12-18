@@ -1,4 +1,6 @@
 ## Android Application Architecture
+![image](https://github.com/user-attachments/assets/b84ee85e-0e3e-4875-a8a3-68273a8a56dd)
+
 - Principle
   - **Separation of Concerns**
   - **Modularization**
