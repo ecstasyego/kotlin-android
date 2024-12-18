@@ -247,7 +247,28 @@ maven (url  = "https://jitpack.io")
 
 ### Packages
 - Graph Visualization
-    - AChartEngine, AnyChart, EazeGraph, GraphView, HelloCharts, MPAndroidChart, Plotly, SciChart
+    - AChartEngine
+        - dependencies { implementation("org.achartengine:achartengine:1.2.0") }
+    - AnyChart
+        - dependencies { implementation("com.anychart:android:1.1.0") }
+    - EazeGraph
+        - dependencies { implementation("com.github.QuadFlask:colorpicker:0.0.13") } 
+    - GraphView
+        - dependencies { implementation("com.jjoe64:graphview:4.2.2") }
+    - HelloCharts
+        - dependencies { implementation("com.gitlab.hellocharts:library:1.5.8") }
+    - MPAndroidChart
+        - dependencies { implementation("com.github.PhilJay:MPAndroidChart:v3.1.0") }
+    - Plotly
+        - dependencies { implementation("com.plotly:plotly-android:2.0.0") }
+    - SciChart
+        - dependencies { implementation("com.github.QuadFlask:colorpicker:0.0.13") }
+- Data
+    - Room
+        - dependencies { }
+    - DataFrame
+        - dependencies { }
+
 
 
 <br><br><br>
