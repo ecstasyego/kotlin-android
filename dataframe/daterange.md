@@ -13,7 +13,7 @@ val dateRange = startDate..endDate
 dateFormat.parse("2024-12-15") in startDate..endDate // time check
 ```
 
-`time-formatter`
+`time-formatter:forloop`
 ```kotlin
 import java.util.Calendar
 import java.util.Date
@@ -36,6 +36,7 @@ for (date in dateRange) {
 }
 ```
 
+`time-formatter:whileloop`
 ```kotlin
 import java.text.SimpleDateFormat
 import java.util.Calendar
