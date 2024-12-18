@@ -296,6 +296,79 @@ class MainViewModel : ViewModel() {
 ```xml
 ```
 
+`AndroidManifest.xml`
+```xml
+```
+
+
+<br>
+
+
+
+### Example05: Application(Context) + ViewModel(AndroidViewModel)
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+<br>
+
+
+
+### Example06: ViewModelProvider
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+
+
 
 
 
