@@ -6,6 +6,9 @@
   - **Modularization**
   - **UI-First Design**
     - (Design Pattern) MVVM: View > ViewModel > Model
+      - Presentation Layer: View(Widget), ViewModel(LiveData)
+      - Domain Layer: Repository(interface, abstract)
+      - Data Layer: Model(Room)
 - Android Architecture Components, AAC
   - **ViewModel**: The ViewModel is responsible for preparing and managing the data for the UI. It holds UI-related data in a lifecycle-conscious way and survives configuration changes (such as screen rotations).
   - **LiveData**: LiveData is an observable data holder class that allows UI components (like activities or fragments) to observe data changes in a lifecycle-aware way. It ensures that UI components are updated with the latest data when necessary.
