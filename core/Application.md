@@ -366,16 +366,128 @@ class ContentRepository {
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.app.Application
+import android.app.Service
+import android.content.Intent
+import android.os.Bundle
+import android.os.IBinder
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.dsl.module
+
+class UserApplication : Application() {
+
+    var appName: String = "My First App"
+    val appModule = module {
+        single { ContentRepository() }
+        single { ContentService() }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@UserApplication)
+            modules(appModule)
+        }
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+    }
+}
+
+
+class MainActivity : ComponentActivity() {
+    private val contentService: ContentService by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+
+        val intent = Intent(this, ContentService::class.java)
+        startService(intent)
+        stopService(intent)
+    }
+}
+
+class ContentService : Service() {
+    private val contentRepository: ContentRepository by inject()
+
+    override fun onCreate() {
+        super.onCreate()
+        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val data = contentRepository.getData()
+        Toast.makeText(this, "Data: $data", Toast.LENGTH_SHORT).show()
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+}
+
+
+class ContentRepository {
+    fun getData(): String {
+        return "Hello from Repository"
+    }
+}
 ```
 
 `main_layout.xml`
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+</LinearLayout>
 ```
 
 
 
 `AndroidManifest.xml`
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".UserApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".ContentService" />
+
+    </application>
+</manifest>
 ```
 
 
