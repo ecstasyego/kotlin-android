@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.main_layout)
 
         val appName = (applicationContext as UserApplication).appName
-        findViewById<TextView>(R.id.textView).apply{text = "앱 이름: $appName"}
+        findViewById<TextView>(R.id.textView).apply{text = "APPLICATION NAME: $appName"}
     }
 }
 ```
