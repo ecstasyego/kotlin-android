@@ -124,7 +124,13 @@ onDestroy()
 val intent = Intent(this, Activity::class.java)
 
 intent.putExtra("key", "value")
+intent.putExtra("key1", 0)
+intent.putExtra("key2", 0.0)
+intent.getIntExtra("id_number", 0)
 intent.getStringExtra("key")
+intent.getStringExtra("name") ?:"Unknown"
+intent.getDoubleExtra("height", 0.0)
+intent.getDoubleExtra("width", 0.0)
 
 startActivity( Intent(this, Activity::class.java) )
 finish()
