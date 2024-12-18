@@ -36,6 +36,21 @@ for (date in dateRange) {
 }
 ```
 
+```kotlin
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+
+val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+val startDate = dateFormat.parse("2024-12-01")
+val endDate = dateFormat.parse("2024-12-31")
+
+val calendar = Calendar.getInstance().apply{ time = startDate }
+while (calendar.time <= endDate) {
+    println(SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time))
+    calendar.add(Calendar.DATE, 1)
+}
+```
 
 <br>
 
