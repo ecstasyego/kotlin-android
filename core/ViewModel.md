@@ -89,7 +89,7 @@ class MainViewModel : ViewModel() {
 
 <br>
 
-### Example02
+### Example02: Widgets + ViewModel
 #### File System
 ```
 .Project
@@ -265,6 +265,39 @@ class MainViewModel : ViewModel() {
 `main_layout.xml`
 ```xml
 ```
+
+
+
+
+<br>
+
+
+
+### Example04: Service + ViewModel
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+
+
 
 
 
