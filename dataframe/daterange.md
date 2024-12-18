@@ -210,13 +210,30 @@ val numdays = 100
 val dateList = mutableListOf<Date>()
 val calendar = Calendar.getInstance().apply { time = startDate }
 for (i in 0 until numdays) {
-    dateList.add(calendar.time)
+    dateList.add(calendar.time) // SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time)
     calendar.add(Calendar.DATE, 1)
 }
 ```
 
 ### size ~ endDate: backward
 ```kotlin
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+
+val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+val startDate = dateFormat.parse("2024-12-01")
+val endDate = dateFormat.parse("2024-12-31")
+val today = Date()
+
+
+val numdays = 100 
+val dateList = mutableListOf<Date>()
+val calendar = Calendar.getInstance().apply { time = endDate }
+for (i in 0 until numdays) {
+    dateList.add(calendar.time) // SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time)
+    calendar.add(Calendar.DATE, -1)
+}
 ```
 
 ### today ~ size: forward
@@ -235,7 +252,7 @@ val numdays = 100
 val dateList = mutableListOf<Date>()
 val calendar = Calendar.getInstance().apply { time = today }
 for (i in 0 until numdays) {
-    dateList.add(calendar.time)
+    dateList.add(calendar.time) // SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time)
     calendar.add(Calendar.DATE, 1)
 }
 ```
@@ -243,6 +260,23 @@ for (i in 0 until numdays) {
 
 ### size ~ today: backward
 ```kotlin
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+
+val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+val startDate = dateFormat.parse("2024-12-01")
+val endDate = dateFormat.parse("2024-12-31")
+val today = Date()
+
+
+val numdays = 100 
+val dateList = mutableListOf<Date>()
+val calendar = Calendar.getInstance().apply { time = today }
+for (i in 0 until numdays) {
+    dateList.add(calendar.time) // SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time)
+    calendar.add(Calendar.DATE, -1)
+}
 ```
 
 
