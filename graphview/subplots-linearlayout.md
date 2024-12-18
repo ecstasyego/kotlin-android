@@ -18,7 +18,72 @@
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
 
+import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Create a LinearLayout to hold the graphs
+        val linearLayout = LinearLayout(this)
+        linearLayout.orientation = LinearLayout.VERTICAL // Stack graphs vertically
+        linearLayout.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+
+        // Create the first GraphView (first subplot)
+        val graph1 = GraphView(this)
+        val series1 = LineGraphSeries<DataPoint>()
+        for (i in 0 until 10) {
+            val x = i.toDouble()
+            val y = Math.sin(x)
+            series1.appendData(DataPoint(x, y), true, 10)
+        }
+        graph1.addSeries(series1)
+        graph1.viewport.isScalable = true
+        graph1.viewport.isScrollable = true
+
+        // Set the size for the first GraphView (for example, 500px height)
+        val params1 = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 500 // Set height to 500px
+        )
+        graph1.layoutParams = params1
+
+        // Create the second GraphView (second subplot)
+        val graph2 = GraphView(this)
+        val series2 = LineGraphSeries<DataPoint>()
+        for (i in 0 until 10) {
+            val x = i.toDouble()
+            val y = Math.cos(x)
+            series2.appendData(DataPoint(x, y), true, 10)
+        }
+        graph2.addSeries(series2)
+        graph2.viewport.isScalable = true
+        graph2.viewport.isScrollable = true
+
+        // Set the size for the second GraphView (for example, 500px height)
+        val params2 = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 500 // Set height to 500px
+        )
+        graph2.layoutParams = params2
+
+        // Add both graphs (subplots) to the LinearLayout
+        linearLayout.addView(graph1)
+        linearLayout.addView(graph2)
+
+        // Set the content view to be the LinearLayout
+        setContentView(linearLayout)
+    }
+}
 ```
 
 
