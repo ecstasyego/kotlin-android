@@ -10,7 +10,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 ├── build.gradle.kts # PROJECT-LEVEL
@@ -46,10 +45,12 @@ class MainActivity : ComponentActivity() {
         }
 
         graph.addSeries(series)
+
         graph.viewport.isScalable = true
         graph.viewport.isScrollable = true
         graph.gridLabelRenderer.isHorizontalLabelsVisible = false
         graph.gridLabelRenderer.isVerticalLabelsVisible = true
+
         layout.addView(graph)
         setContentView(layout)
     }
