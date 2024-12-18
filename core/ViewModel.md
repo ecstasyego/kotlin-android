@@ -1,6 +1,6 @@
 
 ## Examples
-### Example01
+### Example01: Basic
 #### File System
 ```
 .Project
@@ -237,5 +237,34 @@ class MainViewModel : ViewModel() {
 
 </LinearLayout>
 ```
+
+
+<br>
+
+
+
+### Example03: RecyclerView + ViewModel
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
 
 
