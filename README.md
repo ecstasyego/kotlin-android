@@ -119,9 +119,18 @@ onCreate()
   onStop()
 onDestroy()
 ```
+
+```kotlin
+val intent = Intent(this, Activity::class.java)
+
+intent.putExtra("key", "value")
+intent.getStringExtra("key")
+```
+
 ```kotlin
 startActivity( Intent(this, Activity::class.java) )
 ```
+
 
 ### Fragment
 ```kotlin
@@ -133,13 +142,38 @@ transaction.commit()
 
 ### Intent
 ```kotlin
+// Explicit Intent
 val intent = Intent(this, Activity::class.java)
 val intent = Intent(this, Service::class.java)
+val intent = Intent(this, BroadcastReceiver::class.java)
+
+// Implicit Intent
+val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.example.com"))
+val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456789"))
+val intent = Intent(Intent.ACTION_BATTERY_LOW)
+val intent = Intent(Intent.ACTION_SEND)
 ```
+
+#### PendingIntent
+```kotlin
+val intent = Intent(this, Activity::class.java)
+val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+val intent = Intent(this, Service::class.java)
+val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+```
+
+#### Intent Flags
+```kotlin
+val intent = Intent(this, Activity::class.java)
+intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+```
+
 
 ### Service
 ```kotlin
 val intent = Intent(this, Service::class.java)
+
 startService(intent)
 stopService(intent)
 bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
@@ -148,6 +182,10 @@ unbindService(serviceConnection)
 
 ### Broadcast Receiver
 ```kotlin
+val intent = Intent(this, BroadcastReceiver::class.java)
+val intent = Intent(Intent.ACTION_BATTERY_LOW)
+
+sendBroadcast(intent)
 ```
 
 ### Content Provider
