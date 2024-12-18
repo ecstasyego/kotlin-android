@@ -21,7 +21,6 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.jjoe64.graphview.GraphView
@@ -34,35 +33,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val gridLayout = GridLayout(this)
-        gridLayout.rowCount = 2  
-        gridLayout.columnCount = 1
+        gridLayout.rowCount = 3
+        gridLayout.columnCount = 2
+        gridLayout.orientation = GridLayout.HORIZONTAL
 
-        val graphView1 = GraphView(this)
-        val series1 = LineGraphSeries<DataPoint>()
-        for (i in 0..10) {
-            series1.appendData(DataPoint(i.toDouble(), Math.sin(i.toDouble())), true, 10)
-        }
-        graphView1.addSeries(series1)
-        graphView1.layoutParams = GridLayout.LayoutParams().apply {
-            width = GridLayout.LayoutParams.MATCH_PARENT
-            height = 500
-            setGravity(Gravity.CENTER)
-        }
+        for (i in 0 until gridLayout.rowCount * gridLayout.columnCount) {
+            val graphView = GraphView(this)
+            val series = LineGraphSeries<DataPoint>()
+            for (j in 0..10) {
+                series.appendData(DataPoint(j.toDouble(), Math.sin(j.toDouble())), true, 10)
+            }
+            graphView.addSeries(series)
 
-        val graphView2 = GraphView(this)
-        val series2 = LineGraphSeries<DataPoint>()
-        for (i in 0..10) {
-            series2.appendData(DataPoint(i.toDouble(), Math.cos(i.toDouble())), true, 10)
-        }
-        graphView2.addSeries(series2)
-        graphView2.layoutParams = GridLayout.LayoutParams().apply {
-            width = GridLayout.LayoutParams.MATCH_PARENT
-            height = 500
-            setGravity(Gravity.CENTER)
-        }
+            val params = GridLayout.LayoutParams().apply {
+                width = GridLayout.LayoutParams.MATCH_PARENT
+                height = 500 // 높이를 500px로 설정
+            }
+            graphView.layoutParams = params
 
-        gridLayout.addView(graphView1)
-        gridLayout.addView(graphView2)
+            gridLayout.addView(graphView)
+        }
 
         setContentView(gridLayout)
     }
