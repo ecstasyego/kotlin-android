@@ -245,8 +245,12 @@ android {
         minSdk = 26
     }
 }
-```
 
+dependencies {
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+}
+```
 
 
 <br>
