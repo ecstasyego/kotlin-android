@@ -1,10 +1,10 @@
 # Design Patterns
-- Action > View > ...
+- Action > (View) > ...
   - ... > View
 
 ## MVC: Model + View + Controller
-- Action > View >
-  - > View
+- Action > (View) > Controller
+  -  Model <-> Controller <-> View
 - Controller : View
   - 1 : n
     - Controller : View01, View02, View03, ...
@@ -12,8 +12,8 @@
 <br>
 
 ## MVP: Model + View + Presenter
-- Action > View >
-  - > View
+- Action > View > Presenter > Model
+  - Model > Presenter > View
 - Presenter : View
   - 1 : 1
     - Presenter01 : View01
