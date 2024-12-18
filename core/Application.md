@@ -211,7 +211,13 @@ class MainActivity : ComponentActivity() {
 </manifest>
 ```
 
-
+`build.gradle.kts(APP-LEVEL)`
+```xml
+dependencies {
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+}
+```
 
 <br>
 
@@ -345,6 +351,15 @@ class ContentRepository {
     </application>
 </manifest>
 ```
+
+`build.gradle.kts(APP-LEVEL)`
+```xml
+dependencies {
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+}
+```
+
 
 
 <br>
@@ -490,6 +505,13 @@ class ContentRepository {
 </manifest>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```xml
+dependencies {
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+}
+```
 
 
 
@@ -524,4 +546,11 @@ class ContentRepository {
 ```xml
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```xml
+dependencies {
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+}
+```
 
