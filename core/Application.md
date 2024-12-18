@@ -131,7 +131,7 @@ class UserApplication : Application() {
 
     var appName: String = "My First App"
     val appModule = module {
-        single { provideTextView(get()) }
+        single { contextWrapper(get()) }
     }
 
     override fun onCreate() {
@@ -147,7 +147,7 @@ class UserApplication : Application() {
     }
 }
 
-fun provideTextView(context: Context): TextView {
+fun contextWrapper(context: Context): TextView {
     return TextView(context)
 }
 
