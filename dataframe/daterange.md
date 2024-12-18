@@ -96,7 +96,7 @@ for (date in dateRange) {
 }
 ```
 
-`forloop`
+`daterange:forloop`
 ```kotlin
 import java.util.Calendar
 import java.util.Date
@@ -146,7 +146,7 @@ for (date in dateRange) {
 }
 ```
 
-`whileloop`
+`daterange:whileloop`
 ```kotlin
 import java.text.SimpleDateFormat
 import java.util.Calendar
