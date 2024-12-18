@@ -20,13 +20,15 @@ for (row in mlist){
 
 ## Map<String, List<Any>>
 ```kotlin
-import kotlin.random.Random
-
 val mmap = mutableMapOf<String, List<Any>>()
 mmap["C0"] = Array(5) { Random.nextInt(0, 10) }.toList()
 mmap["C1"] = Array(5) { Random.nextDouble(-3.14, 3.14) }.toList()
 mmap["C2"] = Array(5) { Random.nextBoolean() }.toList()
 mmap["C3"] = Array(5) { Random.nextDouble(-3.14, 3.14) }.toList()
+val colnames = mmap.keys // column names
+val rownums = mmap.values.indices // row number
+val tmmap = mmap.values.indices.map{row -> mmap.values.map{it[row]}} // transposed
+
 for (col in mmap.keys){
     println(mmap[col]!!.joinToString())
 }
