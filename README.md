@@ -245,6 +245,11 @@ dependencies {
 maven (url  = "https://jitpack.io")
 ```
 
+### Packages
+- Graph Visualization
+    - AChartEngine, AnyChart, EazeGraph, GraphView, HelloCharts, MPAndroidChart, Plotly, SciChart
+
+
 <br><br><br>
 
 ## Android Studio
