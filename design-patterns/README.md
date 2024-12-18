@@ -30,6 +30,12 @@
 <br>
 
 ## MVVM: Model + View + ViewModel
+```
+Model: Represents the data and business logic.
+View: Represents the UI components (Activities and Fragments).
+ViewModel: Acts as a bridge between the UI and the Model, exposing LiveData to the UI and handling business logic.
+```
+
 - [Behavior]
   - Action > View > ViewModel > Model
     - Model > ViewModel > View
@@ -37,4 +43,5 @@
   - 1 : n
     - ViewModel : View01, View02, View03, ...
 - (Independency) **Model** : **View** 
+
 
