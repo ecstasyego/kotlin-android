@@ -26,6 +26,7 @@ import androidx.activity.ComponentActivity
 
 class UserApplication : Application() {
     var appName: String = "My First App"
+    var userSession: String = "guest"
 
     override fun onCreate() {
         super.onCreate()
@@ -41,8 +42,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        val appName = (applicationContext as UserApplication).appName
-        findViewById<TextView>(R.id.textView).apply{text = "APPLICATION NAME: $appName"}
+        val app = applicationContext as UserApplication
+        val appName = app.appName
+        val userSession = app.userSession
+        findViewById<TextView>(R.id.textView).apply{text = "$appName : $userSession"}
     }
 }
 ```
