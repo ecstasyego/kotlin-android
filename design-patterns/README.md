@@ -19,8 +19,8 @@
 <br>
 
 ## MVVM: Model + View + ViewModel
-- Controller : View
+- ViewModel : View
   - 1 : n
-    - Controller : View01, View02, View03, ...
+    - ViewModel : View01, View02, View03, ...
 
 
