@@ -1,6 +1,6 @@
 
 ## Examples
-### Example01: *.kt
+### Example01: applicationContext
 #### File System
 ```
 .Project
@@ -19,24 +19,70 @@
 ```kotlin
 package com.example.myapplication
 
+import android.app.Application
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+
+class UserApplication : Application() {
+    var appName: String = "My First App"
+
+    override fun onCreate() {
+        super.onCreate()
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+    }
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
 
-        val linearLayout = LinearLayout(this)
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-        setContentView(linearLayout)
+        val appName = (applicationContext as UserApplication).appName
+        findViewById<TextView>(R.id.textView).apply{text = "앱 이름: $appName"}
     }
 }
 ```
 
+`AndroidManifest.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".UserApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>
+```
+
 <br>
 
-### Example02: *.xml(findViewById)
+### Example02: DI(Dependency Injection)
 #### File System
 ```
 .Project
@@ -45,8 +91,6 @@ class MainActivity : ComponentActivity() {
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
-│   │       ├── res/value/strings.xml
-│   │       ├── res/value/colors.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -80,25 +124,37 @@ class MainActivity : ComponentActivity() {
 ```
 
 
-`strings.xml`
-```xml
-<resources>
-    <string name="app_name">My Application</string>
-    <string name="greeting">Hello, Android!</string>
-</resources>
-```
 
-
-`colors.xml`
+`AndroidManifest.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-</resources>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".UserApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>
 ```
+
