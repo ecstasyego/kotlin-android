@@ -119,6 +119,7 @@ package com.example.myapplication
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -156,7 +157,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mainLayout = LinearLayout(this)
+
+        val mainLayout = LayoutInflater.from(this).inflate(R.layout.main_layout, null, false) as LinearLayout
         mainLayout.addView(textView.apply{ text = (applicationContext as UserApplication).appName})
         setContentView(mainLayout)
     }
