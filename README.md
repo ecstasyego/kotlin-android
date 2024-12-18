@@ -125,10 +125,9 @@ val intent = Intent(this, Activity::class.java)
 
 intent.putExtra("key", "value")
 intent.getStringExtra("key")
-```
 
-```kotlin
 startActivity( Intent(this, Activity::class.java) )
+finish()
 ```
 
 
