@@ -338,7 +338,7 @@ class MainViewModel : ViewModel() {
 
 
 
-### Example06: ViewModelProvider
+### Example06: ViewModelProvider, ViewModelFactory
 #### File System
 ```
 .Project
