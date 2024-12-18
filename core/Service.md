@@ -132,6 +132,7 @@ android {
 ```kotlin
 package com.example.myapplication
 
+import android.app.Application
 import android.app.Service
 import android.content.Intent
 import android.os.Bundle
@@ -139,8 +140,34 @@ import android.os.IBinder
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.dsl.module
+
+class UserApplication : Application() {
+
+    var appName: String = "My First App"
+    val appModule = module {
+        single { ContentRepository() }
+        single { ContentService() }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@UserApplication)
+            modules(appModule)
+        }
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+    }
+}
 
 class MainActivity : ComponentActivity() {
+    private val contentService: ContentService by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
@@ -185,6 +212,7 @@ class ContentRepository {
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".UserApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
