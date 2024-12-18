@@ -101,13 +101,49 @@ class MainActivity : ComponentActivity() {
 ```kotlin
 package com.example.myapplication
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.dsl.module
+
+class UserApplication : Application() {
+
+    var appName: String = "My First App"
+    val appModule = module {
+        single { provideTextView(get()) }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@UserApplication)
+            modules(appModule)
+        }
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+    }
+}
+
+fun provideTextView(context: Context): TextView {
+    return TextView(context)
+}
 
 class MainActivity : ComponentActivity() {
+    private val textView: TextView by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        val mainLayout = LinearLayout(this)
+        mainLayout.addView(textView.apply{ text = (applicationContext as UserApplication).appName})
+        setContentView(mainLayout)
     }
 }
 ```
