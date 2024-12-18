@@ -191,7 +191,10 @@ while (calendar.time <= endDate) {
 
 <br>
 
-## (start|end)Date ~ size
+## Date ~ size
+
+### startDate ~ size
+
 ```kotlin
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -200,15 +203,29 @@ import java.util.Date
 val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 val startDate = dateFormat.parse("2024-12-01")
 val endDate = dateFormat.parse("2024-12-31")
-val dateRange = startDate..endDate
+val today = Date()
 
-val calendar = Calendar.getInstance().apply{ time = startDate }
-while (calendar.time <= endDate) {
-    println(SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time))
+
+val numdays = 100 
+val dateList = mutableListOf<Date>()
+val calendar = Calendar.getInstance().apply { time = startDate }
+for (i in 0 until numdays) {
+    dateList.add(calendar.time)
     calendar.add(Calendar.DATE, 1)
 }
 ```
 
+### size ~ endDate
+```kotlin
+```
 
+### today ~ size
+```kotlin
+```
+
+
+### size ~ today
+```kotlin
+```
 
 
