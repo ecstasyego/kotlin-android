@@ -19,6 +19,21 @@ import java.util.Calendar
 import java.util.Date
 import java.text.SimpleDateFormat
 
+val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+val startDate = dateFormat.parse("2024-12-01")
+val endDate = dateFormat.parse("2024-12-10")
+
+val calendar = Calendar.getInstance().apply { time = startDate }
+for (i in 0 until 100) {
+    println(SimpleDateFormat("EEE yyyy-MM-dd").format(calendar.time)) 
+    calendar.add(Calendar.DATE, -1)
+}
+```
+```kotlin
+import java.util.Calendar
+import java.util.Date
+import java.text.SimpleDateFormat
+
 fun Date.nextDay(): Date {
     val calendar = Calendar.getInstance()
     calendar.time = this
