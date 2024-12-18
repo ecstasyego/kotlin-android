@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
             val params = GridLayout.LayoutParams().apply {
                 width = GridLayout.LayoutParams.MATCH_PARENT
-                height = 500 // 높이를 500px로 설정
+                height = 500
             }
             graphView.layoutParams = params
 
