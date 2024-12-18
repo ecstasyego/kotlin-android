@@ -30,6 +30,7 @@ import java.time.LocalDateTime
 // SimpleDateFormat
 SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-18 15:30:00")
 SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH).parse("Wed Dec 18 16:03:44 KST 2024")
+SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse("Wed Dec 18 16:03:44 KST 2024")
 SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
 
 // LocalDateTime
