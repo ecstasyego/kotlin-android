@@ -367,6 +367,42 @@ class MainViewModel : ViewModel() {
 
 
 
+<br>
+
+
+
+### Example07: DI(koin) ViewModel
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
+
+`main_layout.xml`
+```xml
+```
+
+`AndroidManifest.xml`
+```xml
+```
+
+
+
+
+
+
 
 
 
