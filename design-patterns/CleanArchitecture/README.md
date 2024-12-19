@@ -1,6 +1,6 @@
 # Clean Architecture
 ```
-.
+.Class
 ├── Dependency Injection
 │   └── Application
 ├── Presentation Layer
