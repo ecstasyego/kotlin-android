@@ -17,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.ScrollView
+import android.widget.SearchView
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.Switch
@@ -56,6 +57,7 @@ class MainActivity : ComponentActivity() {
         widget = TextView(this)
         widget = ImageView(this)
         widget = ProgressBar(this)
+        widget = SearchView(this)
 
         setContentView(widget)
     }
@@ -77,9 +79,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         widget = ConstraintLayout(this)
         widget = RecyclerView(this)
         widget = CardView(this)
+
         setContentView(widget)
     }
 }
