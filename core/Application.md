@@ -1,6 +1,6 @@
 
 ## Examples
-### Example01: applicationContext
+### Example01: Application and Activity
 #### File System
 ```
 .Project
@@ -25,9 +25,6 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 
 class UserApplication : Application() {
-    var appName: String = "My First App"
-    var userSession: String = "guest"
-
     override fun onCreate() {
         super.onCreate()
     }
@@ -43,9 +40,6 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.main_layout)
 
         val app = applicationContext as UserApplication
-        val appName = app.appName
-        val userSession = app.userSession
-        findViewById<TextView>(R.id.textView).apply{text = "$appName : $userSession"}
     }
 }
 ```
@@ -223,11 +217,11 @@ import android.app.Application
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class UserApplication : Application() {
-    var appName: String = "My First App"
-    var userSession: String = "guest"
-
     override fun onCreate() {
         super.onCreate()
     }
@@ -235,17 +229,26 @@ class UserApplication : Application() {
     override fun onTerminate() {
         super.onTerminate()
     }
+
+}
+
+class ContentViewModel(application: Application) : AndroidViewModel(application) {
+    fun getData(): String {
+        return "Hello from ViewModel"
+    }
 }
 
 class MainActivity : ComponentActivity() {
+    private val contentViewModel: ContentViewModel by viewModels {
+        ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
         val app = applicationContext as UserApplication
-        val appName = app.appName
-        val userSession = app.userSession
-        findViewById<TextView>(R.id.textView).apply{text = "$appName : $userSession"}
+        findViewById<TextView>(R.id.textView).apply{text = "${contentViewModel.getData()}"}
     }
 }
 ```
