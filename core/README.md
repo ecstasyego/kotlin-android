@@ -2,10 +2,10 @@
 - Application
     - Intent
     - Main Thread(UI): Activity, Fragement
-        - View
+        - View, ViewModel
             - DataBinding, LayoutInflater
                 - findViewById
-        - ViewModel
+        - State, Bundle 
     - Background Thread: Service, BroadcastReceiver
     
 
