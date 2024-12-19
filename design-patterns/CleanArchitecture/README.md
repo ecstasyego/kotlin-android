@@ -29,7 +29,16 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication
-│   │       │   └── MainActivity.kt
+│   │       ├── java/com/example/myapplication/
+│   │       │   ├── Application.kt
+│   │       │   ├── presentation
+│   │       │   │   ├── Activity.kt
+│   │       │   │   └── ViewModel.kt
+│   │       │   ├── domain
+│   │       │   │   └── UseCase.kt
+│   │       │   └── data
+│   │       │   │   ├── Repository.kt
+│   │       │   │   └── APIService.kt
 │   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
