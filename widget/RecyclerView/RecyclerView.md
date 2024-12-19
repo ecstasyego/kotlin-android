@@ -42,22 +42,20 @@ class MainActivity : ComponentActivity() {
 }
 
 class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-    inner class MyViewHolder(val abc: LinearLayout) : RecyclerView.ViewHolder(abc)
+    inner class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val linearLayout = LinearLayout(parent.context)
         val textView = TextView(parent.context)
         textView.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         textView.setPadding(16, 16, 16, 16)
-        linearLayout.addView(textView)
-        return MyViewHolder(linearLayout)
+        return MyViewHolder(textView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        (holder.abc.getChildAt(0) as TextView).text = items[0]
+        holder.textView.text = items[position]
     }
 
     override fun getItemCount(): Int {
