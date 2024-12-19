@@ -232,12 +232,6 @@ class UserApplication : Application() {
 
 }
 
-class ContentViewModel(application: Application) : AndroidViewModel(application) {
-    fun getData(): String {
-        return "Hello from ViewModel"
-    }
-}
-
 class MainActivity : ComponentActivity() {
     private val contentViewModel: ContentViewModel by viewModels {
         ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -249,6 +243,12 @@ class MainActivity : ComponentActivity() {
 
         val app = applicationContext as UserApplication
         findViewById<TextView>(R.id.textView).apply{text = "${contentViewModel.getData()}"}
+    }
+}
+
+class ContentViewModel(application: Application) : AndroidViewModel(application) {
+    fun getData(): String {
+        return "Hello from ViewModel"
     }
 }
 ```
