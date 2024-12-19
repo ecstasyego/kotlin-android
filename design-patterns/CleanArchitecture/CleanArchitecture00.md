@@ -32,13 +32,13 @@ import kotlinx.coroutines.launch
 
 // Dependency Injection
 class UserApplication : Application() {
-    lateinit var apiService: ApiService
+    lateinit var apiService: APIService
     lateinit var userRepository: UserRepository
     lateinit var userUseCase: UserUseCase
 
     override fun onCreate() {
         super.onCreate()
-        apiService = ApiServiceImpl()
+        apiService = APIServiceImpl()
         userRepository = UserRepositoryImpl(apiService)
         userUseCase = GetUserUseCase(userRepository)
     }
@@ -98,7 +98,7 @@ data class User(
 
 
 // Data Layer
-class UserRepositoryImpl(private val apiService: ApiService) : UserRepository {
+class UserRepositoryImpl(private val apiService: APIService) : UserRepository {
     override suspend fun getUserDetails(userId: Int): User {
         val response = apiService.getUserDetails(userId)
         return User(response.id, response.name, response.email)
@@ -110,17 +110,17 @@ interface UserRepository {
 }
 
 
-class ApiServiceImpl : ApiService {
-    override suspend fun getUserDetails(userId: Int): ApiResponse {
-        return ApiResponse(id = userId, name = "John Doe", email = "john@example.com")
+class APIServiceImpl : APIService {
+    override suspend fun getUserDetails(userId: Int): APIResponse {
+        return APIResponse(id = userId, name = "John Doe", email = "john@example.com")
     }
 }
 
-interface ApiService {
-    suspend fun getUserDetails(userId: Int): ApiResponse
+interface APIService {
+    suspend fun getUserDetails(userId: Int): APIResponse
 }
 
-data class ApiResponse(
+data class APIResponse(
     val id: Int,
     val name: String,
     val email: String
@@ -349,17 +349,17 @@ interface UserRepository {
 ```kotlin
 package com.example.myapplication.data
 
-data class APIResponse(
-    val id: Int,
-    val name: String,
-    val email: String
-)
-
 class APIServiceImpl : APIService {
     override suspend fun getUserDetails(userId: Int): APIResponse {
         return APIResponse(id = userId, name = "John Doe", email = "john@example.com")
     }
 }
+
+data class APIResponse(
+    val id: Int,
+    val name: String,
+    val email: String
+)
 ```
 
 `data/APIService.kt`
