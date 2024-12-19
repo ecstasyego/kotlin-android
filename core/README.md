@@ -1,3 +1,17 @@
+# Core Concepts
+- Application
+    - Intent
+    - Main Thread(UI): Activity, Fragement
+        - View
+            - DataBinding, LayoutInflater
+            - 
+        - ViewModel
+    - Background Thread: Service, BroadcastReceiver
+    
+
+
+<br><br><br>
+
 ## Change View
 ### Example01: change layout through functions of removal and creation
 #### File System
