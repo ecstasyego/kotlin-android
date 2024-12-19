@@ -4,7 +4,7 @@
     - Main Thread(UI): Activity, Fragement
         - View
             - DataBinding, LayoutInflater
-            - 
+                - findViewById
         - ViewModel
     - Background Thread: Service, BroadcastReceiver
     
