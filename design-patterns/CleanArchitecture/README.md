@@ -3,14 +3,15 @@
 .Class
 ├── Dependency Injection
 │   └── Application
-├── Presentation Layer
+├── Presentation Layer(UI Layer)
 │   ├── Activity
 │   ├── View
 │   └── ViewModel
 ├── Domain Layer
 │   └── UseCase
 └── Data Layer
-    └── Repository
+    ├── Repository
+    └── Database
 ```
 ```
 .Project
