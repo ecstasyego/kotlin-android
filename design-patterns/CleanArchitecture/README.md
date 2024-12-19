@@ -3,7 +3,7 @@
     - Activity (PRESENTATION-LAYER)
         - View (PRESENTATION-LAYER)
             - ViewModel (PRESENTATION-LAYER)
-                - UseCase (DOMAIN-LAYER)
+                - **UseCase (DOMAIN-LAYER)**
                     - Repository (DOMAIN|DATA-LAYER)
                         - APIService (DATA-LAYER)
 
