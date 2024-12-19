@@ -19,9 +19,11 @@
 ```kotlin
 package com.example.myapplication
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +40,24 @@ class MainActivity : ComponentActivity() {
 }
 
 class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-    inner class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    inner class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+        private val clickCounts = IntArray(items.size) { 0 }
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick(bindingAdapterPosition)
+            }
+        }
+
+        fun onItemClick(position:Int){
+            if (position != RecyclerView.NO_POSITION) {
+                clickCounts[position] += 1
+
+                if (clickCounts[position] % 2 == 1) {textView.setTextColor(Color.RED)} else {textView.setTextColor(Color.BLACK)}
+                Toast.makeText(itemView.context, "Item ${textView.text} clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val textView = TextView(parent.context)
@@ -47,6 +66,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         textView.setPadding(16, 16, 16, 16)
+        textView.setTextColor(Color.BLACK)
         return MyViewHolder(textView)
     }
 
