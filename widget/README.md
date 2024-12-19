@@ -62,6 +62,29 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.View
+import androidx.activity.ComponentActivity
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
+
+class MainActivity : ComponentActivity() {
+    lateinit var widget: View
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        widget = ConstraintLayout(this)
+        widget = RecyclerView(this)
+        widget = CardView(this)
+        setContentView(widget)
+    }
+}
+```
+
 <br><br><br>
 
 ## Tools
