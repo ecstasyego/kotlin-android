@@ -19,7 +19,6 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -29,13 +28,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val mainLayout = LinearLayout(this)
         val recyclerView = RecyclerView(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = MyAdapter(List<String>(100){"ITEM ${it.toString()}"})
-
-        mainLayout.addView(recyclerView)
-        setContentView(mainLayout)
+        setContentView(recyclerView)
     }
 
     class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
