@@ -2,7 +2,7 @@
 
 
 
-### Example: 
+### Example01: Basic
 #### File System
 ```
 .Project
@@ -26,12 +26,21 @@ import androidx.activity.ComponentActivity
 class MainActivity : ComponentActivity(R.layout.main_layout)
 ```
 
-
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+</LinearLayout>
+```
 
 
 <br>
 
-### Example
+### Example02: XML
 #### File System
 ```
 .Project
@@ -61,10 +70,21 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+</LinearLayout>
+```
+
 
 <br>
 
-### Example
+### Example03: Layout Class
 #### File System
 ```
 .Project
@@ -83,6 +103,7 @@ class MainActivity : ComponentActivity() {
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
@@ -97,7 +118,7 @@ class MainActivity : ComponentActivity() {
 <br>
 
 
-### Example01: Activity Life Cycle
+### Example04: Activity Life Cycle
 #### File System
 ```
 .Project
@@ -186,7 +207,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example02: Fragment
+### Example05: Fragment
 #### File System
 ```
 .Project
@@ -254,7 +275,7 @@ class MainFragment : Fragment() {
 
 
 
-### Example03: Intent
+### Example06: Intent
 #### File System
 ```
 .Project
@@ -385,7 +406,7 @@ class ResultActivity03: ComponentActivity() {
 
 
 
-### Example04: UI and Background Thraed
+### Example07: UI and Background Thraed
 #### File System
 ```
 .Project
@@ -445,7 +466,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-### Example05: Thraed with lifecycle (lifecycleScope.launch)
+### Example08: Thraed with lifecycle (lifecycleScope.launch)
 #### File System
 ```
 .Project
@@ -503,7 +524,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-### Example06: Service with BroadcastReceiver
+### Example09: Service with BroadcastReceiver
 #### File System
 ```
 .Project
