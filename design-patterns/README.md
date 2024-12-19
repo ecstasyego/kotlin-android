@@ -97,3 +97,11 @@ ViewModel: Acts as a bridge between the UI and the Model, exposing LiveData to t
 - (Independency) **Model** : **View** 
 
 
+<br>
+
+### MVVM + DataBinding: Model + View + ViewModel + DataBinding
+
+<br>
+
+### MVI: Model + View + Intent
+
