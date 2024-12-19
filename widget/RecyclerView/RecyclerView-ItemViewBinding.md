@@ -61,3 +61,11 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 }
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+android {
+    viewBinding {
+        enabled = true
+    }
+}
+```
