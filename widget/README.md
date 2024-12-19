@@ -2,20 +2,62 @@
 ```kotlin
 package com.example.myapplication
 
-import androidx.activity.ComponentActivity
-
-class MainActivity : ComponentActivity(R.layout.main_layout)
-```
-```kotlin
-package com.example.myapplication
-
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.DatePicker
+import android.widget.EditText
+import android.widget.GridLayout
+import android.widget.HorizontalScrollView
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.NumberPicker
+import android.widget.ProgressBar
+import android.widget.RadioButton
+import android.widget.RatingBar
+import android.widget.ScrollView
+import android.widget.SeekBar
+import android.widget.Spinner
+import android.widget.Switch
+import android.widget.TableLayout
+import android.widget.TextView
+import android.widget.TimePicker
+import android.widget.ToggleButton
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
+    lateinit var widget: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        // Layouts
+        widget = LinearLayout(this)
+        widget = TableLayout(this)
+        widget = GridLayout(this)
+
+        // Inputs
+        widget = Button(this)
+        widget = CheckBox(this)
+        widget = EditText(this)
+        widget = RadioButton(this)
+        widget = Spinner(this)
+        widget = SeekBar(this)
+        widget = RatingBar(this)
+        widget = DatePicker(this)
+        widget = TimePicker(this)
+        widget = NumberPicker(this)
+        widget = Switch(this)
+        widget = ToggleButton(this)
+
+        // Outputs
+        widget = HorizontalScrollView(this)
+        widget = ScrollView(this)
+        widget = TextView(this)
+        widget = ImageView(this)
+        widget = ProgressBar(this)
+
+        setContentView(widget)
     }
 }
 ```
