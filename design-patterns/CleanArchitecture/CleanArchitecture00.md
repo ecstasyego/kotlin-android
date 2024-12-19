@@ -225,8 +225,8 @@ class UserApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         apiService = APIServiceImpl()
-        userRepository = UserRepositoryImpl(apiService)
-        userUseCase = GetUserUseCase(userRepository)
+        userRepository = UserRepositoryImpl(apiService) // DATA-LAYER
+        userUseCase = GetUserUseCase(userRepository) // DOMAIN-LAYER (from DATA-LAYER) 
     }
 
     override fun onTerminate() {
@@ -254,10 +254,10 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.main_layout)
         val app = application as UserApplication
 
-        userViewModel = UserViewModel(app.userUseCase)
+        userViewModel = UserViewModel(app.userUseCase) // PRESENTATION-LAYER (from DOMAIN-LAYER from DATA-LAYER) 
         userViewModel.getUserDetails(1)
         userViewModel.userDetails.observe(this, Observer { user ->
-            findViewById<TextView>(R.id.textView).text = user.toString()
+            findViewById<TextView>(R.id.textView).text = user.toString() // INTO VIEW on PRESENTATION-LAYER
         })
     }
 }
@@ -273,7 +273,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.example.myapplication.domain.User
-import com.example.myapplication.domain.UserUseCase
+import com.example.myapplication.domain.UserUseCase // FROM DOMAIN-LAYER
 
 class UserViewModel(private val userUseCase: UserUseCase) : ViewModel() {
     private val _userDetails = MutableLiveData<User>()
@@ -281,7 +281,7 @@ class UserViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 
     fun getUserDetails(userId: Int) {
         viewModelScope.launch {
-            _userDetails.value = userUseCase.getUserDetails(userId)
+            _userDetails.value = userUseCase.getUserDetails(userId) // INTO PRESENTATION-LAYER
         }
     }
 }
@@ -291,11 +291,11 @@ class UserViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 ```kotlin
 package com.example.myapplication.domain
 
-import com.example.myapplication.data.UserRepository
+import com.example.myapplication.data.UserRepository // FROM DATA-LAYER
 
 class GetUserUseCase(private val userRepository: UserRepository) : UserUseCase {
     override suspend fun getUserDetails(userId: Int): User {
-        return userRepository.getUserDetails(userId)
+        return userRepository.getUserDetails(userId) // DOMAIN-LAYER's REQUEST
     }
 }
 ```
@@ -305,7 +305,7 @@ class GetUserUseCase(private val userRepository: UserRepository) : UserUseCase {
 package com.example.myapplication.domain
 
 interface UserUseCase {
-    suspend fun getUserDetails(userId: Int): User
+    suspend fun getUserDetails(userId: Int): User // DOMAIN-LAYER's REQUEST
 }
 ```
 
@@ -317,19 +317,19 @@ data class User(
     val id: Int,
     val name: String,
     val email: String
-)
+) // DOMAIN-LAYER's REQUEST
 ```
 
 `data/UserRepositoryImpl.kt`
 ```kotlin
 package com.example.myapplication.data
 
-import com.example.myapplication.domain.User
+import com.example.myapplication.domain.User // DOMAIN-LAYER's REQUEST
 
 class UserRepositoryImpl(private val apiService: APIService) : UserRepository {
     override suspend fun getUserDetails(userId: Int): User {
-        val response = apiService.getUserDetails(userId)
-        return User(response.id, response.name, response.email)
+        val response = apiService.getUserDetails(userId) // DATA-LAYER's RESPONSE for DOMAIN-LAYER's REQUEST
+        return User(response.id, response.name, response.email) // CONVERTER: RESPONSE <=> REQUEST
     }
 }
 ```
@@ -338,10 +338,10 @@ class UserRepositoryImpl(private val apiService: APIService) : UserRepository {
 ```kotlin
 package com.example.myapplication.data
 
-import com.example.myapplication.domain.User
+import com.example.myapplication.domain.User // DOMAIN-LAYER's REQUEST
 
 interface UserRepository {
-    suspend fun getUserDetails(userId: Int): User
+    suspend fun getUserDetails(userId: Int): User // DATA-LAYER's RESPONSE for DOMAIN-LAYER's REQUEST
 }
 ```
 
@@ -351,15 +351,9 @@ package com.example.myapplication.data
 
 class APIServiceImpl : APIService {
     override suspend fun getUserDetails(userId: Int): APIResponse {
-        return APIResponse(id = userId, name = "John Doe", email = "john@example.com")
+        return APIResponse(id = userId, name = "John Doe", email = "john@example.com") // DATA-LAYER's RESPONSE
     }
 }
-
-data class APIResponse(
-    val id: Int,
-    val name: String,
-    val email: String
-)
 ```
 
 `data/APIService.kt`
@@ -367,8 +361,14 @@ data class APIResponse(
 package com.example.myapplication.data
 
 interface APIService {
-    suspend fun getUserDetails(userId: Int): APIResponse
+    suspend fun getUserDetails(userId: Int): APIResponse // DATA-LAYER's RESPONSE
 }
+
+data class APIResponse(
+    val id: Int,
+    val name: String,
+    val email: String
+)
 ```
 
 `AndroidManifest.xml`
