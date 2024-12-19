@@ -2,9 +2,15 @@
 ```
 .
 ├── Dependency Injection
+│   └── Application
 ├── Presentation Layer
+│   ├── Activity
+│   ├── View
+│   └── ViewModel
 ├── Domain Layer
+│   └── UseCase
 └── Data Layer
+    └── Repository
 ```
 ```
 .Project
