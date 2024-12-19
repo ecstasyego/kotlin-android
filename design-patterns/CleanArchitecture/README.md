@@ -11,7 +11,9 @@
 │   └── UseCase
 └── Data Layer
     ├── Repository
-    └── Database
+    ├── APIService
+    ├── RemoteDatabase
+    └── LocalDatabase
 ```
 ```
 .Project
