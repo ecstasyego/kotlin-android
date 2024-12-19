@@ -157,7 +157,7 @@ class MainActivity : ComponentActivity() {
 
 <br>
 
-#### Example04: ViewBinding Inflater
+#### Example04: DataBinding Inflater
 ##### File System
 ```
 .Project
