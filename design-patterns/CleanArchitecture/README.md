@@ -29,7 +29,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication
-│   │       ├── java/com/example/myapplication/
 │   │       │   ├── Application.kt
 │   │       │   ├── presentation
 │   │       │   │   ├── Activity.kt
