@@ -1,4 +1,20 @@
-## MainActivity.kt
+# Widget
+- View
+  - TextView
+  - Button
+  - EditText
+  - ImageView
+- ViewGroup
+  - LinearLayout
+  - RelativeLayout
+  - FrameLayout
+  - ConstraintLayout
+  - ScrollView
+  - GridLayout
+  - TableLayout
+
+
+## Activity
 ```kotlin
 package com.example.myapplication
 
@@ -88,6 +104,20 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
+
+
+
+## View
+```kotlin
+```
+
+
+## ViewGroup
+```kotlin
+```
+
+
+
 
 <br><br><br>
 
