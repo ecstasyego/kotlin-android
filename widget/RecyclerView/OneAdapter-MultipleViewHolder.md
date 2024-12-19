@@ -43,9 +43,9 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<Recycler
         const val VIEW02 = 2
     }
 
-    inner class ViewHolder00(val textView: TextView) : RecyclerView.ViewHolder(textView)
-    inner class ViewHolder01(val textView: TextView) : RecyclerView.ViewHolder(textView)
-    inner class ViewHolder02(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class ViewHolder00(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class ViewHolder01(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class ViewHolder02(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
     override fun getItemViewType(position: Int): Int {
         return when (position % 3) {
