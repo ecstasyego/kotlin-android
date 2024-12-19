@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
             LinearLayout.LayoutParams.MATCH_PARENT, // WIDTH
             LinearLayout.LayoutParams.WRAP_CONTENT  // HEIGHT
         )
+
         textView.setOnClickListener {
             Toast.makeText(this, "TextView clicked", Toast.LENGTH_SHORT).show()
         }
