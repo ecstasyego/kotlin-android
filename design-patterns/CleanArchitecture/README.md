@@ -4,7 +4,7 @@
         - View (PRESENTATION-LAYER)
             - ViewModel (PRESENTATION-LAYER)
                 - **UseCase (DOMAIN-LAYER)**
-                    - Repository (DOMAIN|DATA-LAYER)
+                    - Repository (DATA-LAYER)
                         - APIService (DATA-LAYER)
 
 ```
