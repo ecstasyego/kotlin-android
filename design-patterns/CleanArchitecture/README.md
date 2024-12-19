@@ -1,4 +1,12 @@
 # Clean Architecture
+- Application (DEPENDENCY INJECTION)
+    - Activity (PRESENTATION-LAYER)
+        - View (PRESENTATION-LAYER)
+            - ViewModel (PRESENTATION-LAYER)
+                - UseCase (DOMAIN-LAYER)
+                    - Repository (DOMAIN|DATA-LAYER)
+                        - APIService (DATA-LAYER)
+
 ```
 .Class
 ├── Dependency Injection
@@ -31,8 +39,3 @@
 
 
 
-- Application
-  - Activity
-    - View
-      - ViewModel
-        - UseCase
