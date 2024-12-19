@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
     }
 
     class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-        class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+        inner class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
             val textView = TextView(parent.context)
