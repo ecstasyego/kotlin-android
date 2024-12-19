@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
 }
 
 class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-    class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+    inner class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
         private val clickCounts = IntArray(items.size) { 0 }
 
         init {
