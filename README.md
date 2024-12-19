@@ -280,7 +280,12 @@ maven (url  = "https://jitpack.io")
 <br><br><br>
 
 ## Android Studio
-- File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
+### Keymap
+- Alt + Arrow: Tab Shift
+- Alt + 1: Explorer
+- Ctrl + Alt + X
+    - File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
+- Shift + ESC: Hide Bottom Window
 
 
 
