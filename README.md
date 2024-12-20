@@ -281,6 +281,7 @@ maven (url  = "https://jitpack.io")
 
 ## Android Studio
 ### Keymap
+- Alt + Enter: Build
 - Alt + Arrow: Tab Shift
 - Alt + 1: Explorer
 - Ctrl + Alt + X
