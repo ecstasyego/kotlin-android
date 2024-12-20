@@ -109,6 +109,32 @@ class MainActivity : ComponentActivity() {
 
 ## View
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.content.Context
+import android.graphics.Color
+import android.util.AttributeSet
+import android.widget.TextView
+
+class MainActivity : ComponentActivity() {
+    lateinit var widget: CustomView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        widget = CustomView(this)
+        setContentView(widget)
+    }
+}
+
+class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet?=null) : TextView(context, attrs) {
+    init {
+        text ="Hello, World!"
+        textSize = 20f
+        setTextColor(Color.BLACK)
+    }
+}
 ```
 
 
@@ -136,7 +162,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomLayout(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
     init {
         orientation = VERTICAL
     }
