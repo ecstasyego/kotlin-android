@@ -2,7 +2,7 @@
 
 ## Examples
 
-### Example01: Basic ViewModel
+### Example01: ViewModel by lazy ViewModel
 #### File System
 ```
 .Project
@@ -91,7 +91,7 @@ class MainViewModel : ViewModel() {
 
 <br>
 
-### Example02: Lifecycle Awareness by viewModels()
+### Example02: ViewModel by viewModels()
 #### File System
 ```
 .Project
@@ -181,7 +181,7 @@ class MainViewModel : ViewModel() {
 <br>
 
 
-### Example03: ViewModelProvider.Factory
+### Example03: ViewModel by lazy ViewModelProvider.Factory
 #### File System
 ```
 .Project
