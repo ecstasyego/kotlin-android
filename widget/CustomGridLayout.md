@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomLayout(context: Context) : GridLayout(context) {
+class CustomLayout @JvmOverloads constructor(context: Context) : GridLayout(context) {
     init {
         layoutParams = LayoutParams().apply {
             width = LayoutParams.MATCH_PARENT // MATCH_PARENT, WRAP_CONTENT
