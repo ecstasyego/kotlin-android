@@ -8,6 +8,7 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
+│   │       ├── res/values/themes.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -50,11 +51,8 @@ class MainActivity : AppCompatActivity() {
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -62,11 +60,21 @@ class MainActivity : AppCompatActivity() {
         android:layout_height="wrap_content"
         android:text="Hello, Toolbar!"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:paddingTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
+`themes.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
+```
