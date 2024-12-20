@@ -314,15 +314,98 @@ class MainViewModelFactory(private val button00: Button, private val button01: B
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import org.koin.dsl.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel as viewModel_ext
+import org.koin.core.parameter.parametersOf
+import org.koin.core.context.startKoin
+
+val appModule = module {
+    viewModel { (button00: Button, button01: Button) -> MainViewModel(button00, button01) }
+}
+
+class MainActivity : AppCompatActivity() {
+    private val button00:Button by lazy {findViewById(R.id.button00)}
+    private val button01:Button by lazy {findViewById(R.id.button01)}
+    private val viewModel: MainViewModel by viewModel_ext { parametersOf(button00, button01) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+        startKoin {
+            modules(appModule)
+        }
+
+        val textView: TextView = findViewById(R.id.textView)
+        viewModel.updateText("Updated TextView")
+        viewModel.text.observe(this, Observer { newText ->
+            textView.text = newText
+        })
+
+    }
+}
+
+
+class MainViewModel(private val button00: Button, private val button01: Button) : ViewModel() {
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> get() = _text
+
+    init {
+        _text.value = "TextView"
+    }
+
+    fun updateText(newText: String) {
+        button00.setOnClickListener {
+            _text.value = newText + " from buton00"
+        }
+        button01.setOnClickListener {
+            _text.value = newText + " from buton01"
+        }
+
+    }
+}
 ```
 
 `main_layout.xml`
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update TextView" />
+
+    <Button
+        android:id="@+id/button01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update TextView" />
+</LinearLayout>
 ```
 
-`AndroidManifest.xml`
-```xml
-```
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
