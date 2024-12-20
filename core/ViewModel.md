@@ -179,7 +179,7 @@ class MainViewModel : ViewModel() {
 
 <br>
 
-### Example03: Widgets + ViewModel
+### Example03: Views + ViewModel
 #### File System
 ```
 .Project
