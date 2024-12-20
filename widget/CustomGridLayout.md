@@ -20,7 +20,6 @@ package com.example.myapplication
 
 import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.widget.GridLayout
 import android.widget.TextView
@@ -38,7 +37,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomLayout(context: Context, attrs: AttributeSet? = null) : GridLayout(context, attrs) {
+class CustomLayout(context: Context) : GridLayout(context) {
     init {
         layoutParams = LayoutParams().apply {
             width = LayoutParams.MATCH_PARENT // MATCH_PARENT, WRAP_CONTENT
