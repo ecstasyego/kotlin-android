@@ -31,7 +31,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by lazy { MainViewModel() } // No Lifecycle Awareness
+    private val viewModel: MainViewModel by lazy { MainViewModel() } // No Lifecycle Management
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
