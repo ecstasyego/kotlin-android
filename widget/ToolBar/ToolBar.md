@@ -105,3 +105,13 @@ class MainActivity : AppCompatActivity() {
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
+`themes.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
+```
