@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomLayout(context: Context) : LinearLayout(context) {
+class CustomLayout @JvmOverloads constructor(context: Context) : LinearLayout(context) {
     init {
         orientation = VERTICAL
     }
