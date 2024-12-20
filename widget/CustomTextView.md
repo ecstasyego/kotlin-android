@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomView(context: Context) : TextView(context) {
+class CustomView @JvmOverloads constructor(context: Context) : TextView(context) {
     init {
         setTextColor(Color.RED)
     }
