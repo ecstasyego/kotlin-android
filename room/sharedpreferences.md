@@ -1,4 +1,7 @@
 ```kotlin
+import android.content.Context
+import android.content.SharedPreferences
+
 // 파일 열기 및 저장
 val sharedPreferences = getSharedPreferences("my_preferences", Context.MODE_PRIVATE) // /data/data/<package-name>/shared_prefs/<preferences-name>.xml
 val editor = sharedPreferences.edit()
