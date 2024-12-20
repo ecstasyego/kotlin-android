@@ -189,6 +189,8 @@ data class APIResponse(
 │   │   └── main
 │   │       ├── java/com/example/myapplication/
 │   │       │   ├── UserApplication.kt
+│   │       │   ├── di
+│   │       │   │   ├── AppContainer.kt
 │   │       │   ├── presentation
 │   │       │   │   ├── MainActivity.kt
 │   │       │   │   └── UserViewModel.kt
