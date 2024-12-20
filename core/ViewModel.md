@@ -333,7 +333,7 @@ class MainViewModel : ViewModel() {
 
 
 
-### Example04: RecyclerView + ViewModel
+### Example04: ViewModel(View)
 #### File System
 ```
 .Project
@@ -421,81 +421,6 @@ class MainViewModel : ViewModel() {
 `AndroidManifest.xml`
 ```xml
 ```
-
-
-
-<br>
-
-
-
-### Example07: ViewModelProvider, ViewModelFactory
-#### File System
-```
-.Project
-├── app
-│   ├── src
-│   │   └── main
-│   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
-│   │       └── AndroidManifest.xml
-│   └── build.gradle.kts # APP-LEVEL
-└── build.gradle.kts # PROJECT-LEVEL
-```
-
-#### Source Code
-`MainActivity.kt`
-```kotlin
-```
-
-`main_layout.xml`
-```xml
-```
-
-`AndroidManifest.xml`
-```xml
-```
-
-
-
-<br>
-
-
-
-### Example08: DI(koin) ViewModel
-#### File System
-```
-.Project
-├── app
-│   ├── src
-│   │   └── main
-│   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
-│   │       └── AndroidManifest.xml
-│   └── build.gradle.kts # APP-LEVEL
-└── build.gradle.kts # PROJECT-LEVEL
-```
-
-#### Source Code
-`MainActivity.kt`
-```kotlin
-```
-
-`main_layout.xml`
-```xml
-```
-
-`AndroidManifest.xml`
-```xml
-```
-
-
-
-
-
-
-
-
-
 
 
 
