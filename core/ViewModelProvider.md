@@ -488,7 +488,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.text.observe(this, Observer { newText ->
             textView.text = newText
         })
-
     }
 }
 
