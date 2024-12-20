@@ -20,7 +20,6 @@
 package com.example.myapplication
 
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -36,7 +35,7 @@ object AppContainer {
     private lateinit var applicationContext: Application
 
     fun initialize(application: Application) { applicationContext = application }
-    val apiService: APIService by lazy { APIServiceImpl(applicationContext) }
+    val apiService: APIService by lazy { APIServiceImpl() }
     val userRepository: UserRepository by lazy { UserRepositoryImpl(apiService) }
     val userUseCase: UserUseCase by lazy { GetUserUseCase(userRepository) }
 }
@@ -114,7 +113,7 @@ interface UserRepository {
 }
 
 
-class APIServiceImpl(private val context: Context) : APIService {
+class APIServiceImpl : APIService {
     override suspend fun getUserDetails(userId: Int): APIResponse {
         return APIResponse(id = userId, name = "John Doe", email = "john@example.com")
     }
