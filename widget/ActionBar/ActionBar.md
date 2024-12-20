@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
 <br>
 
-### Example02: *.xml
+### Example02: *.xml(findViewById)
 #### File System
 ```
 .Project
