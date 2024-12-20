@@ -1,5 +1,53 @@
 ## Examples
-### Example01: Basic
+### Example01: *.kt
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import android.widget.LinearLayout
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE) // Inactive ActionBar
+
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
+
+        val toolbar = Toolbar(this)
+        toolbar.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (56 * resources.displayMetrics.density).toInt()) // 56dp -> px로 변환
+        toolbar.setBackgroundColor(resources.getColor(android.R.color.holo_blue_dark)) // 툴바 배경 색상 설정
+        layout.addView(toolbar)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Toolbar Title"
+
+        setContentView(layout)
+    }
+}
+```
+
+<br>
+
+### Example02: *.xml
 #### File System
 ```
 .Project
