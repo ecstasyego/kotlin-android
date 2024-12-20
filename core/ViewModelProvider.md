@@ -297,7 +297,7 @@ class MainViewModelFactory(private val button00: Button, private val button01: B
 <br>
 
 
-### Example04: DI(koin) ViewModel
+### Example04: ViewModel(*Views) with koin
 #### File System
 ```
 .Project
@@ -324,8 +324,13 @@ class MainViewModelFactory(private val button00: Button, private val button01: B
 ```xml
 ```
 
-
-
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+}
+```
 
 
 
