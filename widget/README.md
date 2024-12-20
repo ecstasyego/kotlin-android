@@ -162,7 +162,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
     init {
         orientation = VERTICAL
     }
