@@ -295,7 +295,7 @@ class MainViewModelFactory(private val button00: Button, private val button01: B
 
 <br>
 
-### Example03-2: ViewModel(*Views) with ViewModelProvider.Factory
+### Example03-2: ViewModel(*Views) with ViewModelProvider.Factory: Refactoring
 #### File System
 ```
 .Project
@@ -578,7 +578,7 @@ dependencies {
 <br>
 
 
-### Example04-2:  ViewModel(*Views) with koin
+### Example04-2:  ViewModel(*Views) with koin: Refactoring
 #### File System
 ```
 .Project
