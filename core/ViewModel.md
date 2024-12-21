@@ -179,7 +179,7 @@ class MainViewModel : ViewModel() {
 
 <br>
 
-### Example03: ViewModel(View), No Lifecycle Management
+### Example03: ViewModel(View):Presenter, No Lifecycle Management
 #### File System
 ```
 .Project
@@ -269,7 +269,7 @@ class MainViewModel(private val button: Button) : ViewModel() {
 
 <br>
 
-### Example04: ViewModel(View) > Lifecycle Awareness(Old Version: More explicit control)
+### Example04: ViewModel(View):Presenter > Lifecycle Awareness(Old Version: More explicit control)
 #### File System
 ```
 .Project
@@ -366,7 +366,7 @@ class MainViewModelFactory(private val button: Button) : ViewModelProvider.Facto
 
 <br>
 
-### Example05: ViewModel(View) > Lifecycle Awareness(New Version: Concise and clean)
+### Example05: ViewModel(View):Presenter > Lifecycle Awareness(New Version: Concise and clean)
 #### File System
 ```
 .Project
@@ -628,7 +628,7 @@ class MainViewModel : ViewModel() {
 
 
 
-### Example07: Service + ViewModel
+### Example07: ViewModel(Service)
 #### File System
 ```
 .Project
