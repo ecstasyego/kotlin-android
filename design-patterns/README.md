@@ -41,6 +41,7 @@
 
 <br><br><br>
 ## Clean Architecture
+### Base Structure: ViewModel
 #### File System
 ```
 .Project
