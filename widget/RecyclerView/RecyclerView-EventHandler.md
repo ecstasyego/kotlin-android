@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: ViewHolder's EventListener
+### Example01: ViewHolder's EventHandler
 #### File System
 ```
 .Project
@@ -77,7 +77,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
 <br>
 
-### Example02: TextView's EventListener on ViewHoler
+### Example02: TextView's EventHandler on ViewHoler
 #### File System
 ```
 .Project
