@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: ViewHolder's EventHandler
+### Example01-1: ViewHolder's EventHandler
 #### File System
 ```
 .Project
@@ -76,6 +76,82 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
 
 <br>
+
+
+### Example01-2: ViewHolder's EventHandler
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val recyclerView = RecyclerView(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = MyAdapter(List(100){"ITEM ${it}"}){ position ->
+            Toast.makeText(this, "Item clicked ${position}", Toast.LENGTH_SHORT).show()
+        }
+
+        setContentView(recyclerView)
+    }
+}
+
+class MyAdapter(private var items: List<String>, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+    class MyViewHolder(val textView: TextView, itemClickListener: (Int) -> Unit) : RecyclerView.ViewHolder(textView) {
+        init {
+            itemView.setOnClickListener {
+                itemClickListener(bindingAdapterPosition)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val textView = TextView(parent.context)
+        textView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        textView.setPadding(16, 16, 16, 16)
+        return MyViewHolder(textView, itemClickListener)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.textView.text = items[position]
+    }
+
+    override fun getItemCount(): Int {
+        return items.size
+    }
+}
+```
+
+
+
+
+<br>
+
 
 ### Example02: TextView's EventHandler on ViewHoler
 #### File System
