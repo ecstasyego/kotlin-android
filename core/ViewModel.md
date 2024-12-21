@@ -691,7 +691,7 @@ class MainViewModel : ViewModel() {
 
 
 
-### Example09: ViewModel(UseCase)
+### Example09: ViewModel(UseCase) of MVVM
 #### File System
 ```
 .Project
