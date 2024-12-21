@@ -37,14 +37,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
         viewModel.text.observe(this, Observer { newText ->
             textView.text = newText
         })
 
+        // ViewModel update LiveData
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener {
-            viewModel.updateText("Updated TextView")
+            viewModel.update("Updated TextView")
         }
     }
 }
@@ -58,7 +60,7 @@ class MainViewModel : ViewModel() {
         _text.value = "TextView"
     }
 
-    fun updateText(newText: String) {
+    fun update(newText: String) {
         _text.value = newText
     }
 }
@@ -126,14 +128,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
         viewModel.text.observe(this, Observer { newText ->
             textView.text = newText
         })
 
+        // ViewModel update LiveData
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener {
-            viewModel.updateText("Updated TextView")
+            viewModel.update("Updated TextView")
         }
     }
 }
@@ -147,7 +151,7 @@ class MainViewModel : ViewModel() {
         _text.value = "TextView"
     }
 
-    fun updateText(newText: String) {
+    fun update(newText: String) {
         _text.value = newText
     }
 }
@@ -215,12 +219,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
-        viewModel.updateText("Updated TextView")
         viewModel.text.observe(this, Observer { newText ->
             textView.text = newText
         })
 
+        // ViewModel update LiveData
+        viewModel.update("Updated TextView") 
     }
 }
 
@@ -233,7 +240,7 @@ class MainViewModel(private val button: Button) : ViewModel() {
         _text.value = "TextView"
     }
 
-    fun updateText(newText: String) {
+    fun update(newText: String) {
         button.setOnClickListener {
             _text.value = newText
         }
@@ -306,11 +313,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
-        viewModel.updateText("Updated TextView")
         viewModel.text.observe(this, Observer { newText ->
             textView.text = newText
         })
+
+        // ViewModel update LiveData
+        viewModel.update("Updated TextView")
 
     }
 }
@@ -324,7 +334,7 @@ class MainViewModel(private val button: Button) : ViewModel() {
         _text.value = "TextView"
     }
 
-    fun updateText(newText: String) {
+    fun update(newText: String) {
         button.setOnClickListener {
             _text.value = newText
         }
@@ -404,11 +414,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
-        viewModel.updateText("Updated TextView")
         viewModel.text.observe(this, Observer { newText ->
             textView.text = newText
         })
+
+        // ViewModel update LiveData
+        viewModel.update("Updated TextView")
 
     }
 }
@@ -422,7 +435,7 @@ class MainViewModel(private val button: Button) : ViewModel() {
         _text.value = "TextView"
     }
 
-    fun updateText(newText: String) {
+    fun update(newText: String) {
         button.setOnClickListener {
             _text.value = newText
         }
@@ -510,6 +523,7 @@ class MainActivity : AppCompatActivity() {
         val button2: Button = findViewById(R.id.button2)
         val button3: Button = findViewById(R.id.button3)
 
+        // ViewModel observe LiveData
         viewModel.text1.observe(this, Observer { newText ->
             textView1.text = newText
         })
@@ -520,16 +534,15 @@ class MainActivity : AppCompatActivity() {
             textView3.text = newText
         })
 
+        // ViewModel update LiveData
         button1.setOnClickListener {
-            viewModel.updateText1("Updated TextView 1")
+            viewModel.update1("Updated TextView 1")
         }
-
         button2.setOnClickListener {
-            viewModel.updateText2("Updated TextView 2")
+            viewModel.update2("Updated TextView 2")
         }
-
         button3.setOnClickListener {
-            viewModel.updateText3("Updated TextView 3")
+            viewModel.update3("Updated TextView 3")
         }
     }
 }
@@ -550,15 +563,15 @@ class MainViewModel : ViewModel() {
         _text3.value = "TextView 3"
     }
 
-    fun updateText1(newText: String) {
+    fun update1(newText: String) {
         _text1.value = newText
     }
 
-    fun updateText2(newText: String) {
+    fun update2(newText: String) {
         _text2.value = newText
     }
 
-    fun updateText3(newText: String) {
+    fun update3(newText: String) {
         _text3.value = newText
     }
 }
