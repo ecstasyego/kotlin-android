@@ -222,7 +222,7 @@ class Repository {
 
 <br>
 
-### MVP: Model + View + Presenter
+### MVP: Model + View + Presenter(UI Controller)
 - [Behavior] Model + Presenter(View)
   - Action > View > Presenter > Model
     - Model > Presenter > View
