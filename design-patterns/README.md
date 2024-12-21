@@ -211,11 +211,11 @@ class Repository {
   - Action > (View) > ...
     - ... > View
 - [Summary]
-    - MVC: Model + View + Controller
+    - MVC: Model + View + Controller(Action)
       - View <-- Model
-    - MVP: Model + View + Presenter
+    - MVP: Model + View(Action) + Presenter
       - View <-- Presenter
-    - MVVM: Model + View + ViewModel
+    - MVVM: Model + View(Action) + ViewModel
       - View <-- (LiveData) <-- ViewModel  
 
 ### MVC: Model + View + Controller
