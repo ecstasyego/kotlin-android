@@ -3,6 +3,7 @@
 ## Examples
 ### Example01-1: ViewHolder's EventHandler
 - itemView.setOnClickListener
+- bindingAdapterPosition
   
 #### File System
 ```
@@ -82,6 +83,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
 ### Example01-2: ViewHolder's EventHandler
 - itemView.setOnClickListener
+- bindingAdapterPosition
   
 #### File System
 ```
