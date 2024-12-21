@@ -38,13 +38,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        // ViewModel observe
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
         viewModel.item.observe(this, Observer { value ->
             textView.text = value
         })
 
-        // ViewModel update
+        // ViewModel update LiveData
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener {
             viewModel.update("Button clicked")
@@ -170,13 +170,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        // ViewModel observe
+        // ViewModel observe LiveData
         val textView: TextView = findViewById(R.id.textView)
         viewModel.item.observe(this, Observer { value ->
             textView.text = value
         })
 
-        // ViewModel update
+        // ViewModel update LiveData
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener {
             viewModel.update("Button clicked")
