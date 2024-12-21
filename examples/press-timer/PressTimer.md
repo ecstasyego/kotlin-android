@@ -18,8 +18,10 @@
 ```kotlin
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.MotionEvent
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -30,25 +32,28 @@ class MainActivity : AppCompatActivity() {
     private lateinit var elapsedTimeText: TextView
     private var startTime: Long = 0
     private var isPressed = false
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())  // Handler tied to main looper
     private var elapsedTime: Long = 0
     private val updateTimeRunnable = object : Runnable {
         override fun run() {
             // Calculate elapsed time
             elapsedTime = System.currentTimeMillis() - startTime
 
-            // Update the progress bar every 0.01 second
-            val progress = (elapsedTime / 10) // Convert milliseconds to 0.01 second intervals
-            progressBar.progress = progress.toInt()
+            // Update the progress bar every 0.01 second (1000 * 10ms = 10 seconds max)
+            val progress = (elapsedTime / 10).toInt() // Convert milliseconds to 0.01 second intervals
+            progressBar.progress = progress
 
-            // Update the elapsed time text
-            elapsedTimeText.text = "Elapsed Time: ${elapsedTime / 1000.0} seconds"
+            // Update the elapsed time text (formatted to seconds with 2 decimal places)
+            elapsedTimeText.text = "Elapsed Time: %.2f seconds".format(elapsedTime / 1000.0)
 
-            // Call the runnable again in 10 milliseconds
-            handler.postDelayed(this, 10)
+            // Call the runnable again in 10 milliseconds if still pressed
+            if (isPressed) {
+                handler.postDelayed(this, 10)
+            }
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
@@ -87,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        handler.removeCallbacks(updateTimeRunnable) // Clean up handlers
+        handler.removeCallbacks(updateTimeRunnable) // Clean up handlers when the activity stops
     }
 }
 ```
