@@ -204,7 +204,6 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textView.text = items[position] // Default
-
         holder.textView.setOnClickListener {
             holder.textView.text = items[position] + " *"
             //notifyItemChanged(position)
