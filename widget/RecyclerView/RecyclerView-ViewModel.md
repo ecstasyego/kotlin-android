@@ -40,10 +40,13 @@ class MainActivity : ComponentActivity() {
 
         val recyclerView = RecyclerView(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // ViewModel update LiveData
         recyclerView.adapter = MyAdapter(List(100){"ITEM ${it}"}){ position ->
             viewModel.update(position)
         }
 
+        // ViewModel observe LiveData
         viewModel.items.observe(this) { value ->
             (recyclerView.adapter as MyAdapter).submitChangedItems(value)
         }
