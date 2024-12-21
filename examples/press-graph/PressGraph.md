@@ -10,7 +10,9 @@
 │   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
-└── build.gradle.kts # PROJECT-LEVEL
+├── build.gradle.kts # PROJECT-LEVEL
+└── gradle.properties # PROJECT-LEVEL
+
 ```
 
 #### Source Code
