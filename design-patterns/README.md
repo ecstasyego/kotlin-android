@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_layout)
 
         val textView: TextView = findViewById(R.id.textView)
-        viewModel.text.observe(this, Observer { newText ->
+        viewModel.item.observe(this, Observer { newText ->
             textView.text = newText
         })
 
@@ -111,15 +111,15 @@ class MainActivity : AppCompatActivity() {
 
 
 class MainViewModel(private val getUseCase: GetUseCase) : ViewModel() {
-    private val _text = MutableLiveData<String>()
-    val text: LiveData<String> get() = _text
+    private val _item = MutableLiveData<String>()
+    val item: LiveData<String> get() = _item
 
     init {
-        _text.value = "TextView"
+        _item.value = "TextView"
     }
 
     fun update(newText: String) {
-        _text.value = getUseCase.execute(newText)
+        _item.value = getUseCase.execute(newText)
     }
 }
 
