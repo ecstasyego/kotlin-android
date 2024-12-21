@@ -1,7 +1,7 @@
 
 
 ## Examples
-### Example01: View + ViewModel
+### Example01: View + ViewModel()
 #### File System
 ```
 .Project
