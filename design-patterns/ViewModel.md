@@ -1,5 +1,8 @@
 ## Examples
-### Example01: Basic
+### Example01: ViewModel
+- Observe LiveData
+- Update LiveData from View's EventListener
+
 #### File System
 ```
 .Project
