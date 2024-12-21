@@ -14,7 +14,7 @@
   - TableLayout
 
 
-## EventListener
+## Widgets on Activity
 ```kotlin
 package com.example.myapplication
 
