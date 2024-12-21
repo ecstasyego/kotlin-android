@@ -21,16 +21,18 @@
 ```kotlin
 package com.example.myapplication
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.Gravity
 import android.view.ViewGroup
+import android.content.Context
+import android.graphics.Color
+import android.util.AttributeSet
+import androidx.cardview.widget.CardView
 import android.widget.LinearLayout
+import android.view.Gravity
 import android.widget.LinearLayout.LayoutParams
 
 class MainActivity : ComponentActivity() {
@@ -46,41 +48,19 @@ class MainActivity : ComponentActivity() {
 
 class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-    class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
+    class MyViewHolder(val customCardView: CustomCardView) : RecyclerView.ViewHolder(customCardView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        // Create CardView
-        val cardView = CardView(parent.context)
-        val cardLayoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        cardView.layoutParams = cardLayoutParams
-        cardView.setCardBackgroundColor(Color.WHITE)
-        cardView.radius = 12f
-        cardView.setCardElevation(4f)
-        cardView.setContentPadding(16, 16, 16, 16)
-
-        // Create LinearLayout
-        val linearLayout = LinearLayout(parent.context)
-        linearLayout.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-
-        // Create TextViews
-        for (col in 0 until 10) {
-            val textView = TextView(parent.context).apply {
-                text = "[$col]"
-                gravity = Gravity.START
-                setPadding(16, 16, 16, 16)
-                layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
-            }
-            linearLayout.addView(textView)
+        val customCardView = CustomCardView(parent.context).apply {
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+            addLinearLayoutWithTextViews(5) // Add 10 columns of TextViews
         }
 
-        // Add TableLayout to CardView
-        cardView.addView(linearLayout)
-        return MyViewHolder(cardView)
+        return MyViewHolder(customCardView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val linearLayout = holder.cardView.getChildAt(0) as LinearLayout
+        val linearLayout = holder.customCardView.getChildAt(0) as LinearLayout
         for (col in 0 until linearLayout.childCount) {
             val textView = linearLayout.getChildAt(col) as TextView
             textView.text = "[$col] ${items[position]}"
@@ -89,6 +69,40 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
     override fun getItemCount(): Int {
         return items.size
+    }
+}
+
+
+class CustomCardView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : CardView(context, attrs, defStyleAttr) {
+
+    init {
+        setCardBackgroundColor(Color.WHITE)
+        radius = 12f
+        setCardElevation(4f)
+        setContentPadding(16, 16, 16, 16)
+    }
+
+    fun addLinearLayoutWithTextViews(columns: Int) {
+        val linearLayout = LinearLayout(context).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        }
+
+        for (col in 0 until columns) {
+            val textView = TextView(context).apply {
+                text = "[$col]"
+                gravity = Gravity.START
+                setPadding(16, 16, 16, 16)
+                layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
+            }
+            linearLayout.addView(textView)
+        }
+
+        addView(linearLayout)
     }
 }
 ```
