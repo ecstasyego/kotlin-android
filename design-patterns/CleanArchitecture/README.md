@@ -1,5 +1,5 @@
 # Clean Architecture
-- Application (DEPENDENCY INJECTION)
+- Application (DEPENDENCY INJECTION-LAYER)
     - Activity (PRESENTATION-LAYER)
         - View (PRESENTATION-LAYER)
             - ViewModel (PRESENTATION-LAYER)
