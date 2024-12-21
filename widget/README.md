@@ -1,4 +1,4 @@
-# Widget
+# Widgets
 - View
   - TextView
   - Button
@@ -14,7 +14,7 @@
   - TableLayout
 
 
-## Activity
+## EventListener
 ```kotlin
 package com.example.myapplication
 
