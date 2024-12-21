@@ -1,3 +1,20 @@
+## Android Application Design
+- Presentation Layer Design
+  - Activity Design
+    - Layout Design
+      - View Design
+- Data Layer Design
+  - Database Design
+    - Local API Design
+      - Repository Design
+- Domain Layer Design
+  - UseCase Design
+    - ViewModel Design
+
+
+
+<br><br><br>
+
 ## Android Application Architecture
 ![image](https://github.com/user-attachments/assets/b84ee85e-0e3e-4875-a8a3-68273a8a56dd)
 
