@@ -207,7 +207,7 @@ class Repository {
 <br><br><br>
 
 ## Design Patterns
-- [Behavior]
+- [Behavior] Controller(Model, View)
   - Action > (View) > ...
     - ... > View
 
@@ -223,7 +223,7 @@ class Repository {
 <br>
 
 ### MVP: Model + View + Presenter
-- [Behavior]
+- [Behavior] Model + Presenter(View)
   - Action > View > Presenter > Model
     - Model > Presenter > View
 - (Dependency) Presenter : View
@@ -244,7 +244,7 @@ View: Represents the UI components (Activities and Fragments).
 ViewModel: Acts as a bridge between the UI and the Model, exposing LiveData to the UI and handling business logic.
 ```
 
-- [Behavior]
+- [Behavior] Model + View + ViewModel()
   - Action > View > ViewModel > Model
     - Model > ViewModel > View
 - (Independency) ViewModel : View
