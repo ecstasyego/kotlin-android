@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity() {
 
         // ViewModel observe
         val textView: TextView = findViewById(R.id.textView)
-        viewModel.item.observe(this, Observer { newText ->
-            textView.text = newText
+        viewModel.item.observe(this, Observer { value ->
+            textView.text = value
         })
 
         // ViewModel update
