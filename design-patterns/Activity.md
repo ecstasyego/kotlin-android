@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Intent Design
+### Example01: Activity Design
 #### File System
 ```
 .Project
