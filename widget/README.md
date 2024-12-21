@@ -173,6 +173,83 @@ class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
 }
 ```
 
+## EventHandler
+```koltin
+
+Button.setOnClickListener {
+	Toast.makeText(this, "Button Clicked!", Toast.LENGTH_SHORT).show()
+}
+
+checkBox.setOnCheckedChangeListener { _, isChecked ->
+	if (isChecked) {
+		Toast.makeText(this, "Terms Accepted", Toast.LENGTH_SHORT).show()
+	} else {
+		Toast.makeText(this, "Terms Not Accepted", Toast.LENGTH_SHORT).show()
+	}
+}
+
+
+editText.addTextChangedListener(object : TextWatcher {
+	override fun beforeTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+	}
+
+	override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+		val userInput = charSequence.toString()
+		Toast.makeText(this@MainActivity, "Text changed: $userInput", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun afterTextChanged(editable: Editable?) {
+	}
+})
+
+editText.setOnFocusChangeListener { view: View, hasFocus: Boolean ->
+	if (hasFocus) {
+		Toast.makeText(this, "EditText got focus", Toast.LENGTH_SHORT).show()
+	} else {
+		Toast.makeText(this, "EditText lost focus", Toast.LENGTH_SHORT).show()
+	}
+}
+
+EditText.setOnEditorActionListener { v, actionId, event ->
+	if (actionId == EditorInfo.IME_ACTION_DONE) {
+		Toast.makeText(this, "Enter key pressed!", Toast.LENGTH_SHORT).show()
+		return@setOnEditorActionListener true
+	}
+	false
+}
+
+
+radioGroup.setOnCheckedChangeListener { group, checkedId ->
+	val selectedRadioButton: RadioButton = findViewById(checkedId)
+	Toast.makeText(this, "Selected: ${selectedRadioButton.text}", Toast.LENGTH_SHORT).show()
+}
+
+spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+	override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: android.view.View?, position: Int, id: Long) {
+		val selectedItem = parentView?.getItemAtPosition(position).toString()
+		Toast.makeText(this@MainActivity, "Selected: $selectedItem", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun onNothingSelected(parentView: AdapterView<*>?) {
+	}
+}
+
+seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+	override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+		seekBarValueTextView.text = "Value: $progress"
+		Toast.makeText(this@MainActivity, "SeekBar value: $progress", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun onStartTrackingTouch(seekBar: SeekBar?) {
+	}
+
+	override fun onStopTrackingTouch(seekBar: SeekBar?) {
+	}
+})
+
+```
+
+
 
 
 
