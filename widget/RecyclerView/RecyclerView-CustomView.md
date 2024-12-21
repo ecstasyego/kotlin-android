@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
@@ -74,11 +75,21 @@ class CustomCardView @JvmOverloads constructor(
         setCardElevation(4f)
         setContentPadding(16, 16, 16, 16)
         setCardBackgroundColor(Color.WHITE)
+        layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT // Height can be wrapped based on content
+        )
+        background = GradientDrawable().apply {
+            setColor(Color.WHITE)  // Inside color (background)
+            setStroke(4, Color.LTGRAY) // Border width and color
+            cornerRadius = 12f // Match the corner radius of the card
+        }
+
 
         textView = TextView(context).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.MATCH_PARENT
             )
             textSize = 16f
             setPadding(16, 16, 16, 16)
