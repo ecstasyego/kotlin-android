@@ -176,7 +176,7 @@ class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
 ## EventHandler
 ```koltin
 
-Button.setOnClickListener {
+button.setOnClickListener {
 	Toast.makeText(this, "Button Clicked!", Toast.LENGTH_SHORT).show()
 }
 
