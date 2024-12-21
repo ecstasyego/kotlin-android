@@ -129,15 +129,6 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
         init {
             itemView.setOnClickListener {
-                onItemClick(bindingAdapterPosition)
-            }
-        }
-
-        fun onItemClick(position:Int){
-            if (position != RecyclerView.NO_POSITION) {
-                clickCounts[position] += 1
-
-                if (clickCounts[position] % 2 == 1) {textView.setTextColor(Color.RED)} else {textView.setTextColor(Color.BLACK)}
                 Toast.makeText(itemView.context, "Item ${textView.text} clicked", Toast.LENGTH_SHORT).show()
             }
         }
