@@ -189,7 +189,7 @@ class MainViewModelFactory(private val button: Button) : ViewModelProvider.Facto
 <br>
 
 
-### Example03-1: ViewModel(*Views)
+### Example03-1: ViewModel(*Views) with ViewModelProvider.Factory
 #### File System
 ```
 .Project
