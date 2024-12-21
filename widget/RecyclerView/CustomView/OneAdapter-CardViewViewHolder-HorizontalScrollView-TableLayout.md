@@ -20,19 +20,22 @@
 ```kotlin
 package com.example.myapplication
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.TableLayout
-import android.widget.TableRow
 import androidx.activity.ComponentActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
+import android.content.Context
+import android.graphics.Color
+import android.util.AttributeSet
+import androidx.cardview.widget.CardView
+import android.view.Gravity
 import android.widget.LinearLayout.LayoutParams
+import android.widget.HorizontalScrollView
+import android.widget.TableLayout
+import android.widget.TableRow
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,28 +50,55 @@ class MainActivity : ComponentActivity() {
 
 class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-    class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
+    class MyViewHolder(val customCardView: CustomCardView) : RecyclerView.ViewHolder(customCardView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        // Create CardView
-        val cardView = CardView(parent.context)
-        val cardLayoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        cardView.layoutParams = cardLayoutParams
-        cardView.setCardBackgroundColor(Color.WHITE)
-        cardView.radius = 12f
-        cardView.setCardElevation(4f)
-        cardView.setContentPadding(16, 16, 16, 16)
+        val customCardView = CustomCardView(parent.context).apply {
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+            addTableRows(3, 5) // Add 3 rows and 5 columns
+        }
+        return MyViewHolder(customCardView)
+    }
 
-        // Create TableLayout
-        val horizontalScrollView = HorizontalScrollView(parent.context)
-        val tableLayout = TableLayout(parent.context)
-        tableLayout.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.customCardView.updateTableData(items, 3, 5)
+    }
 
-        // Create TableRows and TextViews
-        for (row in 0 until 3) {
-            val tableRow = TableRow(parent.context)
-            for (col in 0 until 5) {
-                val textView = TextView(parent.context).apply {
+    override fun getItemCount(): Int {
+        return items.size
+    }
+}
+
+
+class CustomCardView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : CardView(context, attrs, defStyleAttr) {
+
+    private val horizontalScrollView: HorizontalScrollView
+    private val tableLayout: TableLayout
+
+    init {
+        setCardBackgroundColor(Color.WHITE)
+        radius = 12f
+        setCardElevation(4f)
+        setContentPadding(16, 16, 16, 16)
+
+        horizontalScrollView = HorizontalScrollView(context)
+        tableLayout = TableLayout(context).apply {
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        }
+
+        horizontalScrollView.addView(tableLayout)
+        addView(horizontalScrollView)
+    }
+
+    fun addTableRows(rows: Int, columns: Int) {
+        for (row in 0 until rows) {
+            val tableRow = TableRow(context)
+            for (col in 0 until columns) {
+                val textView = TextView(context).apply {
                     text = "[$row, $col]"
                     gravity = Gravity.START
                     setPadding(16, 16, 16, 16)
@@ -77,27 +107,16 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
             }
             tableLayout.addView(tableRow)
         }
-
-        // Add TableLayout to CardView
-        horizontalScrollView.addView(tableLayout)
-        cardView.addView(horizontalScrollView)
-        return MyViewHolder(cardView)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val horizontalScrollView = holder.cardView.getChildAt(0) as HorizontalScrollView
-        val tableLayout = horizontalScrollView.getChildAt(0) as TableLayout
+    fun updateTableData(items: List<String>, rowCount: Int, columnCount: Int) {
         for (row in 0 until tableLayout.childCount) {
             val tableRow = tableLayout.getChildAt(row) as TableRow
             for (col in 0 until tableRow.childCount) {
                 val textView = tableRow.getChildAt(col) as TextView
-                textView.text = "[$row, $col] ${items[position]}"
+                textView.text = "[$row, $col] ${items.getOrElse(row) { "" }}"
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return items.size
     }
 }
 ```
