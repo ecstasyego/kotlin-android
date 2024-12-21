@@ -2,6 +2,18 @@
 ## CleanArchitecture0001
 ### Architecture Guide
 ```
+.Class
+├── Dependency Injection
+│   └── Application
+├── Presentation Layer(UI Layer)
+│   ├── Activity
+│   ├── View
+│   └── ViewModel
+├── Domain Layer
+│   └── UseCase
+└── Data Layer
+    ├── Repository
+    └── APIService
 ```
 
 <br><br><br>
