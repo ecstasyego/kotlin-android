@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01-1: ViewHolder's EventHandler
+### Example01-1: ViewHolder's EventHandler(itemView.setOnClickListener)
 #### File System
 ```
 .Project
@@ -78,7 +78,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 <br>
 
 
-### Example01-2: ViewHolder's EventHandler
+### Example01-2: ViewHolder's EventHandler(itemView.setOnClickListener)
 #### File System
 ```
 .Project
