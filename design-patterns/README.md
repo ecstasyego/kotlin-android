@@ -210,6 +210,13 @@ class Repository {
 - [Behavior] Controller(Model, View)
   - Action > (View) > ...
     - ... > View
+- [Summary]
+    - MVC: Model + View + Controller
+      - View <-- Model
+    - MVP: Model + View + Presenter
+      - View <-- Presenter
+    - MVVM: Model + View + ViewModel
+      - View <-- (LiveData) <-- ViewModel  
 
 ### MVC: Model + View + Controller
 - [Behavior] Controller(View, Model)
