@@ -212,9 +212,9 @@ class Repository {
     - ... > View
 
 ### MVC: Model + View + Controller
-- [Behavior]
-  - Action > (View) > Controller
-    -  Model <-> Controller <-> View
+- [Behavior] Controller(View, Model)
+  - [Dependency Relation] Action > Controller > **(1)Model > View**
+    - **(1)Model ---> View**
 - Controller : View
   - 1 : n
     - Controller : View01, View02, View03, ...
@@ -224,8 +224,8 @@ class Repository {
 
 ### MVP: Model + View + Presenter(UI Controller)
 - [Behavior] Model + Presenter(View)
-  - Action > View > Presenter > Model
-    - Model > Presenter > View
+  - [Dependency Relation] Action > View > (1)Presenter > Model > **(1)Presenter > View**
+    - **(1)Presenter ---> View**
 - (Dependency) Presenter : View
   - 1 : 1
     - Presenter01 : View01
@@ -244,9 +244,11 @@ View: Represents the UI components (Activities and Fragments).
 ViewModel: Acts as a bridge between the UI and the Model, exposing LiveData to the UI and handling business logic.
 ```
 
-- [Behavior] Model + View + ViewModel()
-  - Action > View > ViewModel > Model
-    - Model > ViewModel > View
+- [Behavior] Model + ViewModel + View 
+  - [Dependency Relation] Action > (1)View > ViewModel > (2)Model > ViewModel > View
+    - **Model + (Repository) + ViewModel + (LiveData) + View**
+    - (1)View <- **LiveData** -> ViewModel
+    - (2)Model <- **Repository(APIService)** -> ViewModel
 - (Independency) ViewModel : View
   - 1 : n
     - ViewModel : View01, View02, View03, ...
