@@ -129,6 +129,7 @@ class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapte
 
         init {
             itemView.setOnClickListener {
+                clickCounts[bindingAdapterPosition] += 1
                 Toast.makeText(itemView.context, "Item ${textView.text} clicked", Toast.LENGTH_SHORT).show()
             }
         }
