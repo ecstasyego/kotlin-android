@@ -9,7 +9,7 @@
 
 ```
 .Class
-├── Dependency Injection
+├── Dependency Injection Layer
 │   └── Application
 ├── Presentation Layer(UI Layer)
 │   ├── Activity
