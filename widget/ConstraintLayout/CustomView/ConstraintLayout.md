@@ -19,17 +19,65 @@
 ```kotlin
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.util.AttributeSet
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
+    lateinit var customConstraintLayout: CustomConstraintLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        customConstraintLayout = CustomConstraintLayout(this)
+        setContentView(customConstraintLayout)
+    }
+}
 
-        val linearLayout = LinearLayout(this)
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-        setContentView(linearLayout)
+class CustomConstraintLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
+
+    init {
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
+        val textView = TextView(context).apply {
+            id = generateViewId()  // 고유 id 생성
+            text = "Hello, CustomConstraintLayout!"
+            textSize = 20f
+            setTextColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
+        }
+        val button = Button(context).apply {
+            id = generateViewId()  // 고유 id 생성
+            text = "Click Me"
+            textSize = 18f
+            setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_green_light))
+            setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        }
+        addView(textView)
+        addView(button)
+
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(this)
+        constraintSet.connect(textView.id, ConstraintSet.TOP, this.id, ConstraintSet.TOP, 100) // 상단 100px
+        constraintSet.connect(textView.id, ConstraintSet.LEFT, this.id, ConstraintSet.LEFT, 32) // 왼쪽 32px
+        constraintSet.connect(textView.id, ConstraintSet.RIGHT, this.id, ConstraintSet.RIGHT, 32) // 오른쪽 32px
+        constraintSet.constrainWidth(textView.id, ConstraintSet.MATCH_CONSTRAINT) // 너비 설정
+        constraintSet.applyTo(this)
+
+        constraintSet.clone(this)
+        constraintSet.connect(button.id, ConstraintSet.TOP, textView.id, ConstraintSet.BOTTOM, 32) // TextView 아래 32px
+        constraintSet.connect(button.id, ConstraintSet.LEFT, this.id, ConstraintSet.LEFT, 32) // 왼쪽 32px
+        constraintSet.connect(button.id, ConstraintSet.RIGHT, this.id, ConstraintSet.RIGHT, 32) // 오른쪽 32px
+        constraintSet.constrainWidth(button.id, ConstraintSet.MATCH_CONSTRAINT) // 너비 설정
+        constraintSet.applyTo(this)
     }
 }
 ```
