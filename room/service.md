@@ -1,6 +1,6 @@
 
 ## Examples
-### Example01: Background Process
+### Example01: Background Thread
 #### File System
 ```
 .Project
