@@ -30,12 +30,12 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
-    lateinit var customConstraintLayout: CustomConstraintLayout
+    lateinit var widget: CustomConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        customConstraintLayout = CustomConstraintLayout(this)
-        setContentView(customConstraintLayout)
+        widget = CustomConstraintLayout(this)
+        setContentView(widget)
     }
 }
 
