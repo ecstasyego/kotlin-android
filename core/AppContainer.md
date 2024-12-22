@@ -326,12 +326,25 @@ class MainActivity : ComponentActivity() {
 package com.example.myapplication
 
 import android.app.Application
+import android.app.Service
+import android.content.Intent
 import android.os.Bundle
+import android.os.IBinder
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 
 object AppContainer {
     private lateinit var applicationContext: Application
-    fun initialize(application: Application) { applicationContext = application }
+    private lateinit var contentService: ContentService
+
+    fun initialize(application: Application) {
+        applicationContext = application
+        contentService = ContentService()
+    }
+
+    fun getContentService(): ContentService {
+        return contentService
+    }
 }
 
 class UserApplication : Application() {
@@ -350,7 +363,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
-        val app = applicationContext as UserApplication
+        val intent = Intent(this, ContentService::class.java)
+        startService(intent)
+        stopService(intent)
+    }
+}
+
+class ContentService : Service() {
+    override fun onCreate() {
+        super.onCreate()
+        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Toast.makeText(this, "SERVICE", Toast.LENGTH_SHORT).show()
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 }
 ```
@@ -380,9 +411,11 @@ class MainActivity : ComponentActivity() {
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".ContentService" />
 
     </application>
 </manifest>
