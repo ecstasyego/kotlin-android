@@ -322,6 +322,36 @@ class ContentViewModel(application: Application) : AndroidViewModel(application)
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.app.Application
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+
+object AppContainer {
+    private lateinit var applicationContext: Application
+    fun initialize(application: Application) { applicationContext = application }
+}
+
+class UserApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        AppContainer.initialize(this)
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+    }
+}
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_layout)
+
+        val app = applicationContext as UserApplication
+    }
+}
 ```
 
 `AndroidManifest.xml`
