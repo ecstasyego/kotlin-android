@@ -25,7 +25,7 @@ import android.widget.Button
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
-    lateinit var widget: Button
+    lateinit var widget: CustomButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
