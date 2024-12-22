@@ -272,6 +272,7 @@ package com.example.myapplication
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -281,6 +282,9 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
@@ -302,10 +306,10 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val historyList: List<History> = db.historyDao().get() // Query the database
         }
-        
+
         lifecycleScope.launch(Dispatchers.IO) {
             db.historyDao().delete() // Delete all records from the database
-        }  
+        }
     }
 }
 
@@ -396,6 +400,7 @@ package com.example.myapplication
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -405,6 +410,9 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
@@ -422,17 +430,17 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             db.historyDao().insert(History(null, "Hello", "World!")) // Insert data into the database using coroutines
         }
-        
+
         lifecycleScope.launch(Dispatchers.IO) {
             val historyList: List<History> = db.historyDao().get() // Query the database
             withContext(Dispatchers.Main) {
                 // Process the list, update UI, etc.
             }
         }
-        
+
         lifecycleScope.launch(Dispatchers.IO) {
             db.historyDao().delete() // Delete all records from the database
-        }  
+        }
     }
 }
 
