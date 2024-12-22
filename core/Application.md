@@ -305,7 +305,7 @@ class ContentViewModel(application: Application) : AndroidViewModel(application)
 <br>
 
 
-### Example04: Application and AppContainer for Dependency Injection(DI)
+### Example04: AppContainer for Dependency Injection(DI)
 #### File System
 ```
 .Project
