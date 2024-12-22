@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
     lateinit var widget: CustomTableLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         widget = CustomTableLayout(this)
