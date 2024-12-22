@@ -20,43 +20,59 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.content.Context
+import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.ComponentActivity
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
+    lateinit var  widget: CustomRecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val recyclerView = RecyclerView(this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = MyAdapter(List<String>(100){"ITEM ${it.toString()}"})
-        setContentView(recyclerView)
+        widget = CustomRecyclerView(this)
+        setContentView(widget)
     }
 }
 
-class MyAdapter(private val items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-    class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+class CustomRecyclerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : RecyclerView(context, attrs, defStyleAttr) {
+
+    init {
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+        layoutManager = LinearLayoutManager(context)
+        adapter = CustomAdapter(List(20) { "Item #$it" })
+    }
+}
+
+class CustomAdapter(private val data: List<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val textView: TextView = itemView as TextView
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val textView = TextView(parent.context)
         textView.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         textView.setPadding(16, 16, 16, 16)
-        return MyViewHolder(textView)
+        return ViewHolder(textView)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.textView.text = items[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.textView.text = data[position]
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = data.size
 }
 ```
 
