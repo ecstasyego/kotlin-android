@@ -35,12 +35,10 @@ import androidx.room.RoomDatabase
 
 object AppContainer {
     private lateinit var applicationContext: Application
+    fun initialize(application: Application) { applicationContext = application }
 
     @Volatile
     private var INSTANCE: AppDatabase? = null
-
-    fun initialize(application: Application) { applicationContext = application }
-
     fun getDatabase(): AppDatabase {
         return INSTANCE ?: synchronized(this) {
             val instance = Room.databaseBuilder(
