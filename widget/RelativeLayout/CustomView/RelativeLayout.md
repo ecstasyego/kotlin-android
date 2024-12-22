@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
     lateinit var widget: CustomRelativeLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         widget = CustomRelativeLayout(this)
