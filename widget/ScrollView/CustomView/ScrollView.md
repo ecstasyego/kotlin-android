@@ -29,6 +29,7 @@ import androidx.core.widget.NestedScrollView
 
 class MainActivity : ComponentActivity() {
     lateinit var widget: CustomScrollView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         widget = CustomScrollView(this)
