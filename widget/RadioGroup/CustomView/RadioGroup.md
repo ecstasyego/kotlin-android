@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
     lateinit var widget: CustomRadioGroup
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
