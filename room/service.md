@@ -653,7 +653,7 @@ dependencies {
 <br>
 
 
-### Example04: Background Thread with BroadcastReceiver
+### Example04: Background Thread with LocalBroadcastReceiver
 #### File System
 ```
 .Project
@@ -680,8 +680,13 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.widget.LinearLayout
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -700,6 +705,19 @@ class MainActivity : ComponentActivity() {
                     val historyList = intent.getSerializableExtra("historyList") as? List<History>
                     runOnUiThread {
                         historyList?.let {
+                            val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
+                            val tableLayout = TableLayout(this@MainActivity)
+
+                            historyList?.forEach { history ->
+                                val tableRow = TableRow(this@MainActivity).apply {
+                                    addView(TextView(this@MainActivity).apply { text = history.uid.toString() })
+                                    addView(TextView(this@MainActivity).apply { text = history.expression })
+                                    addView(TextView(this@MainActivity).apply { text = history.result })
+                                }
+                                tableLayout.addView(tableRow)
+                            }
+                            mainLayout.addView(tableLayout)
+
                         }
                     }
                 }
@@ -736,12 +754,12 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         val filter = IntentFilter("com.example.myapplication.DB_ACTION")
-        registerReceiver(historyReceiver, filter, RECEIVER_NOT_EXPORTED)
+        LocalBroadcastManager.getInstance(this).registerReceiver(historyReceiver, filter)
     }
 
     override fun onStop() {
         super.onStop()
-        unregisterReceiver(historyReceiver)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(historyReceiver)
     }
 }
 
@@ -793,7 +811,7 @@ class DatabaseService : Service() {
                 putExtra("action", "query")
                 putExtra("historyList", ArrayList(historyList)) // Send the result
             }
-            sendBroadcast(intent)
+            LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
         }
         thread.start()
         thread.join()
