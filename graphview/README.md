@@ -2,7 +2,7 @@
 ## Examples
 - https://github.com/jjoe64/GraphView/wiki/Documentation
 
-### Example01: *.kt
+### Example01: Basic
 #### File System
 ```
 .Project
@@ -33,12 +33,14 @@ import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     lateinit var widget:GraphView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         widget = CustomGraphView(this)
         setContentView(widget)
     }
 }
+
 class CustomGraphView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : GraphView(context, attrs, defStyle) {
