@@ -44,17 +44,25 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        Thread(Runnable {
+        val thread00 = Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread01 = Thread(Runnable {
             val historyList:List<History> = db.historyDao().get()
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread02 = Thread(Runnable {
             db.historyDao().delete()
-        }).start()
+        })
+
+        thread00.start()
+        thread01.start()
+        thread02.start()
+
+        thread00.join()
+        thread01.join()
+        thread02.join()
     }
 }
 
@@ -295,14 +303,14 @@ class MainActivity : ComponentActivity() {
         ).build()
 
         // [2] Insert data
-        Thread(Runnable {
+        val thread00 = Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
             db.historyDao().insert(History(null, "abcde", "ABCDE"))
             db.historyDao().insert(History(null, "GOOD", "BAD"))
-        }).start()
+        })
 
         // [3] UI Update
-        Thread(Runnable {
+        val thread01 = Thread(Runnable {
             val historyList = db.historyDao().get().reversed()
             val rows = mutableListOf<TableRow>()
             historyList.forEach {
@@ -318,12 +326,21 @@ class MainActivity : ComponentActivity() {
                 rows.forEach { tableLayout.addView(it) }
                 mainLayout.addView(tableLayout)
             }
-        }).start()
+        })
 
         // [4] Remove data
-        Thread(Runnable {
+        val thread02 = Thread(Runnable {
             db.historyDao().delete()
-        }).start()
+        })
+
+        thread00.start()
+        thread01.start()
+        thread02.start()
+
+        thread00.join()
+        thread01.join()
+        thread02.join()
+
     }
 }
 
@@ -447,13 +464,13 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        Thread(Runnable {
+        val thread00 = Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
             db.historyDao().insert(History(null, "abcde", "ABCDE"))
             db.historyDao().insert(History(null, "GOOD", "BAD"))
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread01 = Thread(Runnable {
             val historyList = db.historyDao().get().reversed() // latest
             val rows = mutableListOf<TableRow>()
             historyList.forEach {
@@ -468,11 +485,20 @@ class MainActivity : ComponentActivity() {
                 rows.forEach{ tableLayout.addView(it) }
                 mainLayout.addView( tableLayout )
             }
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread02 = Thread(Runnable {
             db.historyDao().delete()
-        }).start()
+        })
+
+        thread00.start()
+        thread01.start()
+        thread02.start()
+
+        thread00.join()
+        thread01.join()
+        thread02.join()
+
     }
 }
 
