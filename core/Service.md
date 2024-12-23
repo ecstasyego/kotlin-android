@@ -448,7 +448,10 @@ class ContentService : Service() {
         Thread {
             Thread.sleep(2000)
             val result = "WORK DONE!"
-            sendResultToActivity(result)
+
+            val intent = Intent("com.example.myapplication.RESULT_ACTION")
+            intent.putExtra("result", result)
+            sendBroadcast(intent)  // Broadcast TO Activity
         }.start()
 
         return START_STICKY
@@ -456,12 +459,6 @@ class ContentService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
-    }
-
-    private fun sendResultToActivity(result: String) {
-        val intent = Intent("com.example.myapplication.RESULT_ACTION")
-        intent.putExtra("result", result)
-        sendBroadcast(intent)  // Broadcast TO Activity
     }
 }
 ```
@@ -586,7 +583,10 @@ class ContentService : Service() {
         Thread {
             Thread.sleep(2000)
             val result = "WORK DONE!"
-            sendResultToActivity(result)
+
+            val intent = Intent("com.example.myapplication.RESULT_ACTION")
+            intent.putExtra("result", result)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         }.start()
 
         return START_STICKY
@@ -594,12 +594,6 @@ class ContentService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
-    }
-
-    private fun sendResultToActivity(result: String) {
-        val intent = Intent("com.example.myapplication.RESULT_ACTION")
-        intent.putExtra("result", result)
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 }
 ```
