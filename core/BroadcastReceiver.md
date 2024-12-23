@@ -425,7 +425,6 @@ class MainActivity : ComponentActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val result = intent?.getStringExtra("result")
             Toast.makeText(this@MainActivity, "Service Result: $result", Toast.LENGTH_LONG).show()
-            // abortBroadcast()
         }
     }
 
@@ -442,7 +441,6 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         val filter = IntentFilter("com.example.myapplication.RESULT_ACTION")
         registerReceiver(resultReceiver, filter, Context.RECEIVER_EXPORTED) // Service Register
-        //registerReceiver(resultReceiver, filter, "com.example.myapplication.PERMISSION", null) // with permission
     }
 
     override fun onStop() {
@@ -461,7 +459,6 @@ class ContentService : Service() {
             val intent = Intent("com.example.myapplication.RESULT_ACTION")
             intent.putExtra("result", result)
             sendBroadcast(intent)  // Broadcast TO Activity
-            //sendBroadcast(intent, "com.example.myapplication.PERMISSION") // with Permission
         }.start()
 
         return START_STICKY
