@@ -163,13 +163,7 @@ import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 
 class MainActivity : ComponentActivity() {
-
-    private val resultReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val result = intent?.getStringExtra("result")
-            Toast.makeText(this@MainActivity, "Service Result: $result", Toast.LENGTH_LONG).show()
-        }
-    }
+    private val resultReceiver = ResultReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,6 +186,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+class ResultReceiver: BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val result = intent?.getStringExtra("result")
+        Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
+    }
+}
 
 class ContentService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
