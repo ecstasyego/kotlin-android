@@ -450,18 +450,24 @@ class DatabaseService : Service() {
     // Insert history into the database synchronously
     private fun insertHistory(expression: String?, result: String?) {
         val history = History(expression = expression, result = result)
-        db.historyDao().insert(history)
+        Thread{
+            db.historyDao().insert(history)
+        }.start()
     }
 
     // Query all histories from the database synchronously
     private fun queryHistory() {
-        val historyList = db.historyDao().get()
         // You can handle the result here, for example, send a broadcast or use LiveData
+        Thread{
+            val historyList = db.historyDao().get()
+        }.start()
     }
 
     // Delete all histories from the database synchronously
     private fun deleteHistory() {
-        db.historyDao().delete()
+        Thread{
+            db.historyDao().delete()
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? {
