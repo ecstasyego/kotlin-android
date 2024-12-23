@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Basic
+### Example01: Global Boradcast
 #### File System
 ```
 .Project
@@ -447,13 +447,16 @@ class ResultReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val result = intent?.getStringExtra("result")
 
-        //intent.action == Intent.ACTION_POWER_CONNECTED
-        //intent.action == Intent.ACTION_POWER_DISCONNECTED
-        //intent.action == Intent.TIME_SET
-        //intent.action == Intent.PACKAGE_ADDED
-        //intent.action == Intent.PACKAGE_REMOVED
-        //intent.action == Intent.MEDIA_MOUNTED
+        // AndroidManifest.xml: uses-permission tag
         if (intent?.action == Intent.ACTION_BOOT_COMPLETED){
+            // Protection Conditions
+            //intent.action == Intent.ACTION_POWER_CONNECTED
+            //intent.action == Intent.ACTION_POWER_DISCONNECTED
+            //intent.action == Intent.TIME_SET
+            //intent.action == Intent.PACKAGE_ADDED
+            //intent.action == Intent.PACKAGE_REMOVED
+            //intent.action == Intent.MEDIA_MOUNTED
+
             Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
         }
 
