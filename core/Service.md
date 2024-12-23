@@ -422,42 +422,26 @@ import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.annotation.RequiresApi
+
+class ResultReceiver: BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val result = intent?.getStringExtra("result")
+        Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
+    }
+}
 
 class MainActivity : ComponentActivity() {
-
-    private val resultReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val result = intent?.getStringExtra("result")
-            Toast.makeText(this@MainActivity, "Service Result: $result", Toast.LENGTH_LONG).show()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
 
         val serviceIntent = Intent(this, ContentService::class.java)
         startService(serviceIntent)  // Service Start
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onStart() {
-        super.onStart()
-        val filter = IntentFilter("com.example.myapplication.RESULT_ACTION")
-        registerReceiver(resultReceiver, filter, Context.RECEIVER_EXPORTED) // Service Register
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(resultReceiver) // Service Unregister
     }
 }
 
