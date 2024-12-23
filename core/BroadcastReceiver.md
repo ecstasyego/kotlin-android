@@ -203,6 +203,8 @@ class MainActivity : ComponentActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val result = intent?.getStringExtra("result")
             Toast.makeText(this@MainActivity, "Service Result: $result", Toast.LENGTH_LONG).show()
+
+            // abortBroadcast()
         }
     }
 
@@ -218,6 +220,7 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         val filter = IntentFilter("com.example.myapplication.RESULT_ACTION")
+        filter.priority = 100 // Higher priority means it will receive the broadcast first.
         registerReceiver(resultReceiver, filter, Context.RECEIVER_EXPORTED) // Service Register
     }
 
