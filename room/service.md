@@ -566,10 +566,15 @@ dependencies {
 package com.example.myapplication
 
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.activity.ComponentActivity
+import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -581,6 +586,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 class MainActivity : ComponentActivity() {
+    private val historyReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.getStringExtra("action")) {
+                "query" -> {
+                    val historyList = intent.getSerializableExtra("historyList") as? List<History>
+                    runOnUiThread {
+                        historyList?.let {
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -605,6 +623,18 @@ class MainActivity : ComponentActivity() {
             putExtra("action", "delete")
         }
         startService(deleteIntent)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onStart() {
+        super.onStart()
+        val filter = IntentFilter("com.example.myapplication.DB_ACTION")
+        registerReceiver(historyReceiver, filter, RECEIVER_NOT_EXPORTED)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(historyReceiver)
     }
 }
 
@@ -652,6 +682,11 @@ class DatabaseService : Service() {
         // You can handle the result here, for example, send a broadcast or use LiveData
         val thread = Thread{
             val historyList = db.historyDao().get()
+            val intent = Intent("com.example.myapplication.DB_ACTION").apply {
+                putExtra("action", "query")
+                putExtra("historyList", ArrayList(historyList)) // Send the result
+            }
+            sendBroadcast(intent)
         }
         thread.start()
         thread.join()
@@ -695,7 +730,42 @@ data class History(
     @PrimaryKey(autoGenerate = true) val uid: Int? = null,
     @ColumnInfo(name = "expression") val expression: String?,
     @ColumnInfo(name = "result") val result: String?
-)
+):java.io.Serializable
+```
+
+`AndroidManifest.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".DatabaseService" />
+
+    </application>
+</manifest>
 ```
 
 `main_layout.xml`
