@@ -46,17 +46,25 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        Thread(Runnable {
+        val thread00 = Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread01 = Thread(Runnable {
             val historyList:List<History> = db.historyDao().get()
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread02 = Thread(Runnable {
             db.historyDao().delete()
-        }).start()
+        })
+
+        thread00.start()
+        thread01.start()
+        thread02.start()
+
+        thread00.join()
+        thread01.join()
+        thread02.join()
     }
 }
 
@@ -170,20 +178,28 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        Thread(Runnable {
+        val thread00 = Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread01 = Thread(Runnable {
             val historyList:List<History> = db.historyDao().get()
             runOnUiThread {
                 // Process the list, update UI, etc.
             }
-        }).start()
+        })
 
-        Thread(Runnable {
+        val thread02 = Thread(Runnable {
             db.historyDao().delete()
-        }).start()
+        })
+
+        thread00.start()
+        thread01.start()
+        thread02.start()
+
+        thread00.join()
+        thread01.join()
+        thread02.join()
     }
 }
 
