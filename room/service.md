@@ -1162,10 +1162,15 @@ dependencies {
 package com.example.myapplication
 
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.activity.ComponentActivity
+import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -1181,6 +1186,19 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    private val historyReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.getStringExtra("action")) {
+                "query" -> {
+                    val historyList = intent.getSerializableExtra("historyList") as? List<History>
+                    runOnUiThread {
+                        historyList?.let {
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -1206,8 +1224,19 @@ class MainActivity : ComponentActivity() {
         }
         startService(deleteIntent)
     }
-}
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onStart() {
+        super.onStart()
+        val filter = IntentFilter("com.example.myapplication.DB_ACTION")
+        registerReceiver(historyReceiver, filter, RECEIVER_NOT_EXPORTED)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(historyReceiver)
+    }
+}
 
 class DatabaseService : Service() {
 
@@ -1250,6 +1279,11 @@ class DatabaseService : Service() {
     private fun queryHistory() {
         serviceScope.launch {
             val historyList = db.historyDao().get()
+            val intent = Intent("com.example.myapplication.DB_ACTION").apply {
+                putExtra("action", "query")
+                putExtra("historyList", ArrayList(historyList)) // Send the result
+            }
+            sendBroadcast(intent)
             // You can handle the result here (e.g., send a broadcast or use LiveData)
         }
     }
@@ -1295,7 +1329,7 @@ data class History(
     @PrimaryKey(autoGenerate = true) val uid: Int? = null,
     @ColumnInfo(name = "expression") val expression: String?,
     @ColumnInfo(name = "result") val result: String?
-)
+):java.io.Serializable
 ```
 
 `AndroidManifest.xml`
