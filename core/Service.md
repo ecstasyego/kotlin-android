@@ -425,13 +425,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 
-class ResultReceiver: BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
-        val result = intent?.getStringExtra("result")
-        Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
-    }
-}
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -442,6 +435,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+class ResultReceiver: BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val result = intent?.getStringExtra("result")
+        Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
+    }
+}
 
 class ContentService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
