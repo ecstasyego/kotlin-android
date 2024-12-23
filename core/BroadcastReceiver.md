@@ -60,11 +60,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.annotation.RequiresApi
 
 class MainActivity : ComponentActivity() {
 
@@ -83,6 +85,7 @@ class MainActivity : ComponentActivity() {
         startService(serviceIntent)  // Service Start
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
         val filter = IntentFilter("com.example.myapplication.RESULT_ACTION")
