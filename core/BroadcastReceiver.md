@@ -417,6 +417,7 @@ import androidx.annotation.RequiresApi
 
 class MainActivity : ComponentActivity() {
     private val resultReceiver = ResultReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
@@ -441,7 +442,17 @@ class MainActivity : ComponentActivity() {
 class ResultReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val result = intent?.getStringExtra("result")
-        Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
+
+        //intent.action == Intent.ACTION_POWER_CONNECTED
+        //intent.action == Intent.ACTION_POWER_DISCONNECTED
+        //intent.action == Intent.TIME_SET
+        //intent.action == Intent.PACKAGE_ADDED
+        //intent.action == Intent.PACKAGE_REMOVED
+        //intent.action == Intent.MEDIA_MOUNTED
+        if (intent?.action == Intent.ACTION_BOOT_COMPLETED){
+            Toast.makeText(context, "Service Result: $result", Toast.LENGTH_LONG).show()
+        }
+
     }
 }
 
@@ -471,6 +482,7 @@ class ContentService : Service() {
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" tools:ignore="ManifestOrder, WrongManifestParent" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -489,10 +501,17 @@ class ContentService : Service() {
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name=".ContentService" />
+        <receiver android:name=".ResultReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>
