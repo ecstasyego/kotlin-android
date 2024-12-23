@@ -45,6 +45,9 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         val filter = IntentFilter("com.example.myapplication.RESULT_ACTION")
         registerReceiver(resultReceiver, filter, Context.RECEIVER_EXPORTED) // Service Register
+
+        //registerReceiver(resultReceiver, filter, Context.RECEIVER_EXPORTED)
+        //registerReceiver(resultReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
         //registerReceiver(resultReceiver, filter, "com.example.myapplication.PERMISSION", null) // with permission
     }
 
