@@ -546,7 +546,7 @@ dependencies {
 <br>
 
 
-### Example04: Background Thread with UI-Update
+### Example04: Background Thread with BroadcastReceiver
 #### File System
 ```
 .Project
@@ -928,7 +928,7 @@ dependencies {
 <br>
 
 
-### Example06: Coroutine with UI-Update
+### Example06: Coroutine with BroadcastReceiver
 #### File System
 ```
 .Project
