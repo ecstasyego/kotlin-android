@@ -221,12 +221,63 @@ sendBroadcast(intent)
 
 <br><br><br>
 ## Build System: Gradle / kts
-`build.gradle.kts`
+`build.gradle.kts(APP-LEVEL)`
 ```
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt") // for Room annotation processing
+}
+
+android {
+    namespace = "com.example.myapplication"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.example.myapplication"
+        minSdk = 26
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+    buildFeatures {
+        compose = true
+        viewBinding = true
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha07")
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha07")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+    implementation("com.jjoe64:graphview:4.2.2")
+
+    implementation("androidx.room:room-runtime:2.6.0") // Room
+    implementation("androidx.room:room-ktx:2.6.0") // Room KTX (for Coroutines)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4") // Coroutines
+    kapt("androidx.room:room-compiler:2.6.0") // Room annotation processor
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -236,6 +287,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.cardview)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
