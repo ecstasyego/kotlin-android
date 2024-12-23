@@ -493,10 +493,17 @@ class ContentService : Service() {
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <service android:name=".ContentService" />
+        <receiver android:name=".ResultReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.myapplication.RESULT_ACTION" />
+            </intent-filter>
+        </receiver>
+
 
     </application>
 </manifest>
