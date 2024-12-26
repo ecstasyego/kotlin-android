@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Toolbar Title"
         toolbar.post { viewPagerFrame.viewPager2.setPadding(0, toolbar.height, 0, 0) }
 
         viewPagerFrame.addView(toolbar)
@@ -264,7 +263,6 @@ class MainActivity : AppCompatActivity() {
         toolbar = Toolbar(this).apply { layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{gravity = Gravity.TOP}  }
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Toolbar Title"
         toolbar.post { viewPagerFrame.viewPager2.setPadding(0, toolbar.height, 0, 0) }
 
         viewPagerFrame.addView(toolbar)
