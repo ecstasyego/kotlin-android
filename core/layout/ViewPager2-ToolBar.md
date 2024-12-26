@@ -157,19 +157,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val frameViewPager = FrameViewPager(this)
+        val viewPagerFrame = ViewPagerFrame(this)
         val toolbar = Toolbar(this).apply { layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{gravity = Gravity.TOP}  }
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Toolbar Title"
-        toolbar.post { frameViewPager.viewPager2.setPadding(0, toolbar.height, 0, 0) }
+        toolbar.post { viewPagerFrame.viewPager2.setPadding(0, toolbar.height, 0, 0) }
 
-        frameViewPager.addView(toolbar)
-        setContentView(frameViewPager)
+        viewPagerFrame.addView(toolbar)
+        setContentView(viewPagerFrame)
     }
 }
 
-class FrameViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
+class ViewPagerFrame @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
     val viewPager2: ViewPager2 = ViewPager2(context).apply {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         adapter = FragmentAdapter(context as FragmentActivity)
