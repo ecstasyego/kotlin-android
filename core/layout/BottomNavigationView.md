@@ -35,18 +35,19 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    val frameLayout = FrameLayout(this).apply {
-        id = View.generateViewId()
-        layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
-    }
+    lateinit var frameLayout:FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        frameLayout = FrameLayout(this).apply {
+            id = View.generateViewId()
+            layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        }
+
         val fragment01 = Fragment01()
         val fragment02 = Fragment02()
         val fragment03 = Fragment03()
-
         val bottomNavigationView = BottomNavigationView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -54,6 +55,8 @@ class MainActivity : AppCompatActivity() {
             ).apply {
                 gravity = android.view.Gravity.BOTTOM
             }
+            inflateMenu(R.menu.bottom_navigation_menu)
+
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.frag01 -> replaceFragment(fragment01)
