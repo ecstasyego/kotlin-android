@@ -189,7 +189,10 @@ class Fragment02 : Fragment() {
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
 ```
 
@@ -388,6 +391,9 @@ class Fragment02 : Fragment() {
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
 ```
