@@ -72,9 +72,18 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
-                    0 -> bottomNavigationView.selectedItemId = R.id.frag00
-                    1 -> bottomNavigationView.selectedItemId = R.id.frag01
-                    2 -> bottomNavigationView.selectedItemId = R.id.frag02
+                    0 -> {
+                        bottomNavigationView.selectedItemId = R.id.frag00
+                        toolbar.title = "HOME"
+                    }
+                    1 -> {
+                        bottomNavigationView.selectedItemId = R.id.frag01
+                        toolbar.title = "SEARCH"
+                    }
+                    2 -> {
+                        bottomNavigationView.selectedItemId = R.id.frag02
+                        toolbar.title = "GRAPH"
+                    }
                 }
             }
         })
