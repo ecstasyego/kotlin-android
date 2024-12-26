@@ -183,6 +183,8 @@ class Fragment02 : Fragment() {
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/menu/bottom_navigation_menu.xml
+│   │       ├── res/values/theme.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -196,6 +198,7 @@ package com.example.myapplication
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.fragment.app.Fragment
@@ -207,19 +210,50 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
+    lateinit var viewPagerFrame: ViewPagerFrame
+    lateinit var toolbar:Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewPagerFrame = ViewPagerFrame(this)
+        viewPagerFrame = ViewPagerFrame(this)
+        toolbar = Toolbar(this).apply { layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{gravity = Gravity.TOP}  }
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Toolbar Title"
+        toolbar.post { viewPagerFrame.viewPager2.setPadding(0, toolbar.height, 0, 0) }
+
+        viewPagerFrame.addView(toolbar)
         setContentView(viewPagerFrame)
     }
 }
 
 class ViewPagerFrame @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
+    val viewPager2: ViewPager2 = ViewPager2(context).apply {
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        adapter = FragmentAdapter(context as FragmentActivity)
+        setPageTransformer { page, position ->
+            page.alpha = 0.5f + (1 - abs(position)) * 0.5f
+        }
+    }
+    var bottomNavigationView: BottomNavigationView = BottomNavigationView(context).apply {
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply { gravity = Gravity.BOTTOM }
+        (context as? AppCompatActivity)?.menuInflater?.inflate(R.menu.bottom_navigation_menu, menu)
+
+        setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.frag00 -> viewPager2.currentItem = 0
+                R.id.frag01 -> viewPager2.currentItem = 1
+                R.id.frag02 -> viewPager2.currentItem = 2
+            }
+            true
+        }
+    }
 
     class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
         override fun getItemCount(): Int = 3
@@ -236,14 +270,19 @@ class ViewPagerFrame @JvmOverloads constructor(context: Context, attrs: Attribut
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
 
-        val viewPager2 = ViewPager2(context).apply {
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-            adapter = FragmentAdapter(context as FragmentActivity)
-            setPageTransformer { page, position ->
-                page.alpha = 0.5f + (1 - abs(position)) * 0.5f
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when (position) {
+                    0 -> bottomNavigationView.selectedItemId = R.id.frag00
+                    1 -> bottomNavigationView.selectedItemId = R.id.frag01
+                    2 -> bottomNavigationView.selectedItemId = R.id.frag02
+                }
             }
-        }
+        })
+
         addView(viewPager2)
+        addView(bottomNavigationView)
     }
 }
 
