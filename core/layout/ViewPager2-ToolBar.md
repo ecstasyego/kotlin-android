@@ -169,11 +169,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class FrameViewPager @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+class FrameViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
     val viewPager2: ViewPager2 = ViewPager2(context).apply {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         adapter = FragmentAdapter(context as FragmentActivity)
