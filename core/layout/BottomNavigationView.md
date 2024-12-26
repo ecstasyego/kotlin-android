@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
             layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         }
 
-        val fragment01 = Fragment00()
-        val fragment02 = Fragment01()
-        val fragment03 = Fragment02()
+        val fragment00 = Fragment00()
+        val fragment01 = Fragment01()
+        val fragment02 = Fragment02()
         val bottomNavigationView = BottomNavigationView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -59,15 +59,15 @@ class MainActivity : AppCompatActivity() {
 
             setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.frag00 -> replaceFragment(fragment01)
-                    R.id.frag01 -> replaceFragment(fragment02)
-                    R.id.frag02 -> replaceFragment(fragment03)
+                    R.id.frag00 -> replaceFragment(fragment00)
+                    R.id.frag01 -> replaceFragment(fragment01)
+                    R.id.frag02 -> replaceFragment(fragment02)
                 }
                 true
             }
         }
 
-        replaceFragment(fragment01)
+        replaceFragment(fragment00)
         frameLayout.addView(bottomNavigationView)
         setContentView(frameLayout)
     }
