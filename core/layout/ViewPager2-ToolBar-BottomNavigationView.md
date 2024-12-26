@@ -9,6 +9,9 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/menu/bottom_navigation_menu.xml
+│   │       ├── res/drawable/baseline_home_24.xml
+│   │       ├── res/drawable/baseline_search_24.xml
+│   │       ├── res/drawable/baseline_auto_graph_24.xml
 │   │       ├── res/values/theme.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -184,6 +187,9 @@ class Fragment02 : Fragment() {
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/menu/bottom_navigation_menu.xml
+│   │       ├── res/drawable/baseline_home_24.xml
+│   │       ├── res/drawable/baseline_search_24.xml
+│   │       ├── res/drawable/baseline_auto_graph_24.xml
 │   │       ├── res/values/theme.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
