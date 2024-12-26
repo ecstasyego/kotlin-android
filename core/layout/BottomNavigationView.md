@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
             layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         }
 
-        val fragment01 = Fragment01()
-        val fragment02 = Fragment02()
-        val fragment03 = Fragment03()
+        val fragment01 = Fragment00()
+        val fragment02 = Fragment01()
+        val fragment03 = Fragment02()
         val bottomNavigationView = BottomNavigationView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -57,11 +57,11 @@ class MainActivity : AppCompatActivity() {
             }
             inflateMenu(R.menu.bottom_navigation_menu)
 
-            setOnNavigationItemSelectedListener {
+            setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.frag01 -> replaceFragment(fragment01)
-                    R.id.frag02 -> replaceFragment(fragment02)
-                    R.id.frag03 -> replaceFragment(fragment03)
+                    R.id.frag00 -> replaceFragment(fragment01)
+                    R.id.frag01 -> replaceFragment(fragment02)
+                    R.id.frag02 -> replaceFragment(fragment03)
                 }
                 true
             }
@@ -81,6 +81,14 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+class Fragment00 : Fragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return LinearLayout(requireContext()).apply {
+            addView( TextView(requireContext()).apply {text = "This is fragment00."} )
+        }
+    }
+}
+
 class Fragment01 : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -96,14 +104,6 @@ class Fragment02 : Fragment() {
         }
     }
 }
-
-class Fragment03 : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is fragment03."} )
-        }
-    }
-}
 ```
 
 `bottom_navigation_menu.xml`
@@ -111,17 +111,17 @@ class Fragment03 : Fragment() {
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/frag01"
+    <item android:id="@+id/frag00"
         android:icon="@drawable/baseline_home_24"
         android:title="HOME"
         />
 
-    <item android:id="@+id/frag02"
+    <item android:id="@+id/frag01"
         android:icon="@drawable/baseline_search_24"
         android:title="SEARCH"
         />
 
-    <item android:id="@+id/frag03"
+    <item android:id="@+id/frag02"
         android:icon="@drawable/baseline_auto_graph_24"
         android:title="GRAPH"
         />
