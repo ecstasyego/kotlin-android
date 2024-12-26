@@ -250,7 +250,7 @@ android {
 
 <br>
 
-### Example02: Service with koin
+### Example03: Service with koin
 #### File System
 ```
 .Project
@@ -406,7 +406,7 @@ dependencies {
 <br>
 
 
-### Example03: Service with dynamic registration for BroadcastReceiver
+### Example04: Service with dynamic registration for BroadcastReceiver
 #### File System
 ```
 .Project
@@ -534,7 +534,7 @@ android {
 <br>
 
 
-### Example04: Service with static registration for BroadcastReceiver
+### Example05: Service with static registration for BroadcastReceiver
 #### File System
 ```
 .Project
@@ -652,7 +652,7 @@ android {
 
 <br>
 
-### Example05: Service with LocalBroadcastManager
+### Example06: Service with LocalBroadcastManager
 #### File System
 ```
 .Project
@@ -786,7 +786,7 @@ dependencies {
 
 <br>
 
-### Example06: Service with LiveData
+### Example07: Service with LiveData
 #### File System
 ```
 .Project
@@ -818,7 +818,7 @@ dependencies {
 
 
 
-### Example07: Service with EventBus
+### Example08: Service with EventBus
 #### File System
 ```
 .Project
