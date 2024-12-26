@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Toolbar Title"
-        toolbar.post { frameViewPager.setToolbarPadding(toolbar.height) }
+        toolbar.post { frameViewPager.viewPager2.setPadding(0, toolbar.height, 0, 0) }
 
         frameViewPager.addView(toolbar)
         setContentView(frameViewPager)
@@ -174,7 +174,7 @@ class FrameViewPager @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    private val viewPager2: ViewPager2 = ViewPager2(context).apply {
+    val viewPager2: ViewPager2 = ViewPager2(context).apply {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         adapter = FragmentAdapter(context as FragmentActivity)
         setPageTransformer { page, position ->
@@ -197,10 +197,6 @@ class FrameViewPager @JvmOverloads constructor(
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         addView(viewPager2)
-    }
-
-    fun setToolbarPadding(toolbarHeight: Int) {
-        viewPager2.setPadding(0, toolbarHeight, 0, 0)
     }
 }
 
