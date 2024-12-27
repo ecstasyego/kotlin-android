@@ -604,35 +604,35 @@ data class History(
 
     <TextView
         android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Date"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/openTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Open"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/highTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="High"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/lowTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Low"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/closeTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Close"
         android:layout_weight="1"/>
