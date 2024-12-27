@@ -117,6 +117,7 @@ class CustomCardView @JvmOverloads constructor(
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -194,6 +195,116 @@ class MyAdapter(private var items: List<String>) : RecyclerView.Adapter<MyAdapte
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+
+<br>
+
+
+### Example03: *.xml
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
+│   │       ├── res/layout/recyclerview_items.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.ViewGroup
+import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+
+class MainActivity : ComponentActivity() {
+    private lateinit var recyclerView: RecyclerView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(LayoutInflater.from(this).inflate(R.layout.main_layout, null) as ConstraintLayout)
+
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = MyAdapter( listOf("Apple", "Banana", "Orange", "Grapes", "Mango", "Peach", "Pineapple") )
+    }
+}
+
+class MyAdapter(private var items: List<String>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val textView: TextView = itemView.findViewById(R.id.textView)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_items, parent, false)
+        return MyViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.textView.text = items[position]
+    }
+
+    override fun getItemCount(): Int {
+        return items.size
+    }
+}
+```
+
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+`recyclerview_items.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="View Item"
+        android:layout_weight="1"/>
+
+</LinearLayout>
 ```
 
 
