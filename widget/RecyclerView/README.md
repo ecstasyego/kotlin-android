@@ -139,9 +139,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
-    private val itemList = listOf(
-        "Apple", "Banana", "Orange", "Grapes", "Mango", "Peach", "Pineapple"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,7 +146,7 @@ class MainActivity : ComponentActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = MyAdapter(itemList)
+        recyclerView.adapter = MyAdapter( listOf("Apple", "Banana", "Orange", "Grapes", "Mango", "Peach", "Pineapple") )
 
     }
 }
