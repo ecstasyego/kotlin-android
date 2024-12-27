@@ -2,7 +2,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: *.kt
+### Example01: Dynamic RecyclerView
 #### File System
 ```
 .Project
@@ -109,7 +109,7 @@ class CustomCardView @JvmOverloads constructor(
 <br>
 
 
-### Example02: *.xml
+### Example02: Static RecyclerView
 #### File System
 ```
 .Project
@@ -201,7 +201,7 @@ class MyAdapter(private var items: List<String>) : RecyclerView.Adapter<MyAdapte
 <br>
 
 
-### Example03: *.xml
+### Example03: Static RecyclerView and ViewHolder
 #### File System
 ```
 .Project
