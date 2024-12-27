@@ -187,12 +187,21 @@ dependencies {
 ```kotlin
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.IBinder
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.RecyclerView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -202,21 +211,76 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.io.InputStreamReader
 
 class MainActivity : ComponentActivity() {
+    private val csvData = mutableListOf<List<String>>()
+
+    private val csvDownloadReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val filePath = intent?.getStringExtra("filePath")
+            filePath?.let {
+                val file = File(it)
+                if (file.exists()) {
+                    val reader = BufferedReader(FileReader(file))
+                    val data = mutableListOf<List<String>>()
+                    reader.useLines { lines ->
+                        lines.forEach { line ->
+                            val values = line.split(",").map { it.trim() }
+                            data.add(values)
+                        }
+                    }
+                    csvData.clear()
+                    csvData.addAll(data)
+                    Toast.makeText(applicationContext, "CSV Data Loaded", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        // SERVICE
         val intent = Intent(this, RemoteService::class.java)
-        intent.putExtra("fileName", "005930.csv")  // 파일명 전달
+        intent.putExtra("fileName", "005930.csv")
         startService(intent)
+
+        val filter = IntentFilter("CSV_DOWNLOAD_COMPLETED")
+        registerReceiver(csvDownloadReceiver, filter, RECEIVER_NOT_EXPORTED)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(csvDownloadReceiver)
+    }
+}
+
+class CsvAdapter(private val items: List<List<String>>) : RecyclerView.Adapter<CsvAdapter.CsvViewHolder>() {
+
+    inner class CsvViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textView = itemView.findViewById<TextView>(android.R.id.text1)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CsvViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
+        return CsvViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: CsvViewHolder, position: Int) {
+        holder.textView.text = items[position].joinToString(", ")
+    }
+
+    override fun getItemCount(): Int {
+        return items.size
     }
 }
 
 class RemoteService : Service() {
-
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://raw.githubusercontent.com/")
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -233,14 +297,25 @@ class RemoteService : Service() {
                 if (response.isSuccessful) {
                     val body = response.body()
                     body?.let {
-                        val reader = BufferedReader(InputStreamReader(it.byteStream()))
                         val csvData = mutableListOf<List<String>>()
-                        reader.useLines { lines ->
-                            lines.forEach { line ->
-                                val values = line.split(",").map { it.trim() }
-                                csvData.add(values)
+                        val file = File(applicationContext.filesDir, fileName)
+
+                        file.bufferedWriter().use { writer ->
+                            val reader = BufferedReader(InputStreamReader(it.byteStream()))
+                            reader.useLines { lines ->
+                                lines.forEach { line ->
+                                    val values = line.split(",").map { it.trim() }
+                                    csvData.add(values)
+                                    writer.write(line)
+                                    writer.newLine()
+                                }
                             }
                         }
+
+                        // Send the file path through the Intent
+                        val broadcastIntent = Intent("CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
+                        broadcastIntent.putExtra("filePath", file.absolutePath)
+                        sendBroadcast(broadcastIntent)
 
                         Toast.makeText(applicationContext, "CSV Downloaded Successfully", Toast.LENGTH_SHORT).show()
                     }
@@ -261,6 +336,7 @@ class RemoteService : Service() {
         return null
     }
 }
+
 
 
 interface GithubApiService {
