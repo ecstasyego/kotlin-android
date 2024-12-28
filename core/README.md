@@ -1,13 +1,14 @@
 # Core Concepts
 ```
 - Application, Context
-    - Main Thread(UI): Activity, Fragement, Intent
+    - Main Thread(UI): Activity, Fragement
         - View
             - DataBinding, LayoutInflater
                 - findViewById
         - ViewModel, LiveData
-        - State, Bundle 
-    - Background Thread: Service, BroadcastReceiver
+        - Intent, State, Bundle 
+    - Background Thread: Service
+        - Intent, BroadcastReceiver
 ``` 
 - Application > (Intent) > Activity > (Bundle) > Fragement
     - Activity, Fragement > (Intent) > Service > (BroadcastReceiver) > Activity, Fragement
