@@ -3,7 +3,17 @@
     - PC Installation: https://developer.android.com/studio/run/oem-usb
     - Mobile Developer Mode
         - 소프트웨어 정보 -> 빌드번호
-        - 개발자 옵션 -> USB 디버깅
+        - 개발자 옵션 -> USB Debugging
+    - Android Studio: Troubleshoot Device Connections(USB Debugging ON/OFF)
+- Image Asset Icons
+    - Configure Image Asset
+        - Name, Source Asset(type: Image)
+            - AndroidManifest.xml: <application> ~ </application>
+                - android:icon="@mipmap/logo_launcher"
+                - android:roundIcon="@mipmap/logo_launcher_round"
+            - res/drawable/logo.png
+            - res/mipmap/logo_launcher/*
+            - res/mipmap/logo_launcher_round/*
 - Vector Asset Icons
     - Remove: C:\Users\user\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt
         - Read-Only
