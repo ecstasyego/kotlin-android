@@ -159,7 +159,7 @@ class MainFragment : Fragment() {
 
 
 
-### Example03: Communication with Fragment using ViewModel
+### Example03: ViewModel: Fragment <-> Fragment
 #### File System
 ```
 .Project
