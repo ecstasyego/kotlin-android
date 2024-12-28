@@ -49,14 +49,8 @@ class MainActivity : AppCompatActivity() {
         val fragment01 = Fragment01()
         val fragment02 = Fragment02()
         val bottomNavigationView = BottomNavigationView(this).apply {
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = android.view.Gravity.BOTTOM
-            }
+            layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{ gravity = android.view.Gravity.BOTTOM }
             inflateMenu(R.menu.bottom_navigation_menu)
-
             setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.frag00 -> replaceFragment(fragment00)
