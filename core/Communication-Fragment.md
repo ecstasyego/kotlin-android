@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Basic
+### Example01: Bundle
 #### File System
 ```
 .Project
@@ -32,9 +32,7 @@ import androidx.fragment.app.FragmentTransaction
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val main_layout = LinearLayout(this).apply {
-            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
-        }
+        val main_layout = LinearLayout(this).apply { addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} ) }
         setContentView(main_layout)
 
         val fragment = MainFragment()
