@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val viewPager2 = ViewPager2(this)
-        viewPager2.adapter = FragmentAdapter(this@MainActivity)
+        viewPager2.adapter = FragmentAdapter(this)
         viewPager2.setPageTransformer { page, position -> page.alpha = 0.5f + (1 - Math.abs(position)) * 0.5f }
         setContentView(viewPager2)
     }
