@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Bundle
+### Example01: Communication with Activity using Bundle
 #### File System
 ```
 .Project
@@ -133,7 +133,7 @@ class MainFragment : Fragment() {
 
 
 
-### Example03: ViewModel
+### Example03: Communication with Fragment using ViewModel
 #### File System
 ```
 .Project
