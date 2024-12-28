@@ -18,8 +18,7 @@
     - Remove: C:\Users\user\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt
         - Read-Only
     
-<br><br><br>
-
+  
 ## Application Design
 - Requirements Analysis
     - User requirements
