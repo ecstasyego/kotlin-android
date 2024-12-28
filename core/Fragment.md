@@ -122,6 +122,10 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_layout, container, false) // fragment view resource
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState) // interaction with activity
     }
