@@ -52,3 +52,49 @@ while (calendar.time <= endDate) {
     calendar.add(Calendar.DATE, 1)  // Move to the next day
 }
 ```
+
+
+### module
+
+```kotlin
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.time.LocalDateTime
+
+
+class DateRange(start:String? = null, end:String? = null, periods:Int? = null){
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    var startDate:Date = if (periods != null && start == null && end != null) dateFormat.parse("0000-01-01") else dateFormat.parse(start?: dateFormat.format(Date()))
+    var endDate:Date = if (periods != null && start != null && end == null) dateFormat.parse("9999-12-31") else dateFormat.parse(end?: dateFormat.format(Date()))
+    
+    val values = mutableListOf<Map<String, String>>()
+    init{
+        var cnt:Int = 0
+        var calendar = Calendar.getInstance().apply{ time = startDate }
+        while (calendar.time <= endDate) {
+            values.add(
+                mapOf(
+                    "index" to cnt.toString(), 
+                    "date" to dateFormat.format(calendar.time),
+                    "year" to calendar.get(Calendar.YEAR).toString(),
+                    "month" to calendar.get(Calendar.MONTH).toString(),
+                    "day" to calendar.get(Calendar.DAY_OF_MONTH).toString(),
+                )
+            )
+
+            // iter-condition
+            if (periods != null){ if (periods == cnt + 1) break }
+
+            // dayshift
+            val dayshift = if (startDate < endDate) 1 else -1 
+            calendar.add(Calendar.DATE, dayshift)
+            cnt++
+        }        
+    }
+}
+
+DateRange(start="2024-01-10").values
+```
