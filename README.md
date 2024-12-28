@@ -18,6 +18,58 @@
     - Remove: C:\Users\user\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt
         - Read-Only
     
+<br><br><br>
+
+## Application Design
+- Requirements Analysis
+    - User requirements
+    - System requirements
+    - Performance requirements
+    - Security requirements
+    - Platform requirements
+    - System constraints
+- System Architecture Design
+    - Client-server model
+    - Distributed systems
+    - Microservices architecture
+    - Database design
+    - Communication protocols
+- Database Design
+    - ERD (Entity-Relationship Diagram)
+    - Normalization
+    - Query optimization
+- User Interface (UI) / User Experience (UX) Design
+    - Wireframing
+    - Prototyping
+    - Usability testing
+- Technology Stack Selection
+    - Programming languages
+    - Frameworks
+    - Databases
+    - Cloud platforms
+    - Version control systems
+- Security Design
+    - Authentication and authorization
+    - Data encryption
+    - Vulnerability testing
+    - Logging and monitoring
+- Testing Design
+    - Unit testing
+    - Integration testing
+    - UI/UX testing
+    - Load testing
+    - Security testing
+- Maintenance and Update Planning
+    - Bug fixes
+    - Feature updates
+    - Performance tuning
+- Documentation
+    - System design documents
+    - Code comments and inline documentation
+    - User manuals
+
+
+  
 ## File System
 - C:\Users\user\AndroidStudioProjects\Project
 
