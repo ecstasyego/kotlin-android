@@ -103,6 +103,7 @@ class MainFragment : Fragment() {
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/main_layout.xml
 │   │       ├── res/layout/fragment_layout.xml
 │   │       ├── res/value/themes.xml
 │   │       └── AndroidManifest.xml
@@ -120,8 +121,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
@@ -130,14 +129,11 @@ import com.example.myapplication.R
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val main_layout = LinearLayout(this).apply {
-            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
-        }
-        setContentView(main_layout)
+        setContentView(R.layout.main_layout)
 
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
 }
@@ -222,6 +218,22 @@ class MainFragment : Fragment() {
         </activity>
     </application>
 </manifest>
+```
+
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
 ```
 
 `fragment_layout.xml`
