@@ -22,6 +22,7 @@ package com.example.myapplication
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
@@ -67,11 +68,18 @@ class MainActivity : ComponentActivity() {
         graph.gridLabelRenderer.verticalAxisTitle = "Value"
         graph.gridLabelRenderer.horizontalAxisTitleTextSize = 40f
         graph.gridLabelRenderer.verticalAxisTitleTextSize = 40f
+        graph.gridLabelRenderer.setHorizontalAxisTitleColor(ContextCompat.getColor(this, android.R.color.darker_gray)) // X-axis title color
+        graph.gridLabelRenderer.setVerticalAxisTitleColor(ContextCompat.getColor(this, android.R.color.darker_gray)) // Y-axis title color
 
-        graph.gridLabelRenderer.labelVerticalWidth = 20
         graph.gridLabelRenderer.labelHorizontalHeight = 50
+        graph.gridLabelRenderer.labelVerticalWidth = 20
         graph.gridLabelRenderer.setHorizontalLabelsAngle(45)
 
+        graph.gridLabelRenderer.gridColor = ContextCompat.getColor(this, android.R.color.darker_gray)  // Light grid color
+        graph.gridLabelRenderer.horizontalLabelsColor = ContextCompat.getColor(this, android.R.color.darker_gray)  // Light X-axis label color
+        graph.gridLabelRenderer.verticalLabelsColor = ContextCompat.getColor(this, android.R.color.darker_gray)  // Light X-axis label color
+
+        series.color = ContextCompat.getColor(this, android.R.color.darker_gray)  // Lighter graph line color
 
         layout.addView(graph)
         setContentView(layout)
