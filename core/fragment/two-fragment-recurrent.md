@@ -63,7 +63,7 @@ class FragmentA : Fragment() {
         button.setOnClickListener {
             val supportFragment = FragmentB()
             val transaction:FragmentTransaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, supportFragment)
+            transaction.replace((view.parent as FrameLayout).id, supportFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
