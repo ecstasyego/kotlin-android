@@ -199,6 +199,20 @@ finish()
 
 
 ### Fragment
+`lifecycle`
+```kotlin
+onAttach()
+  onCreate()
+    onCreateView()
+    onActivityCreated()
+      onStart()
+        onResume()
+        onPause()
+      onStop()
+    onDestroyView()
+  onDestroy()
+onDetach()
+```
 ```kotlin
 val fragment = MainFragment()
 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
