@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         val main_layout = LinearLayout(this).apply { addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} ) }
         setContentView(main_layout)
 
-        val fragment = MainFragment()
+        val bundle = Bundle().apply { putString("key", "value") }
+        val fragment = MainFragment().apply{arguments = bundle}
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(main_layout.getChildAt(0).id, fragment)
         transaction.commit()
@@ -44,8 +45,9 @@ class MainActivity : AppCompatActivity() {
 
 class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val value = arguments?.getString("key")
         return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
+            addView( TextView(requireContext()).apply {text = "This is main fragment with $value."} )
         }
     }
 }
