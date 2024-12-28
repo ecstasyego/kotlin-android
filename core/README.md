@@ -1,4 +1,5 @@
 # Core Concepts
+```
 - Application, Context
     - Main Thread(UI): Activity, Fragement, Intent
         - View
@@ -7,7 +8,9 @@
         - ViewModel, LiveData
         - State, Bundle 
     - Background Thread: Service, BroadcastReceiver
-    
+``` 
+- Application > (Intent) > Activity > (Bundle) > Fragement
+
 
 
 <br><br><br>
