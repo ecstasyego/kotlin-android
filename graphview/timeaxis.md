@@ -62,7 +62,16 @@ class MainActivity : ComponentActivity() {
         graph.viewport.isScrollable = true
         graph.gridLabelRenderer.isHorizontalLabelsVisible = true
         graph.gridLabelRenderer.isVerticalLabelsVisible = true
+
+        graph.gridLabelRenderer.horizontalAxisTitle = "Date"
+        graph.gridLabelRenderer.verticalAxisTitle = "Value"
+        graph.gridLabelRenderer.horizontalAxisTitleTextSize = 40f
+        graph.gridLabelRenderer.verticalAxisTitleTextSize = 40f
+
+        graph.gridLabelRenderer.labelVerticalWidth = 20
+        graph.gridLabelRenderer.labelHorizontalHeight = 50
         graph.gridLabelRenderer.setHorizontalLabelsAngle(45)
+
 
         layout.addView(graph)
         setContentView(layout)
