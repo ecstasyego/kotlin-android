@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -36,26 +37,39 @@ class MainActivity : AppCompatActivity() {
         val main_layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
-            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
         }
         setContentView(main_layout)
 
         val fragmentA = FragmentA()
-        val fragmentB = FragmentB()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(main_layout.getChildAt(0).id, fragmentA)
-        transaction.replace(main_layout.getChildAt(1).id, fragmentB)
         transaction.commit()
     }
 }
 
+
 class FragmentA : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragmentA."} )
+            addView( TextView(requireContext()).apply {id = View.generateViewId(); text = "This is main fragmentA."} )
+            addView( Button(requireContext()).apply{ id= View.generateViewId(); text = "Click, Me!"})
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val button = (view as LinearLayout).getChildAt(1) as Button
+        button.setOnClickListener {
+            val supportFragment = FragmentB()
+            val transaction:FragmentTransaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, supportFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
     }
 }
+
 
 class FragmentB : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
