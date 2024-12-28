@@ -47,8 +47,10 @@ class MainActivity : ComponentActivity() {
         graph.addSeries(series)
         graph.viewport.isScalable = true
         graph.viewport.isScrollable = true
-        graph.gridLabelRenderer.isHorizontalLabelsVisible = false
+        graph.gridLabelRenderer.isHorizontalLabelsVisible = true
         graph.gridLabelRenderer.isVerticalLabelsVisible = true
+        graph.gridLabelRenderer.labelVerticalWidth = 20
+
         layout.addView(graph)
         setContentView(layout)
     }
