@@ -8,10 +8,10 @@
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
+            - res/drawable/logo.png
             - AndroidManifest.xml: <application> ~ </application>
                 - android:icon="@mipmap/logo_launcher"
                 - android:roundIcon="@mipmap/logo_launcher_round"
-            - res/drawable/logo.png
             - res/mipmap/logo_launcher/*
             - res/mipmap/logo_launcher_round/*
 - Vector Asset Icons
