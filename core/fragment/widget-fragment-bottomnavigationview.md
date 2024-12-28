@@ -1,6 +1,6 @@
 ## Examples
 
-### Example01
+### Example01: *.kt
 #### File System
 ```
 .Project
@@ -162,7 +162,7 @@ class Fragment02 : Fragment() {
 
 <br>
 
-### Example02
+### Example02: *.xml
 #### File System
 ```
 .Project
