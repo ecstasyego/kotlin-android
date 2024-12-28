@@ -96,5 +96,9 @@ class DateRange(start:String? = null, end:String? = null, periods:Int? = null){
     }
 }
 
-DateRange(start="2024-01-10").values
+
+val dateRange = DateRange(start="2024-01-10").values
+for ( (idx, date) in dateRange.indices.zip(dateRange)){
+    date
+}
 ```
