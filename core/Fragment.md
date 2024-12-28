@@ -103,6 +103,7 @@ class MainFragment : Fragment() {
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/fragment_layout.xml
 │   │       ├── res/value/themes.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -114,13 +115,32 @@ class MainFragment : Fragment() {
 ```kotlin
 package com.example.myapplication
 
-import android.os.Bundle
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.example.myapplication.R
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val main_layout = LinearLayout(this).apply {
+            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
+        }
+        setContentView(main_layout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.commit()
+    }
+}
 
 class MainFragment : Fragment() {
     override fun onAttach(context: Context) {
@@ -202,6 +222,16 @@ class MainFragment : Fragment() {
         </activity>
     </application>
 </manifest>
+```
+
+`fragment_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
 `themes.xml`
