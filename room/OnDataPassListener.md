@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Interface; Fragment > Activity
+### Example01: mutableListOf<Map<String, Any>>()
 #### File System
 ```
 .Project
@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -69,9 +70,17 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dataPassListener?.onDataPass("Data from MainFragment")
         return LinearLayout(requireContext()).apply {
             addView( TextView(requireContext()).apply {text = "This is main fragment."} )
+            addView( Button(requireContext()).apply{ text = "Click, Me!"})
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val button = (view as LinearLayout).getChildAt(1) as Button
+        button.setOnClickListener {
+            dataPassListener?.onDataPass("Data from MainFragment")
         }
     }
 
