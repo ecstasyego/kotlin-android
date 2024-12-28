@@ -162,25 +162,66 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val main_layout = LinearLayout(this).apply { addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} ) }
+        val main_layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
+            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
+        }
         setContentView(main_layout)
 
-        val fragment = MainFragment()
+        val fragmentA = FragmentA()
+        val fragmentB = FragmentB()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.replace(main_layout.getChildAt(0).id, fragmentA)
+        transaction.replace(main_layout.getChildAt(1).id, fragmentB)
         transaction.commit()
     }
 }
 
-class MainFragment : Fragment() {
+class FragmentA : Fragment() {
+    private lateinit var sharedViewModel: SharedViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel.update("New Data")
+
         return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
+            addView( TextView(requireContext()).apply {text = "This is main fragmentA."} )
         }
+    }
+
+}
+
+class FragmentB : Fragment() {
+    private lateinit var sharedViewModel: SharedViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val textView = TextView(requireContext())
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel.liveData.observe(viewLifecycleOwner, Observer { data ->
+            textView.text = data
+        })
+
+        return LinearLayout(requireContext()).apply {
+            addView( textView )
+        }
+    }
+
+}
+
+class SharedViewModel : ViewModel() {
+    val liveData = MutableLiveData<String>()
+
+    fun update(data: String) {
+        liveData.value = data
     }
 }
 ```
