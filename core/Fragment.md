@@ -122,18 +122,55 @@ import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 
 class MainFragment : Fragment() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context) // activity
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState) // fragment resources
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_portfolio, container, false)
+        return inflater.inflate(R.layout.fragment_portfolio, container, false) // fragment view resource
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState) // interaction with activity
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView() // fragment view resource
+    }
+
+    override fun onDestroy() {
+        super.onDestroy() // another fragment resources
+    }
+
+    override fun onDetach() {
+        super.onDetach() // activity
+    }
+}
+```
+```kotlin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-}
 ```
 
 
