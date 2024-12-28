@@ -9,7 +9,7 @@
     - Configure Image Asset
         - Name, Source Asset(type: Image)
             - res/drawable/logo.png
-            - AndroidManifest.xml: <application> ~ </application>
+            - AndroidManifest.xml: `<application>` ~ `</application>`
                 - android:icon="@mipmap/logo_launcher"
                 - android:roundIcon="@mipmap/logo_launcher_round"
             - res/mipmap/logo_launcher/*
