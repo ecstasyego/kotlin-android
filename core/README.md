@@ -10,6 +10,7 @@
     - Background Thread: Service, BroadcastReceiver
 ``` 
 - Application > (Intent) > Activity > (Bundle) > Fragement
+    - Activity, Fragement > (Intent) > Service > (BroadcastReceiver) > Activity, Fragement
 
 
 
