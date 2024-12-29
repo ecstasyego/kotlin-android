@@ -8,6 +8,7 @@
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/activity_layout.xml
 │   │       ├── res/layout/fragment_layout.xml
+│   │       ├── res/layout/custom_layout.xml
 │   │       ├── res/value/themes.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -33,9 +34,7 @@ import androidx.fragment.app.FragmentTransaction
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val main_layout = LinearLayout(this).apply {
-            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
-        }
+        val main_layout = LinearLayout(this).apply{addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )}
         setContentView(main_layout)
 
         val fragment = MainFragment()
@@ -48,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 class MainFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context) // activity
+        val activity = context as? MainActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,16 +55,15 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val context: Context = requireContext()
         val staticLayout = inflater.inflate(R.layout.fragment_layout, container, false)
-        val dynamicLayout = LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
+        val dynamicLayout = LinearLayout(context).apply{addView( TextView(context).apply {text = "This is main fragment."} )}
         return dynamicLayout
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val custom_layout = view.findViewById<LinearLayout>(R.id.custom_layout)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -104,13 +103,47 @@ class MainFragment : Fragment() {
 
 `activity_layout.xml`
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
 ```
 
 
 `fragment_layout.xml`
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is main fragment."
+        android:textSize="18sp" />
+</LinearLayout>
+```
+
+`custom_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+</LinearLayout>
 ```
 
 
@@ -125,7 +158,5 @@ class MainFragment : Fragment() {
 
 ```kotlin
 
-val context: Context = requireContext()
-val mainActivity = activity as? MainActivity
 
 ```
