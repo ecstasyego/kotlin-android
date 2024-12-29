@@ -8,7 +8,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -20,17 +19,53 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.google.android.flexbox.FlexboxLayout
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.JustifyContent
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexWrap
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val linearLayout = LinearLayout(this)
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-        setContentView(linearLayout)
+        val flexboxLayout = FlexboxLayout(this).apply {
+            layoutParams = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.MATCH_PARENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+            flexDirection = FlexDirection.ROW // 수평 방향
+            justifyContent = JustifyContent.SPACE_AROUND // 자식 뷰의 가로 배치
+            alignItems = AlignItems.CENTER // 자식 뷰의 세로 정렬
+            flexWrap = FlexWrap.WRAP // 화면을 넘으면 줄 바꿈
+        }
+
+        val textView1 = TextView(this).apply {
+            text = "Item 1"
+            setPadding(20, 20, 20, 20) // 텍스트에 패딩 추가
+        }
+        val textView2 = TextView(this).apply {
+            text = "Item 2"
+            setPadding(20, 20, 20, 20) // 텍스트에 패딩 추가
+        }
+        val textView3 = TextView(this).apply {
+            text = "Item 3"
+            setPadding(20, 20, 20, 20) // 텍스트에 패딩 추가
+        }
+
+        flexboxLayout.addView(textView1)
+        flexboxLayout.addView(textView2)
+        flexboxLayout.addView(textView3)
+
+        setContentView(flexboxLayout)
     }
+}
+```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 }
 ```
 
