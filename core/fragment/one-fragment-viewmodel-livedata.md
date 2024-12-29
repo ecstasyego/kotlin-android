@@ -41,10 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val mainLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            val frameLayout = FrameLayout(this@MainActivity).apply {
-                id = View.generateViewId()  // Unique ID for FrameLayout
-            }
-            addView(frameLayout)  // Add FrameLayout to LinearLayout
+            addView(FrameLayout(this@MainActivity).apply{ id = View.generateViewId() })
         }
 
         setContentView(mainLayout)
