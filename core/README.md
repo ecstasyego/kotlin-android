@@ -6,7 +6,7 @@
             - DataBinding, LayoutInflater
                 - findViewById
         - ViewModel
-            - LiveData
+            - LiveData, StateFlow
         - Intent, State, Bundle 
     - Background Thread: Service
         - Intent, BroadcastReceiver
