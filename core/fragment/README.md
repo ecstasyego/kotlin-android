@@ -6,6 +6,8 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/activity_layout.xml
+│   │       ├── res/layout/fragment_layout.xml
 │   │       ├── res/value/themes.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -44,12 +46,71 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context) // activity
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState) // fragment resources
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
-        }
+        val staticLayout = inflater.inflate(R.layout.fragment_layout, container, false)
+        val dynamicLayout = LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
+        return dynamicLayout
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState) // interaction with activity
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView() // fragment view resource
+    }
+
+    override fun onDestroy() {
+        super.onDestroy() // another fragment resources
+    }
+
+    override fun onDetach() {
+        super.onDetach() // activity
     }
 }
+```
+
+
+`activity_layout.xml`
+```xml
+
+```
+
+
+`fragment_layout.xml`
+```xml
+
 ```
 
 
@@ -60,6 +121,7 @@ class MainFragment : Fragment() {
     <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.DarkActionBar" />
 </resources>
 ```
+
 
 ```kotlin
 
