@@ -67,7 +67,6 @@ class MainFragment : Fragment(R.layout.fragment_layout) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.item.observe(viewLifecycleOwner, Observer { newData ->
             Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
         })
