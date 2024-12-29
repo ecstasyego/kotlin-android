@@ -150,3 +150,10 @@ class MainActivity : ComponentActivity() {
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+}
+```
+
