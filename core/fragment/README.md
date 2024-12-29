@@ -28,6 +28,45 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 ```
 ```kotlin
+class MainActivity : AppCompatActivity(R.layout.activity_layout) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.commit()
+    }
+}
+```
+```kotlin
+class MainActivity : AppCompatActivity(R.layout.activity_layout) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val main_layout = findViewById<LinearLayout>(R.id.main_layout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.commit()
+    }
+}
+```
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_layout)
+        val main_layout = findViewById<LinearLayout>(R.id.main_layout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.commit()
+    }
+}
+```
+```kotlin
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +122,7 @@ class MainFragment : Fragment() {
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
