@@ -1,10 +1,28 @@
-## Examples
+## Example
+### Example01: function OnDataPassListener
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/value/themes.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+#### Source Code
+`MainActivity.kt`
+```kotlin
+```
 
 
 <br>
 
 
-### Example02: Interface; Fragment > Activity
+### Example02: Interface OnDataPassListener
 #### File System
 ```
 .Project
