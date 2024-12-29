@@ -56,9 +56,9 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val context: Context = requireContext()
-        val staticLayout = inflater.inflate(R.layout.fragment_layout, container, false)
         val dynamicLayout = LinearLayout(context).apply{addView( TextView(context).apply {text = "This is main fragment."} )}
-        return dynamicLayout
+        val staticLayout = inflater.inflate(R.layout.fragment_layout, container, false)
+        return staticLayout
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
