@@ -7,6 +7,7 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── java/com/example/myapplication/MainFragment.kt
 │   │       ├── res/value/themes.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -15,8 +16,50 @@
 
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
 
+import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val main_layout = LinearLayout(this).apply { addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} ) }
+        setContentView(main_layout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.commit()
+    }
+}
 ```
+
+`MainFragment.kt`
+```xml
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
+class MainFragment : Fragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return LinearLayout(requireContext()).apply {
+            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
+        }
+    }
+}
+```
+
 
 
 `themes.xml`
