@@ -1,5 +1,39 @@
 # Fragment
-## Fragment Life-Cycle
+## Implementation
+#### File System
+```
+.Project
+├── app
+│   ├── src
+│   │   └── main
+│   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/value/themes.xml
+│   │       └── AndroidManifest.xml
+│   └── build.gradle.kts # APP-LEVEL
+└── build.gradle.kts # PROJECT-LEVEL
+```
+
+`MainActivity.kt`
+```kotlin
+
+```
+
+
+`themes.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.DarkActionBar" />
+</resources>
+```
+
+
+<br>
+
+
+
+
+## Life-Cycle
 #### File System
 ```
 .Project
