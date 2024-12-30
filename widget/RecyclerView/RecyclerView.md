@@ -94,12 +94,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        lateinit var recyclerView:RecyclerView
-        lateinit var adapter: CustomAdapter
-        lateinit var viewHolder: CustomAdapter.ViewHolder
-        lateinit var textView: TextView
+    lateinit var recyclerView:RecyclerView
+    lateinit var adapter: CustomAdapter
+    lateinit var viewHolder: CustomAdapter.ViewHolder
+    lateinit var textView: TextView
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recyclerView = RecyclerView(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
