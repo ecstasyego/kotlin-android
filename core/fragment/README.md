@@ -217,10 +217,12 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
+    private lateinit var context: Context
+
     override fun onAttach(context: Context) {
         super.onAttach(context) // activity
-        context
-        requireContext()
+        context = context
+        context = requireContext()
         requireActivity()
     }
 
@@ -229,7 +231,9 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val context: Context = requireContext()
+        context = container?.context
+        context = requireContext()
+        
         val dynamicLayout = LinearLayout(context).apply{addView( TextView(context).apply {text = "This is main fragment."} )}
         val staticLayout = inflater.inflate(R.layout.fragment_layout, container, false)
         return staticLayout
