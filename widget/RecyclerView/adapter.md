@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: Adapter<MutableList<String>>
+### Example01: Adapter<List<String>>
 #### File System
 ```
 .Project
