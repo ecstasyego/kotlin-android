@@ -219,7 +219,9 @@ class MainActivity : AppCompatActivity() {
 class MainFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context) // activity
-        val activity = context as? MainActivity
+        context
+        requireContext()
+        requireActivity()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
