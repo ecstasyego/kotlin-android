@@ -125,28 +125,54 @@ dependencies {
 package com.example.myapplication
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.viewModels  // Make sure to import this
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_layout) {
+    private val viewModel: MyViewModel by viewModels()  // Access ViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
 
+        // Add the fragment dynamically
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
+
+        // Update ViewModel with some data
+        viewModel.update("Data 1")
+        viewModel.update("Data 2")
+        viewModel.update("Data 3")
     }
 }
 
-class MainFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_layout, container, false)
+class MainFragment : Fragment(R.layout.fragment_layout) {
+    private val viewModel: MyViewModel by activityViewModels()  // Access shared ViewModel
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.item.observe(viewLifecycleOwner, Observer { newData ->
+            Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
+        })
+    }
+}
+
+class MyViewModel : ViewModel() {
+    private val _data = MutableLiveData<String>()
+    val item: LiveData<String> get() = _data
+
+    fun update(newData: String) {
+        _data.value = newData
     }
 }
 ```
