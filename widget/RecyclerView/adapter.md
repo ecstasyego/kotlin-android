@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: Adapter<List<String>>
+### Example01: Adapter<MutableList<String>>
 #### File System
 ```
 .Project
@@ -172,7 +172,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView as TextView
     }
@@ -265,7 +265,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView as TextView
     }
@@ -337,7 +337,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView as TextView
     }
