@@ -32,9 +32,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MyViewModel by viewModels()  // Access ViewModel
+    private val viewModel: MyViewModel by viewModels{ MyViewModelFactory("Initial Data") }  // Access ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment(R.layout.fragment_layout) {
-    private val viewModel: MyViewModel by activityViewModels()  // Access shared ViewModel
+    private val viewModel: MyViewModel by activityViewModels{ MyViewModelFactory("Initial Data") } // Access shared ViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,9 +71,22 @@ class MainFragment : Fragment(R.layout.fragment_layout) {
     }
 }
 
-class MyViewModel : ViewModel() {
+class MyViewModelFactory(private val initialData: String) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MyViewModel::class.java)) {
+            return MyViewModel(initialData) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class MyViewModel(private val initialData: String) : ViewModel() {
     private val _data = MutableLiveData<String>()
     val item: LiveData<String> get() = _data
+
+    init {
+        _data.value = initialData
+    }
 
     fun update(newData: String) {
         _data.value = newData
