@@ -57,8 +57,12 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class MainFragment : Fragment(R.layout.fragment_layout) {
+class MainFragment : Fragment() {
     private val viewModel: MyViewModel by activityViewModels()  // Access shared ViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
