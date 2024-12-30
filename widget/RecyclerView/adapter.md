@@ -261,6 +261,55 @@ data class Item(var option:String)
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+class MainActivity : ComponentActivity() {
+    lateinit var  recyclerView: RecyclerView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val items = MutableList(20) { Item("ITEM: $it") }
+        recyclerView = RecyclerView(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = CustomAdapter(items)
+        setContentView(recyclerView)
+
+        val position:Int = 1
+        items.removeAt(position)
+        (recyclerView.adapter as CustomAdapter).notifyItemRemoved(position)
+    }
+}
+
+class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val textView: TextView = itemView as TextView
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            TextView(parent.context).apply{
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                setPadding(16, 16, 16, 16)
+            }
+        )
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.textView.text = items[position].option
+    }
+
+    override fun getItemCount(): Int = items.size
+}
+
+data class Item(var option:String)
 ```
 
 
