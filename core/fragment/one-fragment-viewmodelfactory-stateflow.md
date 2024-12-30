@@ -138,13 +138,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(R.layout.activity_layout) {
-    private val viewModel: MyViewModel by viewModels()  // Access ViewModel
+    private val viewModel: MyViewModel by viewModels{ MyViewModelFactory("Initial Data") }  // Access ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,7 +162,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_layout) {
 }
 
 class MainFragment : Fragment(R.layout.fragment_layout) {
-    private val viewModel: MyViewModel by activityViewModels()  // Access shared ViewModel
+    private val viewModel: MyViewModel by activityViewModels{ MyViewModelFactory("Initial Data") } // Access shared ViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -173,12 +174,21 @@ class MainFragment : Fragment(R.layout.fragment_layout) {
     }
 }
 
-class MyViewModel : ViewModel() {
-    private val _data = MutableStateFlow<String>("")  // Initial value
+class MyViewModelFactory(private val initialData: String) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MyViewModel::class.java)) {
+            return MyViewModel(initialData) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class MyViewModel(private val initialData: String) : ViewModel() {
+    private val _data = MutableStateFlow(initialData)
     val item: StateFlow<String> get() = _data
 
     fun update(newData: String) {
-        _data.value = newData  // Update the state value
+        _data.value = newData
     }
 }
 ```
