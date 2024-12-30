@@ -21,9 +21,12 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels  // Make sure to import this
 import androidx.appcompat.app.AppCompatActivity
@@ -63,8 +66,13 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class MainFragment : Fragment(R.layout.fragment_layout) {
+class MainFragment : Fragment() {
     private val viewModel: MyViewModel by activityViewModels{ MyViewModelFactory("Initial Data") } // Access shared ViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val dynamicLayout = LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
+        return dynamicLayout
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
