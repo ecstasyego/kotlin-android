@@ -192,6 +192,7 @@ class MainFragment : Fragment() {
 ```kotlin
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -199,11 +200,14 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
+    var _property:String = "Activity Property"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val main_layout = LinearLayout(this).apply{addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )}
@@ -217,23 +221,29 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private lateinit var context: Context
+    private lateinit var _context: Context
+    private lateinit var _activity: MainActivity
 
     override fun onAttach(context: Context) {
         super.onAttach(context) // activity
-        context = context
-        context = requireContext()
-        requireActivity()
+        _context = context
+        _context = requireContext()
+        _activity = context as MainActivity
+        _activity = activity as MainActivity
+        _activity = requireActivity() as MainActivity
+
+        Toast.makeText(context, _activity._property, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) // fragment resources
+        _context = requireContext()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        context = container?.context
-        context = requireContext()
-        
+        _context = container?.context!!
+        _context = requireContext()
+
         val dynamicLayout = LinearLayout(context).apply{addView( TextView(context).apply {text = "This is main fragment."} )}
         val staticLayout = inflater.inflate(R.layout.fragment_layout, container, false)
         return staticLayout
@@ -241,6 +251,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _context = requireContext()
         val custom_layout = view.findViewById<LinearLayout>(R.id.custom_layout)
     }
 
