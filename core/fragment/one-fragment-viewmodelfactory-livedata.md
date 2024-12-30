@@ -146,12 +146,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(R.layout.activity_layout) {
     private val viewModel: MyViewModel by viewModels{ MyViewModelFactory("Initial Data") }  // Access ViewModel
@@ -175,11 +174,10 @@ class MainFragment : Fragment(R.layout.fragment_layout) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            viewModel.item.collect { newData ->
-                Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.item.observe(viewLifecycleOwner, Observer { newData ->
+            Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
+        })
+
     }
 }
 
@@ -193,8 +191,12 @@ class MyViewModelFactory(private val initialData: String) : ViewModelProvider.Fa
 }
 
 class MyViewModel(private val initialData: String) : ViewModel() {
-    private val _data = MutableStateFlow(initialData)
-    val item: StateFlow<String> get() = _data
+    private val _data = MutableLiveData<String>()
+    val item: LiveData<String> get() = _data
+
+    init {
+        _data.value = initialData
+    }
 
     fun update(newData: String) {
         _data.value = newData
