@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: String
+### Example01: Adapter<List<String>>
 #### File System
 ```
 .Project
@@ -65,7 +65,7 @@ class CustomAdapter(private val items: List<String>) : RecyclerView.Adapter<Cust
 
 
 
-### Example02: data class
+### Example02: Adapter<List<Item>>
 #### File System
 ```
 .Project
