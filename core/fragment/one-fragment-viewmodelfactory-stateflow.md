@@ -70,8 +70,7 @@ class MainFragment : Fragment() {
     private val viewModel: MyViewModel by activityViewModels{ MyViewModelFactory("Initial Data") } // Access shared ViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val dynamicLayout = LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
-        return dynamicLayout
+        return LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
