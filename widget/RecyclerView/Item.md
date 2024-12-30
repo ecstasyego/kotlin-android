@@ -38,26 +38,25 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class CustomAdapter(private val data: List<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val items: List<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView as TextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val textView = TextView(parent.context)
-        textView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+        return ViewHolder(
+            TextView(parent.context).apply{
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                setPadding(16, 16, 16, 16)
+            }
         )
-        textView.setPadding(16, 16, 16, 16)
-        return ViewHolder(textView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = data[position]
+        holder.textView.text = items[position]
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = items.size
 }
 ```
 
@@ -109,13 +108,12 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val textView = TextView(parent.context)
-        textView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+        return ViewHolder(
+            TextView(parent.context).apply{
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                setPadding(16, 16, 16, 16)
+            }
         )
-        textView.setPadding(16, 16, 16, 16)
-        return ViewHolder(textView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -180,11 +178,12 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val textView = TextView(parent.context).apply{
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            setPadding(16, 16, 16, 16)
-        }
-        return ViewHolder(textView)
+        return ViewHolder(
+            TextView(parent.context).apply{
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                setPadding(16, 16, 16, 16)
+            }
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
