@@ -1,7 +1,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: *.kt
+### Example01: String
 #### File System
 ```
 .Project
