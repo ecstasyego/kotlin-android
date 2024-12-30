@@ -50,12 +50,12 @@ class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val recyclerView = RecyclerView(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = CustomAdapter(List(20) { "Item #$it" })
+        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: " + it.toString()) })
         return recyclerView
     }
 }
 
-class CustomAdapter(private val data: List<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val data: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView as TextView
     }
@@ -71,11 +71,14 @@ class CustomAdapter(private val data: List<String>) : RecyclerView.Adapter<Custo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = data[position]
+        holder.textView.text = data[position].option
     }
 
     override fun getItemCount(): Int = data.size
 }
+
+
+data class Item(var option:String)
 ```
 
 
