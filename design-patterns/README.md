@@ -1,4 +1,18 @@
 ## Android Application Design
+```
+- Context
+    - Application 
+        - Activity(Main Thread, UI)
+            - Fragement
+                - [PRESENTATION] DataBinding(LayoutInflater)
+                    - findViewById
+                - [VIEWMODEL] ViewModel
+                    - LiveData, StateFlow
+                    - Room, Retrofit2
+                - Service(Background Thread)
+                  - BroadcastReceiver             
+```
+
 - Presentation Layer Design
   - Activity Design
     - Layout Design
