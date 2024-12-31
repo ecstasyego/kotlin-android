@@ -445,15 +445,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.databinding.ActivityLayoutBinding
 import com.example.myapplication.databinding.FragmentLayoutBinding
 import com.example.myapplication.databinding.ItemLayoutBinding
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: CustomViewModel by viewModels{ CustomViewModelFactory( List(10){ Item("Initialized ITEM: $it")} ) }
+    private lateinit var binding: ActivityLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
+        binding = ActivityLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -484,8 +487,9 @@ class MainFragment : Fragment() {
 
 
 class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
-    private lateinit var binding: ItemLayoutBinding
     private var items: List<Item> = listOf()
+    private lateinit var binding: ItemLayoutBinding
+
     init {
         viewModel.items.observe(lifecycleOwner, Observer { newItems ->
             items = newItems
