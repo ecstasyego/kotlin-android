@@ -351,6 +351,12 @@ data class Item(var option:String)
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
 dependencies {
     implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
     implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
@@ -538,6 +544,12 @@ data class Item(var option:String)
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
 dependencies {
     implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
     implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
