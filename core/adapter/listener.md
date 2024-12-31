@@ -1,7 +1,4 @@
 
-
-## RecyclerView
-
 ## Examples
 ### Example01: Listener Basic
 #### File System
@@ -11,6 +8,8 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/activity_layout.xml
+│   │       ├── res/layout/item_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -22,35 +21,46 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.ComponentActivity
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), OnItemClickListener {
     lateinit var  recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recyclerView = RecyclerView(this)
+        setContentView(LayoutInflater.from(this).inflate(R.layout.activity_layout, null) as LinearLayout)
+
+        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
-        setContentView(recyclerView)
+        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") }, this)
+    }
+
+    override fun onItemClick(position: Int) {
+        Toast.makeText(this, "Item clicked: $position", Toast.LENGTH_SHORT).show()
     }
 }
 
-class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView as TextView
+class CustomAdapter(private val items: List<Item>, private val listener: OnItemClickListener) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    inner class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val textView: TextView = itemView.findViewById(R.id.textView)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val textView = TextView(parent.context).apply{
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            setPadding(16, 16, 16, 16)
-        }
-        return ViewHolder(textView)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -61,6 +71,10 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
 }
 
 data class Item(var option:String)
+
+interface OnItemClickListener {
+    fun onItemClick(position: Int)
+}
 ```
 
 
