@@ -179,6 +179,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityLayoutBinding
@@ -186,7 +187,7 @@ import com.example.myapplication.databinding.ItemLayoutBinding
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityLayoutBinding
-    private val viewModel: CustomViewModel by viewModels()
+    private val viewModel: CustomViewModel by viewModels{ CustomViewModelFactory( List(10){ Item("Initialized ITEM: $it")} ) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -230,9 +231,22 @@ class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycl
     override fun getItemCount(): Int = items.size
 }
 
-class CustomViewModel : ViewModel() {
+class CustomViewModelFactory(private val initialData: List<Item>) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(CustomViewModel::class.java)) {
+            return CustomViewModel(initialData) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class CustomViewModel(private val initialData: List<Item>) : ViewModel() {
     private val _items = MutableLiveData<List<Item>>()
     val items: LiveData<List<Item>> = _items
+
+    init {
+        _items.value = initialData
+    }
 
     fun fetch(newItems:List<Item>) {
         _items.value = newItems
