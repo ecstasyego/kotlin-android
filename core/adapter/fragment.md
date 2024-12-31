@@ -323,13 +323,17 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.myapplication.databinding.ActivityLayoutBinding
 import com.example.myapplication.databinding.FragmentLayoutBinding
 import com.example.myapplication.databinding.ItemLayoutBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
+        binding = ActivityLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -356,10 +360,12 @@ class MainFragment : Fragment() {
 }
 
 class CustomAdapter(private val context:Context, private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
+    private lateinit var binding: ItemLayoutBinding
+
     class ItemViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(context), parent, false)
+        binding = ItemLayoutBinding.inflate(LayoutInflater.from(context), parent, false)
         return ItemViewHolder(binding)
     }
 
