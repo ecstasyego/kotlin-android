@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
@@ -66,7 +67,11 @@ class CustomAdapter(private val context:Context, private val items: List<Item>) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false)
+        val cardView: CardView = view.findViewById(R.id.cardView)
+        cardView.radius = 12f  // Set corner radius
+        cardView.setCardElevation(4f)  // Set elevation (shadow)
+        cardView.setContentPadding(16, 16, 16, 16)  // Set padding inside CardView
         return ViewHolder(view)
     }
 
