@@ -193,6 +193,7 @@ dependencies {
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/activity_layout.xml
+│   │       ├── res/layout/fragment_layout.xml
 │   │       ├── res/layout/item_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -206,9 +207,13 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.activity.ComponentActivity
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -216,21 +221,34 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.databinding.ActivityLayoutBinding
+import com.example.myapplication.databinding.FragmentLayoutBinding
 import com.example.myapplication.databinding.ItemLayoutBinding
 
-class MainActivity : ComponentActivity() {
-    private lateinit var binding: ActivityLayoutBinding
+class MainActivity : AppCompatActivity() {
     private val viewModel: CustomViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLayoutBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_layout)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = CustomAdapter(viewModel, this)
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.commit()
+
         viewModel.fetch( List(10){ Item("ITEM: $it")} )
+    }
+}
+
+class MainFragment : Fragment() {
+    private val viewModel: CustomViewModel by activityViewModels()
+    lateinit var binding: FragmentLayoutBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentLayoutBinding.inflate(inflater, container, false)
+        binding.recyclerView.adapter = CustomAdapter(viewModel, this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        return binding.root
     }
 }
 
@@ -283,13 +301,30 @@ data class Item(var option:String)
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+```
+
+`fragment_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:gravity="center">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>
 ```
 
@@ -314,6 +349,16 @@ data class Item(var option:String)
 </androidx.cardview.widget.CardView>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")  // ViewModel KTX
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")  // LiveData KTX
+}
+```
+
 
 <br>
 
@@ -329,6 +374,7 @@ data class Item(var option:String)
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/activity_layout.xml
+│   │       ├── res/layout/fragment_layout.xml
 │   │       ├── res/layout/item_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -424,13 +470,30 @@ data class Item(var option:String)
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+```
+
+`fragment_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:gravity="center">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>
 ```
 
@@ -455,6 +518,15 @@ data class Item(var option:String)
 </androidx.cardview.widget.CardView>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")  // ViewModel KTX
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")  // LiveData KTX
+}
+```
 
 
 
