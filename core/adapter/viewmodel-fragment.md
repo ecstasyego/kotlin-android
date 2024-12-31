@@ -388,9 +388,13 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.activity.ComponentActivity
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -398,26 +402,40 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.databinding.ActivityLayoutBinding
+import com.example.myapplication.databinding.FragmentLayoutBinding
 import com.example.myapplication.databinding.ItemLayoutBinding
 
-class MainActivity : ComponentActivity() {
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: CustomAdapter
-    private lateinit var binding: ActivityLayoutBinding
+class MainActivity : AppCompatActivity() {
     private val viewModel: CustomViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLayoutBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_layout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.commit()
+
+        viewModel.fetch( List(10){ Item("ITEM: $it")} )
+    }
+}
+
+class MainFragment : Fragment() {
+    lateinit var recyclerView: RecyclerView
+    lateinit var adapter: CustomAdapter
+    private val viewModel: CustomViewModel by activityViewModels()
+    lateinit var binding: FragmentLayoutBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
-        setContentView(view)
 
         adapter = CustomAdapter(viewModel, this)
         recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-        viewModel.fetch( List(10){ Item("ITEM: $it")} )
+        return view
     }
 }
 
