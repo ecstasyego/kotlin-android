@@ -3,12 +3,12 @@
 - Context
     - Application 
         - Main Thread(UI): Activity, Fragement
+            - Intent, State, Bundle 
             - View
                 - DataBinding, LayoutInflater
                     - findViewById
             - ViewModel
                 - LiveData, StateFlow
-            - Intent, State, Bundle 
         - Background Thread: Service
             - Intent, BroadcastReceiver
 ``` 
