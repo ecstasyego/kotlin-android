@@ -27,7 +27,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
