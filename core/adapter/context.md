@@ -1,7 +1,7 @@
 
 
 ## RecyclerView
-### Example01: *.kt
+### Example01: Activity Context
 #### File System
 ```
 .Project
