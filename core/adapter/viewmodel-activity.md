@@ -265,6 +265,14 @@ data class Item(var option:String)
 </androidx.cardview.widget.CardView>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```xml
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+```
 
 <br>
 
@@ -406,6 +414,14 @@ data class Item(var option:String)
 </androidx.cardview.widget.CardView>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```xml
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+```
 
 
 
