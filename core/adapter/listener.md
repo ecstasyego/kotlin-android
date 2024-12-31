@@ -30,7 +30,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : ComponentActivity(), OnItemClickListener {
+class MainActivity : ComponentActivity(), CustomAdapter.OnItemClickListener {
     lateinit var  recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +48,10 @@ class MainActivity : ComponentActivity(), OnItemClickListener {
 }
 
 class CustomAdapter(private val items: List<Item>, private val listener: OnItemClickListener) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
     inner class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(R.id.textView)
 
@@ -71,10 +75,6 @@ class CustomAdapter(private val items: List<Item>, private val listener: OnItemC
 }
 
 data class Item(var option:String)
-
-interface OnItemClickListener {
-    fun onItemClick(position: Int)
-}
 ```
 
 
