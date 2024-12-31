@@ -414,15 +414,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.databinding.ActivityLayoutBinding
 import com.example.myapplication.databinding.FragmentLayoutBinding
 import com.example.myapplication.databinding.ItemLayoutBinding
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: CustomViewModel by viewModels()
+    lateinit var binding: ActivityLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
+        binding = ActivityLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
