@@ -109,6 +109,15 @@ class MyViewModel(private val initialData: String) : ViewModel() {
 </resources>
 ```
 
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")  // ViewModel KTX
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")  // LiveData KTX
+}
+```
 
 <br>
 
@@ -240,3 +249,14 @@ class MyViewModel(private val initialData: String) : ViewModel() {
     <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.DarkActionBar" />
 </resources>
 ```
+
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+dependencies {
+    implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")  // ViewModel KTX
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")  // LiveData KTX
+}
+```
+
