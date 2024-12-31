@@ -94,7 +94,7 @@ android {
 <br>
 
 
-### Example02: *.kt
+### Example02: *.xml
 #### File System
 ```
 .Project
