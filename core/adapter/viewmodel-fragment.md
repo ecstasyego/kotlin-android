@@ -398,6 +398,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
@@ -446,6 +447,7 @@ class MainFragment : Fragment() {
 }
 
 class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
+    private lateinit var binding: ItemLayoutBinding
     private var items: List<Item> = listOf()
     init {
         viewModel.items.observe(lifecycleOwner, Observer { newItems ->
@@ -461,10 +463,13 @@ class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        binding.cardView.radius = 12f  // Set corner radius
-        binding.cardView.setCardElevation(4f)  // Set elevation (shadow)
-        binding.cardView.setContentPadding(16, 16, 16, 16)  // Set padding inside CardView
+        binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = binding.root
+        val cardView: CardView = view.findViewById(R.id.cardView)
+
+        cardView.radius = 12f  // Set corner radius
+        cardView.setCardElevation(4f)  // Set elevation (shadow)
+        cardView.setContentPadding(16, 16, 16, 16)  // Set padding inside CardView
         return ItemViewHolder(binding)
     }
 
