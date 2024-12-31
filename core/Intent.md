@@ -131,3 +131,18 @@ class ResultActivity: ComponentActivity() {
 
 </LinearLayout>
 ```
+
+
+
+<br>
+
+### Example02: Serializable 
+
+
+<br>
+
+
+### Example03: Parcelable 
+
+
+
