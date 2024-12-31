@@ -214,5 +214,13 @@ data class Item(var option:String)
 ```
 
 
+`build.gradle.kts(APP-LEVEL)`
+```kotlin
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+```
 
 
