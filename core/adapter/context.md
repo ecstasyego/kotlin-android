@@ -21,19 +21,18 @@
 ```kotlin
 package com.example.myapplication
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.ComponentActivity
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityLayoutBinding
 import com.example.myapplication.databinding.ItemLayoutBinding
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,49 +40,55 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val items = listOf("Item 1", "Item 2", "Item 3")
-        val adapter = ItemAdapter(this, items)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = CustomAdapter(this, List(20) { Item("ITEM: $it") })
     }
 }
 
-
-class ItemAdapter(private val context: Context, private val items: List<String>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-    inner class ItemViewHolder(private val binding: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: String) {
+class CustomAdapter(private val context: Context, private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
+    inner class ItemViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item: String){
             binding.textView.text = item
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = ItemLayoutBinding.inflate(LayoutInflater.from(context), parent, false)
+        binding.cardView.radius = 12f  // Set corner radius
+        binding.cardView.setCardElevation(4f)  // Set elevation (shadow)
+        binding.cardView.setContentPadding(16, 16, 16, 16)  // Set padding inside CardView
         return ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = items[position]
+        val item = items[position].option
         holder.bind(item)
         holder.itemView.setOnClickListener {
             Toast.makeText(context, "Clicked on: $item", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun getItemCount(): Int = items.size
 }
+
+data class Item(var option:String)
 ```
 
 `activity_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp" />
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
 ```
 
 `item_layout.xml`
