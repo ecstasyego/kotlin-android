@@ -125,7 +125,8 @@ data class Item(var option:String): Serializable
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="0" />
 
 </LinearLayout>
 ```
