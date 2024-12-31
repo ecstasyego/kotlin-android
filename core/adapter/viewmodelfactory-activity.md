@@ -338,6 +338,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityLayoutBinding
@@ -346,8 +347,8 @@ import com.example.myapplication.databinding.ItemLayoutBinding
 class MainActivity : ComponentActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: CustomAdapter
+    private val viewModel: CustomViewModel by viewModels{ CustomViewModelFactory( List(10){ Item("Initialized ITEM: $it")} ) }
     private lateinit var binding: ActivityLayoutBinding
-    private val viewModel: CustomViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -366,7 +367,6 @@ class MainActivity : ComponentActivity() {
 class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
     private lateinit var binding: ItemLayoutBinding
     private var items: List<Item> = listOf()
-
     init {
         viewModel.items.observe(lifecycleOwner, Observer { newItems ->
             items = newItems
@@ -389,7 +389,6 @@ class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycl
         cardView.setCardElevation(4f)  // Set elevation (shadow)
         cardView.setContentPadding(16, 16, 16, 16)  // Set padding inside CardView
         return ItemViewHolder(binding)
-
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -400,9 +399,22 @@ class CustomAdapter(private val viewModel: CustomViewModel, private val lifecycl
     override fun getItemCount(): Int = items.size
 }
 
-class CustomViewModel : ViewModel() {
+class CustomViewModelFactory(private val initialData: List<Item>) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(CustomViewModel::class.java)) {
+            return CustomViewModel(initialData) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class CustomViewModel(private val initialData: List<Item>) : ViewModel() {
     private val _items = MutableLiveData<List<Item>>()
     val items: LiveData<List<Item>> = _items
+
+    init {
+        _items.value = initialData
+    }
 
     fun fetch(newItems:List<Item>) {
         _items.value = newItems
