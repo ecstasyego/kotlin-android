@@ -28,14 +28,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : ComponentActivity() {
-    lateinit var  widget: RecyclerView
+    lateinit var  recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        widget = RecyclerView(this)
-        widget.layoutManager = LinearLayoutManager(this)
-        widget.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
-        setContentView(widget)
+        recyclerView = RecyclerView(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
+        setContentView(recyclerView)
     }
 }
 
@@ -45,12 +45,10 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val textView = TextView(parent.context)
-        textView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        textView.setPadding(16, 16, 16, 16)
+        val textView = TextView(parent.context).apply{
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setPadding(16, 16, 16, 16)
+        }
         return ViewHolder(textView)
     }
 
