@@ -173,6 +173,38 @@ class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
 }
 ```
 
+
+### findViewById
+```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import androidx.activity.ComponentActivity
+import android.widget.LinearLayout
+import android.widget.TextView
+
+class MainActivity : ComponentActivity() {
+    lateinit var widget: LinearLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        widget = LinearLayout(this)
+        widget.addView(TextView(this).apply{id = View.generateViewId()})
+        widget.addView(Button(this).apply{id = View.generateViewId()})
+        setContentView(widget)
+
+        // Childrens
+        widget.getChildAt(0)
+        widget.getChildAt(1)
+        widget.findViewById<TextView>(widget.getChildAt(0).id)
+        widget.findViewById<Button>(widget.getChildAt(1).id)
+    }
+}
+```
+
+
 ## EventHandler
 ```koltin
 
