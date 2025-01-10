@@ -225,6 +225,7 @@ class MainActivity : AppCompatActivity() {
 class MainFragment : Fragment() {
     private lateinit var _context: Context
     private lateinit var _activity: MainActivity
+    private lateinit var _inflater: LayoutInflater
 
     override fun onAttach(context: Context) {
         super.onAttach(context) // activity
@@ -256,8 +257,15 @@ class MainFragment : Fragment() {
         _context = requireContext()
         _activity = requireActivity() as MainActivity
 
+        _inflater = LayoutInflater.from(requireContext())
+        _inflater = requireActivity().layoutInflater
+
         val mainLayout = _activity.findViewById<LinearLayout>(_activity.mainLayout.id)
-        val customLayout = view.findViewById<LinearLayout>(R.id.custom_layout)
+        val customLayout = _inflater.inflate(R.layout.custom_layout, view as ViewGroup, false)
+        val frameLayout = view as LinearLayout
+        val textView = view.findViewById<TextView>(R.id.textView)
+
+        frameLayout.addView(customLayout)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
