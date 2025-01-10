@@ -3,7 +3,7 @@
 - Context
     - Application 
         - Main Thread(UI): Activity, Fragement
-            - Intent, State, Bundle 
+            - Intent, State, Bundle, SharedPreferences 
             - View
                 - DataBinding, LayoutInflater
                     - findViewById
