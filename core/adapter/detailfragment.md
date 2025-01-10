@@ -1,7 +1,7 @@
 
 
 ## Examples
-### Example01: Basic
+### Example01: apdater on activity
 #### File System
 ```
 .Project
@@ -175,7 +175,7 @@ data class Item(var option:String): Serializable
 <br>
 
 
-### Example02: Visibility Contorl
+### Example02: apdater on activity with Visibility Contorl
 #### File System
 ```
 .Project
