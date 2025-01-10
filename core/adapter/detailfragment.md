@@ -450,17 +450,15 @@ class DetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        item = arguments?.getSerializable("option") as Item
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
+        val textView: TextView = view.findViewById(R.id.textView)
+        textView.text = item.option
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        item = arguments?.getSerializable("option") as Item
-
-        val textView: TextView = view.findViewById(R.id.textView)
-        textView.text = item.option
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack() // Manually pop the back stack
         }
