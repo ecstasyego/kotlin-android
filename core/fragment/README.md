@@ -206,16 +206,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
-    var _property:String = "Activity Property"
+    lateinit var _property:String
+    lateinit var mainLayout:LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val main_layout = LinearLayout(this).apply{addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )}
-        setContentView(main_layout)
+        mainLayout = LinearLayout(this).apply{addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )}
+        setContentView(mainLayout)
 
+        _property = "Activity Property"
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.replace(mainLayout.getChildAt(0).id, fragment)
         transaction.commit()
     }
 }
@@ -252,7 +254,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _context = requireContext()
-        val custom_layout = view.findViewById<LinearLayout>(R.id.custom_layout)
+        _activity = requireActivity() as MainActivity
+
+        val mainLayout = _activity.findViewById<LinearLayout>(_activity.mainLayout.id)
+        val customLayout = view.findViewById<LinearLayout>(R.id.custom_layout)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
