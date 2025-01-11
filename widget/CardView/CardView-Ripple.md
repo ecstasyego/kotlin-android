@@ -119,7 +119,7 @@ class MainActivity : ComponentActivity() {
     android:radius="8dp"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/ripple_background">
+    android:foreground="@drawable/ripple_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -169,7 +169,7 @@ class MainActivity : ComponentActivity() {
     <!-- Content of the ripple background -->
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@android:color/white"/>
+            <solid android:color="@android:color/transparent"/>
             <corners android:radius="8dp"/>
         </shape>
     </item>
