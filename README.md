@@ -19,7 +19,7 @@
         - Read-Only
 - Caches
     - Remove: C:\Users\user\\.gradle\caches\\*
-    - Rebuild
+    - Rebuild: Build/Clean Project, Build/Rebuild Project 
     
   
 ## Application Design
