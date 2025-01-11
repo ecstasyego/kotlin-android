@@ -30,6 +30,8 @@ class MainActivity : ComponentActivity() {
 
         val textView = TextView(this)
         textView.text = "Hello, Kotlin!"
+        textView.isClickable = true
+        textView.isFocusable = true
         textView.setBackgroundResource(R.drawable.ripple_background)
         setContentView(textView)
 
