@@ -21,6 +21,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.fragment.app.Fragment
@@ -30,16 +31,17 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import java.io.Serializable
 
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val frameLayout = FrameLayout(this).apply { layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT) }
         setContentView(frameLayout)
 
@@ -69,16 +71,57 @@ class MainFragment : Fragment() {
     lateinit var  recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val frameLayout = FrameLayout(requireContext()).apply {
+            id = View.generateViewId()
+            layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        }
+
         recyclerView = RecyclerView(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
-        return recyclerView
+        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") }){ item ->
+            val fragment = DetailFragment.newInstance(item)
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+            transaction.replace(frameLayout.id, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+        frameLayout.addView(recyclerView)
+        return frameLayout
     }
 }
 
-class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+class DetailFragment : Fragment() {
+    private lateinit var item: Item
+
+    companion object {
+        fun newInstance(item: Item): DetailFragment {
+            val fragment = DetailFragment()
+            val args = Bundle()
+            args.putSerializable("option", item)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val item = arguments?.getSerializable("option") as? Item
+        val view = LinearLayout(requireContext()).apply{ gravity = Gravity.CENTER }
+        view.addView(TextView(requireContext()).apply{text=item?.option})
+        return view
+    }
+}
+
+class CustomAdapter(private val items: List<Item>, private var changeFragmentListener: (Item) -> Unit) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    inner class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView as TextView
+
+        init {
+            itemView.setOnClickListener {
+                val item = items[adapterPosition]  // Get the actual Item object based on the adapter position
+                changeFragmentListener(item)
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -96,7 +139,7 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
     override fun getItemCount(): Int = items.size
 }
 
-data class Item(var option:String)
+data class Item(var option:String):Serializable
 ```
 
 
