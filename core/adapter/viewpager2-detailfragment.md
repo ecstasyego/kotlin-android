@@ -72,7 +72,6 @@ class MainFragment : Fragment() {
         recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") }){ item ->
             val fragment = DetailFragment.newInstance(item)
             val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.hide(this@MainFragment)
             transaction.replace((view?.parent as ViewGroup).id, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
