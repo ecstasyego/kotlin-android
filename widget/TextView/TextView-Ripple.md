@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/activity_layout.xml
+│   │       ├── res/layout/main_layout.xml
 │   │       ├── res/drawable/ripple_background.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
