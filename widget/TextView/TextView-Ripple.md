@@ -8,6 +8,7 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/drawable/ripple_background.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -16,4 +17,37 @@
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.TextView
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val textView = TextView(this)
+        textView.text = "Hello, Kotlin!"
+        textView.setBackgroundResource(R.drawable.ripple_background)
+        setContentView(textView)
+
+    }
+}
 ```
+
+
+`ripple_background.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@android:color/darker_gray">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+</ripple>
+```
+
