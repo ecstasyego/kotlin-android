@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── res/layout/main_layout.xml
+│   │       ├── res/drawable/ripple_background.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -99,5 +100,18 @@ class MainActivity : ComponentActivity() {
         android:background="@drawable/ripple_background"
         android:padding="16dp" />
 </LinearLayout>
+```
+
+`ripple_background.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@android:color/darker_gray">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+</ripple>
 ```
 
