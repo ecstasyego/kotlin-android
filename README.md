@@ -18,7 +18,7 @@
     - Remove: C:\Users\user\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt
         - Read-Only
 - Caches
-    - Remove: C:\Users\user\\.gradle\caches\*
+    - Remove: C:\Users\user\\.gradle\caches\\*
     - Rebuild
     
   
