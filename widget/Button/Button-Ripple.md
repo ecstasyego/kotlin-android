@@ -101,4 +101,3 @@ class MainActivity : ComponentActivity() {
 </LinearLayout>
 ```
 
-![image](https://github.com/user-attachments/assets/352d944b-474d-41aa-9a04-9983e9caea3f)
