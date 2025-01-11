@@ -21,9 +21,11 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -34,22 +36,32 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         recyclerView = RecyclerView(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
+        recyclerView.adapter = CustomAdapter(List(30) { Item("ITEM: $it") })
         setContentView(recyclerView)
     }
 }
 
 class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView as TextView
+        val cardView: CardView = itemView as CardView
+        val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val cardView = CardView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            radius = 8f // set corner radius
+            elevation = 4f // set elevation for shadow
+            setContentPadding(16, 16, 16, 16) // add padding inside CardView
+        }
+
         val textView = TextView(parent.context).apply{
+            id = View.generateViewId()
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setPadding(16, 16, 16, 16)
         }
-        return ViewHolder(textView)
+        cardView.addView(textView)
+        return ViewHolder(cardView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
