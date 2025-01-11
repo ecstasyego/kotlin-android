@@ -57,11 +57,7 @@ class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> MainFragment()
-            1 -> MainFragment()
-            else -> MainFragment()
-        }
+        return MainFragment()
     }
 }
 
