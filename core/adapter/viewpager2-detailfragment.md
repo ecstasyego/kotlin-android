@@ -1,5 +1,4 @@
 
-## RecyclerView
 
 ## Examples
 ### Example01: Dynamic View
