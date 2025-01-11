@@ -109,17 +109,47 @@ class MainActivity : ComponentActivity() {
 
 `main_layout.xml`
 ```xml
-package com.example.myapplication
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:radius="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/ripple_background">
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
-    }
-}
+        <TextView
+            android:id="@+id/textView00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEXTVIEW00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEXTVIEW01"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEXTVIEW03"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
 ```
 
 `ripple_background.xml`
