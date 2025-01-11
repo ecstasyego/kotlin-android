@@ -61,6 +61,7 @@ class MainActivity : ComponentActivity() {
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── res/layout/activity_layout.xml
 │   │       ├── res/drawable/ripple_background.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -77,19 +78,27 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val textView = TextView(this)
-        textView.text = "Hello, Kotlin!"
-        textView.setBackgroundResource(R.drawable.ripple_background)
-        setContentView(textView)
-
+        setContentView(R.layout.activity_layout)
     }
 }
 ```
 
+`activity_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/textView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hello, Kotlin!"
+    android:textSize="24sp"
+    android:background="@drawable/ripple_background"
+    android:padding="16dp"
+    android:clickable="true"
+    android:focusable="true" />
+```
 
 `ripple_background.xml`
 ```xml
