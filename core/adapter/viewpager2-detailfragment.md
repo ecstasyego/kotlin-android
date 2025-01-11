@@ -67,23 +67,19 @@ class MainFragment : Fragment() {
     lateinit var  recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val frameLayout = FrameLayout(requireContext()).apply {
-            id = View.generateViewId()
-            layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
-        }
-
         recyclerView = RecyclerView(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") }){ item ->
             val fragment = DetailFragment.newInstance(item)
-            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-            transaction.replace(frameLayout.id, fragment)
+            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.hide(this@MainFragment)
+            transaction.replace((view?.parent as ViewGroup).id, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
-        frameLayout.addView(recyclerView)
-        return frameLayout
+        return recyclerView
     }
+
 }
 
 class DetailFragment : Fragment() {
