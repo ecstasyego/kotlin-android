@@ -17,6 +17,9 @@
 - Vector Asset Icons
     - Remove: C:\Users\user\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt
         - Read-Only
+- Caches
+    - Remove: C:\Users\user\.gradle\caches\*
+    - Rebuild
     
   
 ## Application Design
