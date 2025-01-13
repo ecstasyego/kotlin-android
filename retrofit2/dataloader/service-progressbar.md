@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
             }
 
             val remainingTimeFormatted = formatTime(estimatedTime)
-            timeText.text = "남은 시간: $remainingTimeFormatted"
+            timeText.text = "TIME: $remainingTimeFormatted"
 
             // Show success or error message
             if (success) {
@@ -344,7 +344,7 @@ data class History(
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="남은 시간: 계산 중"
+        android:text="TIME: "
         android:textSize="16sp" />
 
 </LinearLayout>
