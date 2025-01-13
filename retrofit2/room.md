@@ -8,7 +8,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -20,8 +19,9 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -46,12 +46,13 @@ import retrofit2.http.Path
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        val mainLayout = LinearLayout(this)
+        setContentView(mainLayout)
 
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
             .build()
