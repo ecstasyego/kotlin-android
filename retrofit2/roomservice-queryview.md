@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         serializedData = mutableListOf<String>()
         adapter = CsvAdapter(serializedData)
         recyclerView = RecyclerView(this)
-        recyclerView.layoutManager = GridLayoutManager(this, History::class.java.declaredFields.size)
+        recyclerView.layoutManager = GridLayoutManager(this, 6)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(GridSpacingItemDecoration(10))
         setContentView(recyclerView)
