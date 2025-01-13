@@ -12,6 +12,7 @@
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
 ```
+
 #### Source Code
 `MainActivity.kt`
 ```kotlin
@@ -26,6 +27,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +45,10 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 }
+
 class MainFragment : Fragment() {
     lateinit var param: List<Map<String, Any?>>
+
     companion object {
         fun newInstance(param: List<Map<String, Any?>>): MainFragment {
             val fragment = MainFragment()
@@ -54,10 +58,12 @@ class MainFragment : Fragment() {
             return fragment
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         param = (arguments?.getSerializable("ARGS_DATA") as? List<Map<String, Any?>>)!!
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val datum = param[0]["key1"]
         return LinearLayout(requireContext()).apply {
@@ -66,6 +72,7 @@ class MainFragment : Fragment() {
     }
 }
 ```
+
 `themes.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
