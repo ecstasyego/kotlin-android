@@ -363,3 +363,10 @@ class MainFragment : Fragment() {
 
 
 ```
+
+
+
+## FragmentManager
+### supportFragmentManager
+### parentFragmentManager
+### childFragmentManager
