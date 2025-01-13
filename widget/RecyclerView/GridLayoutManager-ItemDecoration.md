@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recyclerView = RecyclerView(this)
-        recyclerView.layoutManager = GridLayoutManager(this, 10)
+        recyclerView.layoutManager = GridLayoutManager(this, 5)
         recyclerView.adapter = CustomAdapter(List(200) { Item("ITEM: $it") })
         recyclerView.addItemDecoration(GridSpacingItemDecoration(10))
         setContentView(recyclerView)
