@@ -7,8 +7,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
-│   │       ├── res/layout/history_item.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -22,7 +20,6 @@ package com.example.myapplication
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import android.content.Intent
@@ -30,14 +27,18 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
 import android.app.Service
+import android.graphics.Rect
 import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.GlobalScope
 import androidx.room.Room
 import androidx.room.Database
@@ -59,21 +60,31 @@ import retrofit2.http.Path
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDatabase
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CsvAdapter
-    private val historyList = mutableListOf<History>()
+    private lateinit var serializedData: MutableList<String>
+
     private val csvDownloadReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val success = intent?.getBooleanExtra("success", false) ?: false
             if (success) {
-                Toast.makeText(applicationContext, "Data saved to Room successfully!", Toast.LENGTH_SHORT).show()
+                val code = intent?.getStringExtra("code") ?: ""
+                Toast.makeText(applicationContext, "Data($code) saved to Room successfully!", Toast.LENGTH_SHORT).show()
                 lifecycleScope.launch {
-                    historyList.clear()
-                    historyList.addAll(db.historyDao().get())
+                    serializedData.clear()
+                    for (historyDao in db.historyDao().get()){
+                        serializedData.add(historyDao.date.toString())
+                        serializedData.add(historyDao.open.toString())
+                        serializedData.add(historyDao.high.toString())
+                        serializedData.add(historyDao.low.toString())
+                        serializedData.add(historyDao.close.toString())
+                        serializedData.add(historyDao.code.toString())
+                    }
                     adapter.notifyDataSetChanged()
                 }
+
             } else {
                 Toast.makeText(applicationContext, "Error saving data.", Toast.LENGTH_SHORT).show()
             }
@@ -83,13 +94,16 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
-
-        adapter = CsvAdapter(historyList)
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        serializedData = mutableListOf<String>()
+        adapter = CsvAdapter(serializedData)
+        recyclerView = RecyclerView(this)
+        recyclerView.layoutManager = GridLayoutManager(this, History::class.java.declaredFields.size)
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(10))
+        setContentView(recyclerView)
 
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
             .build()
 
@@ -97,8 +111,9 @@ class MainActivity : ComponentActivity() {
         registerReceiver(csvDownloadReceiver, filter, RECEIVER_NOT_EXPORTED)
 
         // Start the service to download CSV data
+        val stocks = arrayOf("005930.csv", "000660.csv")
         val intent = Intent(this, RemoteService::class.java)
-        intent.putExtra("fileName", "005930.csv")
+        intent.putExtra("fileNames", stocks)
         startService(intent)
     }
 
@@ -108,34 +123,65 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+class GridSpacingItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        super.getItemOffsets(outRect, view, parent, state)
 
-class CsvAdapter(private val historyList: List<History>) : RecyclerView.Adapter<CsvAdapter.HistoryViewHolder>() {
-
-    inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
-        val openTextView: TextView = itemView.findViewById(R.id.openTextView)
-        val highTextView: TextView = itemView.findViewById(R.id.highTextView)
-        val lowTextView: TextView = itemView.findViewById(R.id.lowTextView)
-        val closeTextView: TextView = itemView.findViewById(R.id.closeTextView)
+        outRect.left = spacing
+        outRect.right = spacing
+        outRect.top = spacing
+        outRect.bottom = spacing
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.history_item, parent, false)
-        return HistoryViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val history = historyList[position]
-        holder.dateTextView.text = history.date
-        holder.openTextView.text = history.open?.toString() ?: "N/A"
-        holder.highTextView.text = history.high?.toString() ?: "N/A"
-        holder.lowTextView.text = history.low?.toString() ?: "N/A"
-        holder.closeTextView.text = history.close?.toString() ?: "N/A"
-    }
-
-    override fun getItemCount(): Int = historyList.size
 }
 
+class CsvAdapter(private val items: List<String>) : RecyclerView.Adapter<CsvAdapter.ViewHolder>() {
+    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val cardView: CardView = itemView as CardView
+        val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val cardView = CardView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            radius = 8f // set corner radius
+            elevation = 4f // set elevation for shadow
+            setContentPadding(16, 16, 16, 16) // add padding inside CardView
+        }
+
+        val textView = TextView(parent.context).apply{
+            id = View.generateViewId()
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            maxLines = 1 // one line option
+            ellipsize = android.text.TextUtils.TruncateAt.END // one line option
+            setSingleLine(true) // one line option
+            setPadding(16, 16, 16, 16)
+        }
+        cardView.addView(textView)
+        cardView.setOnClickListener {
+            TextFragment().apply {
+                arguments = Bundle().apply { putString("text", textView.text.toString()) }
+                show((parent.context as MainActivity).supportFragmentManager.beginTransaction(), "dialog")
+            }
+
+        }
+
+        return ViewHolder(cardView)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.textView.text = items[position]
+    }
+
+    override fun getItemCount(): Int = items.size
+}
+
+
+class TextFragment : DialogFragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var cellText = arguments?.getString("text", "Default Text")
+        return TextView(requireContext()).apply {text = cellText }
+    }
+}
 
 
 class RemoteService : Service() {
@@ -152,9 +198,20 @@ class RemoteService : Service() {
             .build()
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val fileName = intent?.getStringExtra("fileName") ?: "default.csv"
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val fileNames = intent?.getStringArrayExtra("fileNames") ?: arrayOf("default.csv")
+        for (fileName in fileNames) {
+            csvDownload(fileName)
+        }
+        return START_NOT_STICKY
+    }
+
+    private fun csvDownload(fileName: String) {
+        val code = fileName.split(",")[0]
         val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -173,7 +230,8 @@ class RemoteService : Service() {
                                         open = values[1].toDoubleOrNull(),
                                         high = values[2].toDoubleOrNull(),
                                         low = values[3].toDoubleOrNull(),
-                                        close = values[4].toDoubleOrNull()
+                                        close = values[4].toDoubleOrNull(),
+                                        code = code
                                     )
                                     csvDaoData.add(history)
                                 }
@@ -188,31 +246,29 @@ class RemoteService : Service() {
                             }
 
                             // Send broadcast to inform that data has been saved
-                            val broadcastIntent = Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
+                            val broadcastIntent =
+                                Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
                             broadcastIntent.putExtra("success", true)
+                            broadcastIntent.putExtra("code", code)
                             sendBroadcast(broadcastIntent)
                         }
                     }
                 } else {
                     // Broadcast an error if the download fails
-                    val broadcastIntent = Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
+                    val broadcastIntent =
+                        Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
                     broadcastIntent.putExtra("success", false)
                     sendBroadcast(broadcastIntent)
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val broadcastIntent = Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
+                val broadcastIntent =
+                    Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
                 broadcastIntent.putExtra("success", false)
                 sendBroadcast(broadcastIntent)
             }
         })
-
-        return START_NOT_STICKY
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
     }
 }
 
@@ -247,7 +303,8 @@ data class History(
     @ColumnInfo(name = "open") val open: Double?,
     @ColumnInfo(name = "high") val high: Double?,
     @ColumnInfo(name = "low") val low: Double?,
-    @ColumnInfo(name = "close") val close: Double?
+    @ColumnInfo(name = "close") val close: Double?,
+    @ColumnInfo(name = "code") val code: String?
 )
 ```
 
