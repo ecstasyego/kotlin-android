@@ -8,7 +8,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -31,6 +30,7 @@ import android.content.Context
 import android.content.IntentFilter
 import android.app.Service
 import android.os.IBinder
+import android.widget.LinearLayout
 import kotlinx.coroutines.GlobalScope
 import androidx.room.Room
 import androidx.room.Database
@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(LinearLayout(this))
 
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
             .build()
