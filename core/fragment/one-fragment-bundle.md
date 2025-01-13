@@ -28,6 +28,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(main_layout)
 
-        val fragment = MainFragment()
+        val fragment = MainFragment.newInstance("Hello", 9999)
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(main_layout.getChildAt(0).id, fragment)
         transaction.commit()
@@ -45,9 +46,29 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
+    lateinit var param00: String
+    var param01 by Delegates.notNull<Int>()
+
+    companion object {
+        fun newInstance(param00: String, param01: Int): MainFragment {
+            val fragment = MainFragment()
+            val args = Bundle()
+            args.putString("ARG_PARAM00", param00)
+            args.putInt("ARG_PARAM01", param01)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        param00 = arguments?.getString("ARG_PARAM00").toString()
+        param01 = arguments?.getInt("ARG_PARAM01")!!
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
+            addView( TextView(requireContext()).apply {text = "This is main fragment with bundle($param00, $param01)."} )
         }
     }
 }
