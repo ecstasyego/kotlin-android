@@ -35,10 +35,12 @@ class MainActivity : AppCompatActivity() {
             addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
         }
         setContentView(main_layout)
+
         val data: List<Map<String, Any?>> = listOf(
             mapOf("key1" to "value1", "key2" to 123),
             mapOf("key1" to true, "key2" to null)
         )
+
         val fragment = MainFragment.newInstance(data)
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(main_layout.getChildAt(0).id, fragment)
