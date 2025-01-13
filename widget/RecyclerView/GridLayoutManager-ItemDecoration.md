@@ -117,8 +117,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recyclerView = RecyclerView(this)
-        recyclerView.layoutManager = GridLayoutManager(this, 5)
-        recyclerView.adapter = CustomAdapter(List(100) { Item("ITEM: $it") })
+        recyclerView.layoutManager = GridLayoutManager(this, 10)
+        recyclerView.adapter = CustomAdapter(List(200) { Item("ITEM: $it") })
         recyclerView.addItemDecoration(GridSpacingItemDecoration(10))
         setContentView(recyclerView)
     }
@@ -152,6 +152,9 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
         val textView = TextView(parent.context).apply{
             id = View.generateViewId()
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            maxLines = 1 // one line option
+            ellipsize = android.text.TextUtils.TruncateAt.END // one line option
+            setSingleLine(true) // one line option
             setPadding(16, 16, 16, 16)
         }
         cardView.addView(textView)
