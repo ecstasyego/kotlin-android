@@ -19,103 +19,114 @@
 ```kotlin
 package com.example.myapplication
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import android.content.Intent
+import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
-import android.app.Service
+import android.os.Build
+import android.os.Bundle
 import android.os.IBinder
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import kotlinx.coroutines.GlobalScope
-import androidx.room.Room
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.room.ColumnInfo
+import androidx.room.Dao
+import androidx.room.Database
 import androidx.room.Entity
+import androidx.room.Insert
 import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.Response
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class MainActivity : ComponentActivity() {
-    private lateinit var db: AppDatabase
+class SplashActivity : AppCompatActivity() {
+
     private lateinit var progressBar: ProgressBar
     private lateinit var progressText: TextView
     private lateinit var timeText: TextView
+    private lateinit var db: AppDatabase
+    private lateinit var csvDownloadReceiver: BroadcastReceiver
 
-    private val csvDownloadReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val success = intent?.getBooleanExtra("success", false) ?: false
-            val code = intent?.getStringExtra("code") ?: ""
-            val totalFiles = intent?.getIntExtra("totalFiles", 0) ?: 0
-            val completedFiles = intent?.getIntExtra("completedFiles", 0) ?: 0
-            val elapsedTime = intent?.getLongExtra("elapsedTime", 0L) ?: 0L
-
-            // Calculate remaining time
-            val progress = (completedFiles * 100) / totalFiles
-            progressBar.progress = progress
-            progressText.text = "$progress%"
-
-            // Estimate remaining time based on elapsed time and completed files
-            val estimatedTime = if (completedFiles > 0) {
-                val avgTimePerFile = elapsedTime / completedFiles
-                val remainingFiles = totalFiles - completedFiles
-                avgTimePerFile * remainingFiles
-            } else {
-                0L
-            }
-
-            val remainingTimeFormatted = formatTime(estimatedTime)
-            timeText.text = "TIME: $remainingTimeFormatted"
-
-            // Show success or error message
-            if (success) {
-                Toast.makeText(applicationContext, "Data($code) saved to Room successfully!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(applicationContext, "Error saving data.", Toast.LENGTH_SHORT).show()
-            }
-
-            // Hide the progress bar when all files are processed
-            if (completedFiles == totalFiles) {
-                progressBar.visibility = View.GONE
-            }
-        }
+    private val launchMainActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) {
+        // Handle the result if needed
     }
 
-    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(R.layout.activity_splash)
 
         // Initialize views
         progressBar = findViewById(R.id.progressBar)
         progressText = findViewById(R.id.progressText)
         timeText = findViewById(R.id.timeText)
 
-        val dbFile = applicationContext.getDatabasePath("historyDB")
-        if (dbFile.exists()) { dbFile.delete() }
+        // Set up Room Database
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
             .build()
 
+        // Register broadcast receiver to get download status
         val filter = IntentFilter("com.example.myapplication.CSV_DOWNLOAD_COMPLETED")
+        csvDownloadReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val success = intent?.getBooleanExtra("success", false) ?: false
+                val code = intent?.getStringExtra("code") ?: ""
+                val totalFiles = intent?.getIntExtra("totalFiles", 0) ?: 0
+                val completedFiles = intent?.getIntExtra("completedFiles", 0) ?: 0
+                val elapsedTime = intent?.getLongExtra("elapsedTime", 0L) ?: 0L
+
+                // Update the progress bar and display remaining time
+                val progress = (completedFiles * 100) / totalFiles
+                progressBar.progress = progress
+                progressText.text = "$progress%"
+
+                val estimatedTime = if (completedFiles > 0) {
+                    val avgTimePerFile = elapsedTime / completedFiles
+                    val remainingFiles = totalFiles - completedFiles
+                    avgTimePerFile * remainingFiles
+                } else {
+                    0L
+                }
+
+                val remainingTimeFormatted = formatTime(estimatedTime)
+                timeText.text = "TIME: $remainingTimeFormatted"
+
+                // Transition to MainActivity when all files are downloaded
+                if (completedFiles == totalFiles) {
+                    if (success) {
+                        Toast.makeText(applicationContext, "Data($code) saved to Room successfully!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "Error saving data.", Toast.LENGTH_SHORT).show()
+                    }
+
+                    // Start MainActivity after download completion
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    launchMainActivity.launch(intent)
+                    finish()
+                }
+            }
+        }
         registerReceiver(csvDownloadReceiver, filter, RECEIVER_NOT_EXPORTED)
 
         // Start the service to download CSV data
@@ -139,6 +150,14 @@ class MainActivity : ComponentActivity() {
         val minutes = (milliseconds % 3600000 / 60000).toInt()
         val seconds = (milliseconds % 60000 / 1000).toInt()
         return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+}
+
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(LinearLayout(this).apply{addView(TextView(this@MainActivity).apply{text="Main Activity"})})
     }
 }
 
@@ -212,6 +231,7 @@ class RemoteService : Service() {
                             // Track elapsed time
                             val elapsedTime = System.currentTimeMillis() - startTime
                             completedFiles++
+
                             val broadcastIntent =
                                 Intent("com.example.myapplication.CSV_DOWNLOAD_COMPLETED").setPackage(packageName)
                             broadcastIntent.putExtra("success", true)
