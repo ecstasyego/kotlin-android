@@ -120,7 +120,7 @@ class RemoteService : Service() {
     }
 
     private fun csvDownload(fileName: String) {
-        val code = fileName.split(",")[0]
+        val code = fileName.split(".")[0]
         val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
