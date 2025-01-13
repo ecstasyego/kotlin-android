@@ -53,21 +53,13 @@ class MainActivity : AppCompatActivity() {
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                updateButtonState(position, fragbtn00, fragbtn01, fragbtn02)
+                fragbtn00.isEnabled = position != 0
+                fragbtn01.isEnabled = position != 1
+                fragbtn02.isEnabled = position != 2
             }
         })
     }
 
-    private fun updateButtonState(
-        position: Int,
-        fragbtn00: Button,
-        fragbtn01: Button,
-        fragbtn02: Button
-    ) {
-        fragbtn00.isEnabled = position != 0
-        fragbtn01.isEnabled = position != 1
-        fragbtn02.isEnabled = position != 2
-    }
 }
 
 class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
