@@ -27,24 +27,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
 
-        val fragment = MainFragment()
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        fragment.show(transaction, "dialog")
+        MainFragment().apply{ show(supportFragmentManager.beginTransaction(), "dialog") }
     }
 }
 
 class MainFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
-        }
+        return TextView(requireContext()).apply {text = "This is main fragment."}
     }
 }
 ```
