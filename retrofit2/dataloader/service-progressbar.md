@@ -166,8 +166,8 @@ class RemoteService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val fileNames = intent?.getStringArrayExtra("fileNames") ?: arrayOf("default.csv")
-        totalFiles = fileNames.size // 총 파일 수
-        startTime = System.currentTimeMillis() // 시작 시간 기록
+        totalFiles = fileNames.size 
+        startTime = System.currentTimeMillis() 
         for (fileName in fileNames) {
             csvDownload(fileName)
         }
@@ -175,7 +175,7 @@ class RemoteService : Service() {
     }
 
     private fun csvDownload(fileName: String) {
-        val code = fileName.split(",")[0]
+        val code = fileName.split(".")[0]
         val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
