@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         fragbtn01.setOnClickListener { viewPager2.currentItem = 1 }
         fragbtn02.setOnClickListener { viewPager2.currentItem = 2 }
 
+        viewPager2.isUserInputEnabled = false // SWIPE
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
