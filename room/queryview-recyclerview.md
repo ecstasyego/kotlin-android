@@ -17,14 +17,17 @@
 ```kotlin
 package com.example.myapplication
 
+import android.graphics.Rect
 import android.os.Bundle
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TableLayout
-import android.widget.TableRow
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -36,26 +39,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlin.random.Random
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mainLayout = LinearLayout(this)
-        val horizontalScrollView = HorizontalScrollView(this)
-        val scrollView = ScrollView(this)
-        val tableLayout = TableLayout(this).apply{
-            layoutParams = TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT
-            )
-            setPadding(16, 16, 16, 16)
-        }
-
-        scrollView.addView(tableLayout)
-        horizontalScrollView.addView(scrollView)
-        mainLayout.addView(horizontalScrollView)
-        setContentView(mainLayout)
+        val recyclerView = RecyclerView(this)
+        setContentView(recyclerView)
 
 
         // Database
@@ -85,38 +75,84 @@ class MainActivity : ComponentActivity() {
                 )
             }
 
-            // UI
-            val rows = mutableListOf<TableRow>().apply{
-                add(
-                    TableRow(this@MainActivity).apply{
-                        addView(TextView(this@MainActivity).apply { text = "INDEX" })
-                        addView(TextView(this@MainActivity).apply { text = "UID" })
-                        addView(TextView(this@MainActivity).apply { text = "EXPRESSION" })
-                        addView(TextView(this@MainActivity).apply { text = "RESULT" })
-                    }
-                ) // columns
-            }
-
             // [DATA] DAO GET
+            val serializedData = mutableListOf<String>()
             val daolist = db.historyDao().get().reversed()
             for ( (idx, dao) in (0 until daolist.size).zip(daolist)){
-                rows.add(
-                    TableRow(this).apply{
-                        addView(TextView(this@MainActivity).apply { text = idx.toString() }) // INDEX
-                        addView(TextView(this@MainActivity).apply { text = dao.uid.toString() } ) // data
-                        addView(TextView(this@MainActivity).apply { text = dao.expression.toString() } ) // data
-                        addView(TextView(this@MainActivity).apply { text = dao.result.toString() } ) // data
-                    }
-                )
+                serializedData.add(idx.toString())
+                serializedData.add(dao.uid.toString())
+                serializedData.add(dao.expression.toString())
+                serializedData.add(dao.result.toString())
             }
 
             // UI ATTACH
             runOnUiThread {
-                rows.forEach { tableLayout.addView(it) }
+                recyclerView.layoutManager = GridLayoutManager(this, 4)
+                recyclerView.adapter = CustomAdapter(serializedData)
+                recyclerView.addItemDecoration(GridSpacingItemDecoration(10))
             }
         }).start()
     }
 
+}
+
+class CustomAdapter(private val items: MutableList<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val cardView: CardView = itemView as CardView
+        val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val cardView = CardView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            radius = 8f // set corner radius
+            elevation = 4f // set elevation for shadow
+            setContentPadding(16, 16, 16, 16) // add padding inside CardView
+        }
+
+        val textView = TextView(parent.context).apply{
+            id = View.generateViewId()
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            maxLines = 1 // one line option
+            ellipsize = android.text.TextUtils.TruncateAt.END // one line option
+            setSingleLine(true) // one line option
+            setPadding(16, 16, 16, 16)
+        }
+        cardView.addView(textView)
+        cardView.setOnClickListener {
+            TextFragment().apply {
+                arguments = Bundle().apply { putString("text", textView.text.toString()) }
+                show((parent.context as MainActivity).supportFragmentManager.beginTransaction(), "dialog")
+            }
+
+        }
+
+        return ViewHolder(cardView)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.textView.text = items[position]
+    }
+
+    override fun getItemCount(): Int = items.size
+}
+
+class TextFragment : DialogFragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var cellText = arguments?.getString("text", "Default Text")
+        return TextView(requireContext()).apply {text = cellText }
+    }
+}
+
+class GridSpacingItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        super.getItemOffsets(outRect, view, parent, state)
+
+        outRect.left = spacing
+        outRect.right = spacing
+        outRect.top = spacing
+        outRect.bottom = spacing
+    }
 }
 
 
