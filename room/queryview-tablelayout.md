@@ -42,9 +42,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
-
-        val mainLayout = findViewById<LinearLayout>(R.id.mainLayout)
+        val mainLayout = LinearLayout(this)
         val horizontalScrollView = HorizontalScrollView(this)
         val scrollView = ScrollView(this)
         val tableLayout = TableLayout(this).apply{
@@ -54,6 +52,12 @@ class MainActivity : ComponentActivity() {
             )
             setPadding(16, 16, 16, 16)
         }
+
+        scrollView.addView(tableLayout)
+        horizontalScrollView.addView(scrollView)
+        mainLayout.addView(horizontalScrollView)
+        setContentView(mainLayout)
+
 
         // Database
         db = Room.databaseBuilder(
@@ -110,9 +114,6 @@ class MainActivity : ComponentActivity() {
             // UI ATTACH
             runOnUiThread {
                 rows.forEach { tableLayout.addView(it) }
-                scrollView.addView(tableLayout)
-                horizontalScrollView.addView(scrollView)
-                mainLayout.addView(horizontalScrollView)
             }
         }).start()
     }
@@ -167,17 +168,6 @@ fun rowsIter(dataMMap: MutableMap<String, List<Any?>>): List<Map<String, Any?>>{
 }
 ```
 
-`main_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
-```
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
