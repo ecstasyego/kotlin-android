@@ -185,18 +185,6 @@ data class History(
 </manifest>
 ```
 
-`main_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
-```
-
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
