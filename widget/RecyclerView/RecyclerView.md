@@ -2,7 +2,7 @@
 ## RecyclerView
 
 ## Examples
-### Example01: Basic
+### Example01: LinearLayoutManager
 #### File System
 ```
 .Project
@@ -21,37 +21,47 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : ComponentActivity() {
-    lateinit var  widget: RecyclerView
+    lateinit var  recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        widget = RecyclerView(this)
-        widget.layoutManager = LinearLayoutManager(this)
-        widget.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
-        setContentView(widget)
+        recyclerView = RecyclerView(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = CustomAdapter(List(30) { Item("ITEM: $it") })
+        setContentView(recyclerView)
     }
 }
 
 class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView as TextView
+        val cardView: CardView = itemView as CardView
+        val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val textView = TextView(parent.context)
-        textView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        textView.setPadding(16, 16, 16, 16)
-        return ViewHolder(textView)
+        val cardView = CardView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            radius = 8f // set corner radius
+            elevation = 4f // set elevation for shadow
+            setContentPadding(16, 16, 16, 16) // add padding inside CardView
+        }
+
+        val textView = TextView(parent.context).apply{
+            id = View.generateViewId()
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setPadding(16, 16, 16, 16)
+        }
+        cardView.addView(textView)
+        return ViewHolder(cardView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -68,7 +78,8 @@ data class Item(var option:String)
 <br>
 
 
-### Example02: Advanced
+
+### Example01: GridLayoutManager
 #### File System
 ```
 .Project
@@ -87,62 +98,51 @@ data class Item(var option:String)
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : ComponentActivity() {
-    lateinit var recyclerView:RecyclerView
-    lateinit var adapter: CustomAdapter
-    lateinit var viewHolder: CustomAdapter.ViewHolder
-    lateinit var textView: TextView
+    lateinit var  recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recyclerView = RecyclerView(this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = CustomAdapter(List(100) { Item("ITEM: $it") })
         setContentView(recyclerView)
-
-        val position = 1
-
-        // from recyclerView
-        viewHolder = recyclerView.findViewHolderForAdapterPosition(position) as CustomAdapter.ViewHolder // position
-        textView = viewHolder.textView
-
-        // from adapter
-        adapter = recyclerView.adapter!! as CustomAdapter
-        viewHolder = adapter.viewHolders[position]!!
-        textView = viewHolder.textView
-
-        // from layoutManager
-        textView = recyclerView.layoutManager?.findViewByPosition(position) as TextView
-
     }
 }
 
 class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-    val viewHolders = mutableMapOf<Int, ViewHolder>()
-
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView as TextView
-        var position:Int? = null
+        val cardView: CardView = itemView as CardView
+        val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val cardView = CardView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            radius = 8f // set corner radius
+            elevation = 4f // set elevation for shadow
+            setContentPadding(16, 16, 16, 16) // add padding inside CardView
+        }
+
         val textView = TextView(parent.context).apply{
+            id = View.generateViewId()
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setPadding(16, 16, 16, 16)
         }
-        return ViewHolder(textView)
+        cardView.addView(textView)
+        return ViewHolder(cardView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.position = position
         holder.textView.text = items[position].option
-        viewHolders[position] = holder
     }
 
     override fun getItemCount(): Int = items.size
@@ -150,8 +150,4 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
 
 data class Item(var option:String)
 ```
-
-
-
-
 
