@@ -33,7 +33,7 @@ db = Room.databaseBuilder(
 db.clearAllTables()
 
 // DELETE DATABASE
-val dbFile = applicationContext.getDatabasePath("my-database")
+val dbFile = applicationContext.getDatabasePath("historyDB")
 if (dbFile.exists()) {
     dbFile.delete()
 }
