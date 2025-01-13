@@ -368,6 +368,23 @@ class Fragment02 : Fragment() {
 }
 ```
 
+
+`main_layout.xml`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
+```
+
+
 `fragment00.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
