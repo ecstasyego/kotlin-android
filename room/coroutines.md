@@ -522,7 +522,7 @@ dependencies {
 <br>
 
 ### Example05: Coroutine on Fragment
-- lifecycleScope.launch(Dispatchers.IO){} 
+- viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){} 
   
 #### File System
 ```
@@ -673,8 +673,8 @@ dependencies {
 <br>
 
 ### Example06: Coroutine with UI Update on Fragment
-- lifecycleScope.launch(Dispatchers.IO){}
-- lifecycleScope.launch(Dispatchers.IO){ withContext(Dispatchers.Main){} } 
+- viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}
+- viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){ withContext(Dispatchers.Main){} } 
 
 #### File System
 ```
