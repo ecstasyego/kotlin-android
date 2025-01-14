@@ -94,15 +94,14 @@ android.enableJetifier=true
 ```kotlin
 package com.example.myapplication
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
-class MainActivity : ComponentActivity() {
-
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
@@ -121,6 +120,7 @@ class MainActivity : ComponentActivity() {
         graph.gridLabelRenderer.isHorizontalLabelsVisible = true
         graph.gridLabelRenderer.isVerticalLabelsVisible = true
         graph.gridLabelRenderer.labelVerticalWidth = 20
+
     }
 }
 ```
@@ -128,18 +128,11 @@ class MainActivity : ComponentActivity() {
 `main_layout.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jjoe64.graphview.GraphView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/graph"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-</LinearLayout>
+    android:layout_height="0dp"
+    android:layout_weight="1" />
 ```
 
 
