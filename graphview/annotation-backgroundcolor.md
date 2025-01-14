@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         series2.isDrawDataPoints = true
         series2.isDrawBackground = true
-        series2.backgroundColor = Color.WHITE // 배경을 투명하게 설정
+        series2.backgroundColor = Color.WHITE
 
         graph.viewport.isYAxisBoundsManual = true
         graph.viewport.setMinY(-1.0)
