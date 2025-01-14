@@ -32,12 +32,17 @@
 │   │       │   ├── Application.kt
 │   │       │   ├── presentation
 │   │       │   │   ├── Activity.kt
+│   │       │   │   ├── Fragment.kt
 │   │       │   │   └── ViewModel.kt
 │   │       │   ├── domain
 │   │       │   │   └── UseCase.kt
 │   │       │   └── data
-│   │       │   │   ├── Repository.kt
-│   │       │   │   └── APIService.kt
+│   │       │       ├── Entity.kt
+│   │       │       ├── Dao.kt
+│   │       │       ├── DB.kt
+│   │       │       ├── Repository.kt
+│   │       │       ├── APIService.kt
+│   │       │       └── Service.kt
 │   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
