@@ -266,8 +266,15 @@ dependencies {
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.activity.ComponentActivity
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -282,13 +289,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     lateinit var db: AppDatabase
     lateinit var repository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(LinearLayout(this))
+        val main_layout = LinearLayout(this).apply {
+            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
+        }
+        setContentView(main_layout)
 
         db = Room.databaseBuilder(
             applicationContext,
@@ -297,18 +307,39 @@ class MainActivity : ComponentActivity() {
         ).build()
         repository = Repository(db)
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.commit()
+
+    }
+}
+
+class MainFragment : Fragment() {
+    lateinit var repository: Repository
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return LinearLayout(requireContext()).apply {
+            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        repository = (requireActivity() as MainActivity).repository
+
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             repository.insertHistory(History(null, "Hello", "World!"))
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val historyList: List<History> = repository.getHistoryList() // Query the database
             withContext(Dispatchers.Main) {
                 // Process the list, update UI, etc.
             }
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             repository.deleteAllHistory() // Delete all records from the database
         }
     }
