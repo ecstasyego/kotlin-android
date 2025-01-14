@@ -17,6 +17,127 @@
 #### Source Code
 `MainActivity.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.room.ColumnInfo
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import kotlinx.coroutines.launch
+
+class MainActivity : ComponentActivity() {
+    lateinit var db: AppDatabase
+    private lateinit var repository: HistoryRepository
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(repository) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(LinearLayout(this))
+
+        db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
+        ).build()
+        repository = HistoryRepository(db)
+
+        // Observe the LiveData from ViewModel > withContext(Dispatchers.Main)
+        viewModel.historyList.observe(this) { historyList ->
+            // Update UI with historyList
+        }
+        viewModel.addHistory(History(null, "Hello", "World!"))
+        viewModel.loadHistory()
+        viewModel.clearHistory()
+
+    }
+}
+
+class HistoryViewModelFactory(private val repository: HistoryRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
+            return HistoryViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() {
+    private val _historyList = MutableLiveData<List<History>>()
+    val historyList: LiveData<List<History>> get() = _historyList
+
+    fun loadHistory() {
+        viewModelScope.launch {
+            val data = repository.getHistoryList()
+            _historyList.postValue(data)
+        }
+    }
+
+    fun addHistory(history: History) {
+        viewModelScope.launch {
+            repository.insertHistory(history)
+            loadHistory() // Refresh the list after insertion
+        }
+    }
+
+    fun clearHistory() {
+        viewModelScope.launch {
+            repository.deleteAllHistory()
+            loadHistory() // Refresh the list after deletion
+        }
+    }
+}
+
+class HistoryRepository(private val db: AppDatabase) {
+    suspend fun insertHistory(history: History) {
+        db.historyDao().insert(history)
+    }
+
+    suspend fun getHistoryList(): List<History> {
+        return db.historyDao().get()
+    }
+
+    suspend fun deleteAllHistory() {
+        db.historyDao().delete()
+    }
+}
+
+@Database(entities = [History::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun historyDao(): HistoryDao
+}
+
+@Dao // DAO: Data Access Object
+interface HistoryDao {
+    @Query("DELETE FROM history")
+    suspend fun delete()
+
+    @Query("SELECT * FROM history")
+    suspend fun get(): List<History>
+
+    @Insert
+    suspend fun insert(history: History)
+}
+
+@Entity(tableName = "history")
+data class History(
+    @PrimaryKey(autoGenerate = true) val uid: Int? = null,
+    @ColumnInfo(name = "expression") val expression: String?,
+    @ColumnInfo(name = "result") val result: String?
+)
 ```
 
 
