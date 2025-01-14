@@ -9,7 +9,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -21,6 +20,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(LinearLayout(this))
 
         db = Room.databaseBuilder(
             applicationContext,
@@ -86,18 +86,6 @@ data class History(
     @ColumnInfo(name = "expression") val expression: String?,
     @ColumnInfo(name = "result") val result: String?
 )
-```
-
-`main_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
 ```
 
 
