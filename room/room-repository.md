@@ -152,6 +152,7 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
+    lateinit var repository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,21 +163,36 @@ class MainActivity : ComponentActivity() {
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
+        repository = Repository(db)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            db.historyDao().insert(History(null, "Hello", "World!")) // Insert data into the database using coroutines
+            repository.insertHistory(History(null, "Hello", "World!"))
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val historyList: List<History> = db.historyDao().get() // Query the database
+            val historyList: List<History> = repository.getHistoryList() // Query the database
             withContext(Dispatchers.Main) {
                 // Process the list, update UI, etc.
             }
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
-            db.historyDao().delete() // Delete all records from the database
+            repository.deleteAllHistory() // Delete all records from the database
         }
+    }
+}
+
+class Repository(private val database: AppDatabase) {
+    suspend fun insertHistory(history: History) {
+        database.historyDao().insert(history)
+    }
+
+    suspend fun getHistoryList(): List<History> {
+        return database.historyDao().get()
+    }
+
+    suspend fun deleteAllHistory() {
+        database.historyDao().delete()
     }
 }
 
