@@ -75,13 +75,13 @@ abstract class AppDatabase : RoomDatabase() {
 @Dao // DAO: Data Access Object
 interface HistoryDao {
     @Query("DELETE FROM history")
-    fun delete()
+    suspend fun delete()
 
     @Query("SELECT * FROM history")
-    fun get(): List<History>
+    suspend fun get(): List<History>
 
     @Insert
-    fun insert(history: History)
+    suspend fun insert(history: History)
 }
 
 @Entity(tableName = "history")
