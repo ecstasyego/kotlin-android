@@ -22,18 +22,21 @@
 package com.example.myapplication
 
 import android.graphics.Color
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.FrameLayout
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val graph = GraphView(this)
+        val frameLayout = FrameLayout(this)
+        frameLayout.setBackgroundColor(Color.LTGRAY)
 
+        val graph = GraphView(this)
         val series1 = LineGraphSeries<DataPoint>(arrayOf(
             DataPoint(0.0, 1.0),
             DataPoint(1.0, 3.0),
@@ -41,7 +44,6 @@ class MainActivity : AppCompatActivity() {
             DataPoint(3.0, 4.0),
             DataPoint(4.0, 1.5)
         ))
-
         val series2 = LineGraphSeries<DataPoint>(arrayOf(
             DataPoint(0.0, 1.0),
             DataPoint(1.0, 1.0),
@@ -54,20 +56,15 @@ class MainActivity : AppCompatActivity() {
         graph.addSeries(series2)
 
         series1.color = Color.RED
-        series2.color = Color.RED
-
         series1.isDrawDataPoints = true
         series1.isDrawBackground = true
-        series1.backgroundColor = Color.RED
+        series1.backgroundColor = Color.argb(50, 255, 0, 0)
 
+        series2.color = Color.BLUE
         series2.isDrawDataPoints = true
-        series2.isDrawBackground = true
-        series2.backgroundColor = Color.WHITE
 
-        graph.viewport.isYAxisBoundsManual = true
-        graph.viewport.setMinY(-1.0)
-
-        setContentView(graph)
+        frameLayout.addView(graph)
+        setContentView(frameLayout)
     }
 }
 ```
