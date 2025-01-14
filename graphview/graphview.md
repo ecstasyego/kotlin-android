@@ -131,8 +131,7 @@ class MainActivity : AppCompatActivity() {
 <com.jjoe64.graphview.GraphView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/graph"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1" />
+    android:layout_height="wrap_content" />
 ```
 
 
