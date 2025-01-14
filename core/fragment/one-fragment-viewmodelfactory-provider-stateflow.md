@@ -29,11 +29,9 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels  // Make sure to import this
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -42,14 +40,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MyViewModel by viewModels{ MyViewModelFactory("Initial Data") }  // Access ViewModel
+    private lateinit var viewModel: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val mainLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             addView(FrameLayout(this@MainActivity).apply{ id = View.generateViewId() })
         }
+
         setContentView(mainLayout)
 
         // Add the fragment dynamically
@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
 
         // Update ViewModel with some data
+        viewModel = ViewModelProvider(this, MyViewModelFactory("Initial Data")).get(MyViewModel::class.java)
         viewModel.update("Data 1")
         viewModel.update("Data 2")
         viewModel.update("Data 3")
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private val viewModel: MyViewModel by activityViewModels{ MyViewModelFactory("Initial Data") } // Access shared ViewModel
+    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
@@ -74,6 +75,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity(), MyViewModelFactory("Initial Data")).get(MyViewModel::class.java)
         lifecycleScope.launch {
             viewModel.item.collect { newData ->
                 Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
