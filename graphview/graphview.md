@@ -192,9 +192,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         val graph = GraphView(this)
-
         val series = LineGraphSeries<DataPoint>()
         for (i in 0 until 1000) {
             val x = i.toDouble()
@@ -218,8 +216,7 @@ class MainActivity : ComponentActivity() {
         graph.viewport.isScrollable = true
         graph.gridLabelRenderer.isHorizontalLabelsVisible = true
         graph.gridLabelRenderer.isVerticalLabelsVisible = true
-        layout.addView(graph)
-        setContentView(layout)
+        setContentView(graph)
     }
 }
 ```
