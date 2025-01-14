@@ -155,6 +155,11 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
+    implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")  // ViewModel KTX
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")  // LiveData KTX
+
     implementation("androidx.room:room-runtime:2.6.0") // Room
     implementation("androidx.room:room-ktx:2.6.0") // Room KTX (for Coroutines)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4") // Coroutines
