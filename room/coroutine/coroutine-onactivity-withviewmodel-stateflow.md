@@ -42,8 +42,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
-    private lateinit var repository: HistoryRepository
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(repository) }
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(db) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +53,6 @@ class MainActivity : ComponentActivity() {
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
-        repository = HistoryRepository(db)
 
         // Collect the StateFlow from ViewModel
         lifecycleScope.launch {
@@ -69,10 +67,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class HistoryViewModelFactory(private val repository: HistoryRepository) : ViewModelProvider.Factory {
+class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-            return HistoryViewModel(repository) as T
+            return HistoryViewModel(HistoryRepository(database)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
@@ -104,17 +102,17 @@ class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() 
     }
 }
 
-class HistoryRepository(private val db: AppDatabase) {
+class HistoryRepository(private val database: AppDatabase) {
     suspend fun insertHistory(history: History) {
-        db.historyDao().insert(history)
+        database.historyDao().insert(history)
     }
 
     suspend fun getHistoryList(): List<History> {
-        return db.historyDao().get()
+        return database.historyDao().get()
     }
 
     suspend fun deleteAllHistory() {
-        db.historyDao().delete()
+        database.historyDao().delete()
     }
 }
 
