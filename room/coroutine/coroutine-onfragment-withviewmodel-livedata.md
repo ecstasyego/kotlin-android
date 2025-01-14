@@ -1,7 +1,6 @@
 ## Examples
 ### Example01: Coroutine with UI Update on Fragment
-- viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}
-- viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){ withContext(Dispatchers.Main){} } 
+- viewModelScope.launch{}
 
 #### File System
 ```
