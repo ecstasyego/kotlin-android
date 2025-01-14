@@ -37,12 +37,18 @@
 │   │       │   ├── domain
 │   │       │   │   └── UseCase.kt
 │   │       │   └── data
-│   │       │       ├── Entity.kt
-│   │       │       ├── Dao.kt
-│   │       │       ├── DB.kt
-│   │       │       ├── Repository.kt
-│   │       │       ├── APIService.kt
-│   │       │       └── Service.kt
+│   │       │       ├── Entity
+│   │       │       │   └── Entity.kt
+│   │       │       ├── DataAccessObject
+│   │       │       │   └── Dao.kt
+│   │       │       ├── Database
+│   │       │       │   └── DB.kt
+│   │       │       ├── Repository
+│   │       │       │   └── Repository.kt
+│   │       │       ├── ApplicationProgrammingInterface
+│   │       │       │   └── API.kt
+│   │       │       └── Service
+│   │       │           └── Service.kt
 │   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
