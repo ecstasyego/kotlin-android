@@ -26,18 +26,17 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels  // Make sure to import this
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MyViewModel by viewModels()  // Access ViewModel
+    private lateinit var viewModel: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             addView(FrameLayout(this@MainActivity).apply{ id = View.generateViewId() })
         }
-
         setContentView(mainLayout)
 
         // Add the fragment dynamically
@@ -56,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
 
         // Update ViewModel with some data
+        viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
         viewModel.update("Data 1")
         viewModel.update("Data 2")
         viewModel.update("Data 3")
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private val viewModel: MyViewModel by activityViewModels()  // Access shared ViewModel
+    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply{addView( TextView(requireContext()).apply {text = "This is main fragment."} )}
@@ -71,6 +70,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
         viewModel.item.observe(viewLifecycleOwner, Observer { newData ->
             Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
         })
