@@ -37,17 +37,17 @@
 │   │       │   ├── domain
 │   │       │   │   └── UseCase.kt
 │   │       │   └── data
-│   │       │       ├── Entity
+│   │       │       ├── entity
 │   │       │       │   └── Entity.kt
-│   │       │       ├── DataAccessObject
+│   │       │       ├── dao
 │   │       │       │   └── Dao.kt
-│   │       │       ├── Database
+│   │       │       ├── db
 │   │       │       │   └── DB.kt
-│   │       │       ├── Repository
+│   │       │       ├── repository
 │   │       │       │   └── Repository.kt
-│   │       │       ├── ApplicationProgrammingInterface
+│   │       │       ├── api
 │   │       │       │   └── API.kt
-│   │       │       └── Service
+│   │       │       └── network
 │   │       │           └── Service.kt
 │   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
