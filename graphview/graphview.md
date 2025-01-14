@@ -177,7 +177,6 @@ android.enableJetifier=true
 package com.example.myapplication
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
