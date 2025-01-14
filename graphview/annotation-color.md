@@ -37,31 +37,20 @@ class MainActivity : AppCompatActivity() {
         frameLayout.setBackgroundColor(Color.LTGRAY)
 
         val graph = GraphView(this)
-        val series1 = LineGraphSeries<DataPoint>(arrayOf(
+        val series = LineGraphSeries<DataPoint>(arrayOf(
             DataPoint(0.0, 1.0),
             DataPoint(1.0, 3.0),
             DataPoint(2.0, 2.0),
             DataPoint(3.0, 4.0),
             DataPoint(4.0, 1.5)
         ))
-        val series2 = LineGraphSeries<DataPoint>(arrayOf(
-            DataPoint(0.0, 1.0),
-            DataPoint(1.0, 1.0),
-            DataPoint(2.0, 1.0),
-            DataPoint(3.0, 1.0),
-            DataPoint(4.0, 1.0)
-        ))
 
-        graph.addSeries(series1)
-        graph.addSeries(series2)
+        graph.addSeries(series)
 
-        series1.color = Color.RED
-        series1.isDrawDataPoints = true
-        series1.isDrawBackground = true
-        series1.backgroundColor = Color.argb(50, 255, 0, 0)
-
-        series2.color = Color.BLUE
-        series2.isDrawDataPoints = true
+        series.color = Color.RED
+        series.isDrawDataPoints = true
+        series.isDrawBackground = true
+        series.backgroundColor = Color.argb(50, 255, 0, 0) // alpha-RGB
 
         frameLayout.addView(graph)
         setContentView(frameLayout)
