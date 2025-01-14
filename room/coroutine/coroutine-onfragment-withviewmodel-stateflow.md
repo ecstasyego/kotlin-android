@@ -129,17 +129,17 @@ class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() 
     }
 }
 
-class HistoryRepository(private val db: AppDatabase) {
+class HistoryRepository(private val database: AppDatabase) {
     suspend fun insertHistory(history: History) {
-        db.historyDao().insert(history)
+        database.historyDao().insert(history)
     }
 
     suspend fun getHistoryList(): List<History> {
-        return db.historyDao().get()
+        return database.historyDao().get()
     }
 
     suspend fun deleteAllHistory() {
-        db.historyDao().delete()
+        database.historyDao().delete()
     }
 }
 
