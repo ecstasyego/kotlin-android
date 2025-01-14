@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
         graph.gridLabelRenderer.horizontalLabelsColor = Color.BLACK
         graph.gridLabelRenderer.verticalLabelsColor = Color.BLACK
 
+        graph.viewport.isYAxisBoundsManual = true
+        graph.viewport.setMinY(0.0)
+        graph.viewport.setMaxY(5.0)
+
         frameLayout.addView(graph)
         setContentView(frameLayout)
     }
