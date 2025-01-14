@@ -31,7 +31,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -41,9 +46,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     lateinit var db: AppDatabase
@@ -69,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private lateinit var db: AppDatabase
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory((requireActivity() as MainActivity).db) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -80,26 +83,61 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db = Room.databaseBuilder(
-            requireContext().applicationContext,
-            AppDatabase::class.java,
-            "historyDB"
-        ).build()
-
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            db.historyDao().insert(History(null, "Hello", "World!")) // Insert data into the database using coroutines
+        viewModel.historyList.observe(viewLifecycleOwner) { historyList ->
         }
+        viewModel.addHistory(History(null, "Hello", "World!"))
+        viewModel.loadHistory()
+        viewModel.clearHistory()
 
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val historyList: List<History> = db.historyDao().get() // Query the database
-            withContext(Dispatchers.Main) {
-                // Process the list, update UI, etc.
-            }
-        }
+    }
+}
 
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            db.historyDao().delete() // Delete all records from the database
+class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
+            return HistoryViewModel(HistoryRepository(database)) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() {
+    private val _historyList = MutableLiveData<List<History>>()
+    val historyList: LiveData<List<History>> get() = _historyList
+
+    fun loadHistory() {
+        viewModelScope.launch {
+            val data = repository.getHistoryList()
+            _historyList.postValue(data)
+        }
+    }
+
+    fun addHistory(history: History) {
+        viewModelScope.launch {
+            repository.insertHistory(history)
+            loadHistory() // 새 데이터 로드
+        }
+    }
+
+    fun clearHistory() {
+        viewModelScope.launch {
+            repository.deleteAllHistory()
+            loadHistory() // Refresh the list after deletion
+        }
+    }
+}
+
+class HistoryRepository(private val db: AppDatabase) {
+    suspend fun insertHistory(history: History) {
+        db.historyDao().insert(history)
+    }
+
+    suspend fun getHistoryList(): List<History> {
+        return db.historyDao().get()
+    }
+
+    suspend fun deleteAllHistory() {
+        db.historyDao().delete()
     }
 }
 
