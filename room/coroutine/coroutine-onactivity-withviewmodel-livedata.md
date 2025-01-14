@@ -1,6 +1,6 @@
 ## Examples
 ### Example01: Coroutine
-- lifecycleScope.launch(Dispatchers.IO){} 
+- viewModelScope.launch{}
   
 #### File System
 ```
