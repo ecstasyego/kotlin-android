@@ -49,6 +49,10 @@ Fragment
 ```
 
 
+### Thread
+- `Thread{Runnable{}}`
+- `Thread{Runnable{runOnUiThread{}}}`
+
 
 
 
