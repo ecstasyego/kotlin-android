@@ -47,9 +47,11 @@ class OtherActivity : ComponentActivity() {
         setContentView(LinearLayout(this))
 
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-        val username = sharedPreferences.getString("username", "Default String")
-        val password = sharedPreferences.getString("password", "Default String")
-        Toast.makeText(this, "$username, $password", Toast.LENGTH_SHORT).show()
+        if (sharedPreferences.contains("username") && sharedPreferences.contains("password")){
+            val username = sharedPreferences.getString("username", "Default String")
+            val password = sharedPreferences.getString("password", "Default String")
+            Toast.makeText(this, "$username, $password", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 ```
