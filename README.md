@@ -20,6 +20,8 @@
 - Caches
     - Remove: C:\Users\user\\.gradle\caches\\*
     - Rebuild: Build/Clean Project, Build/Rebuild Project 
+- Permission
+    - https://www.privacy.go.kr/front/main/main.do
     
   
 ## Application Design
