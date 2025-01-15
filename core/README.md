@@ -1,4 +1,8 @@
 # Core Concepts
+
+- Application > (Intent) > Activity > (Bundle) > Fragement
+    - Activity, Fragement > (Intent) > Service > (BroadcastReceiver) > Activity, Fragement
+
 ```
 - Context
     - Application 
@@ -12,8 +16,6 @@
         - Background Thread: Service
             - Intent, BroadcastReceiver
 ``` 
-- Application > (Intent) > Activity > (Bundle) > Fragement
-    - Activity, Fragement > (Intent) > Service > (BroadcastReceiver) > Activity, Fragement
 
 ```kotlin
 package com.example.myapplication
