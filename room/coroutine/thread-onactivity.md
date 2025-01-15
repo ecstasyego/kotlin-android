@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
             db.historyDao().delete()
 
             runOnUiThread {
+                // Process the list, update UI, etc.
                 Toast.makeText(this, "Hello, World!", Toast.LENGTH_SHORT).show()
             }
         }).start()
