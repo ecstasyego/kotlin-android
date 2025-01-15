@@ -1,4 +1,7 @@
 ## Coroutines by Application Architecture with Room
+### Application
+- GlobalScope.launch(Dispatchers.IO){}
+- GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}
 
 ### ViewModel
 - `viewModelScope.launch{}`
