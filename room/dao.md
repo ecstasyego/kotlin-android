@@ -58,6 +58,7 @@ class MainActivity : ComponentActivity() {
                 )
             )
             db.historyDao().get()
+            db.historyDao().getExpression()
             db.historyDao().getWithArgument("Hello")
             db.historyDao().delete()
             db.historyDao().executeQuery(SimpleSQLiteQuery("SELECT * FROM history"))
@@ -86,6 +87,9 @@ interface HistoryDao {
     @Query("SELECT * FROM history WHERE expression=:parameter")
     fun getWithArgument(parameter:String): List<History>
 
+    @Query("SELECT expression FROM history")
+    fun getExpression(): List<HistoryExpression>
+
     @RawQuery
     fun executeQuery(query: SupportSQLiteQuery): List<History>
 
@@ -101,6 +105,10 @@ data class History(
     @PrimaryKey(autoGenerate = true) val uid: Int? = null,
     @ColumnInfo(name = "expression") val expression: String?,
     @ColumnInfo(name = "result") val result: String?
+)
+
+data class HistoryExpression(
+    val expression: String?
 )
 ```
 
