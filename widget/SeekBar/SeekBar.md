@@ -1,5 +1,5 @@
 ## Examples
-### Example01: with design
+### Example01: *.kt
 #### File System
 ```
 .Project
