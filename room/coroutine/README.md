@@ -25,7 +25,7 @@ Activity, Fragment
   
 ### Repository, Database
 - `lifecycleScope.launch(Dispatchers.IO){}`
-  - `lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
+- `lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
 ```
 Activity
   db = room()
@@ -37,7 +37,7 @@ Activity
 ```
   
 - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
-  - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
+- `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
 ```
 Fragment
   db = room()
