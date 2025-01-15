@@ -1,19 +1,22 @@
 ## Application Architecture with Room
 
 ```
-db = room()
-repo = repository(db)
-uc = usecase(repo)
-viewmodel = viewmodelfactory(uc)
+Activity, Fragment
+  db = room()
+  repo = repository(db)
+  uc = usecase(repo)
+  viewmodel = viewmodelfactory(uc)
 ```
 
 ```
-db = room()
-repo = repository(db)
-viewmodel = viewmodelfactory(repo)
+Activity, Fragment
+  db = room()
+  repo = repository(db)
+  viewmodel = viewmodelfactory(repo)
 ```
 
 ```
-db = room()
-viewmodel = viewmodelfactory(db)
+Activity, Fragment
+  db = room()
+  viewmodel = viewmodelfactory(db)
 ```
