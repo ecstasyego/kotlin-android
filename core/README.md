@@ -20,13 +20,17 @@
 ```kotlin
 package com.example.myapplication
 
+import android.app.Service
+import android.content.Intent
 import android.os.Bundle
+import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -37,7 +41,14 @@ class MainActivity : AppCompatActivity() {
         val frameLayout = FrameLayout(this@MainActivity).apply {id = View.generateViewId()}
         setContentView(frameLayout)
 
-        val fragment = MainFragment.newInstance("Hello", "World!")
+        // Service
+        val intent = Intent(this, ContentService::class.java)
+        intent.putExtra("SERVICE_PARAM00", "Hello")
+        intent.putExtra("SERVICE_PARAM01", "Service")
+        startService(intent)
+
+        // Fragment
+        val fragment = MainFragment.newInstance("Hello", "Fragment")
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(frameLayout.id, fragment)
         transaction.commit()
@@ -73,6 +84,29 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+}
+
+class ContentService : Service() {
+    private lateinit var param00: String
+    private lateinit var param01: String
+
+    override fun onCreate() {
+        super.onCreate()
+        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        param00 = intent?.getStringExtra("SERVICE_PARAM00").toString()
+        param01 = intent?.getStringExtra("SERVICE_PARAM01").toString()
+
+        Toast.makeText(this, "$param00, $param01", Toast.LENGTH_SHORT).show()
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 }
 ```
