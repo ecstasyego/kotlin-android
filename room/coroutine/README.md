@@ -1,7 +1,7 @@
 ## Coroutines by Application Architecture with Room
 
 ### ViewModel
-`viewModelScope.launch{}`
+- `viewModelScope.launch{}`
 ```
 Activity, Fragment
   db = room()
@@ -22,10 +22,10 @@ Activity, Fragment
   db = room()
   viewmodel = viewmodelfactory(db)
 ```
-
+  
 ### Repository, Database
 
-`lifecycleScope.launch(Dispatchers.IO){}`
+- `lifecycleScope.launch(Dispatchers.IO){}`
 ```
 Activity
   db = room()
@@ -35,7 +35,8 @@ Activity
 Activity
   db = room()
 ```
-`viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
+  
+- `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
 ```
 Fragment
   db = room()
