@@ -24,9 +24,14 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -39,13 +44,31 @@ import androidx.room.RoomDatabase
 import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val message = intent.getStringExtra("Service")
+            Toast.makeText(context, "$message : Database operation completed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
 
+        val filter = IntentFilter("com.example.myapplication.DB_OPERATION_COMPLETE")
+        registerReceiver(receiver, filter, RECEIVER_EXPORTED)
+
         val intent = Intent(this, RemoteService::class.java)
+        intent.putExtra("Activity", "[Activity to Service]")
         startService(intent)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
+
 }
 
 
@@ -58,13 +81,19 @@ class RemoteService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val message = intent?.getStringExtra("Activity")
         thread {
             db.historyDao().insert(History(null, "Hello", "World!"))
             db.historyDao().get()
             db.historyDao().delete()
+
+            val broadcastIntent = Intent("com.example.myapplication.DB_OPERATION_COMPLETE")
+            broadcastIntent.putExtra("Service", "[Service to Receiver]")
+            sendBroadcast(broadcastIntent)
+
             Handler(Looper.getMainLooper()).post {
                 // Process the list, update UI, etc.
-                Toast.makeText(applicationContext, "Database operation completed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "$message : Database operation completed", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -136,7 +165,7 @@ data class History(
             </intent-filter>
         </activity>
 
-        <service android:name=".RemoteService" android:enabled="true" android:exported="false"/>
+        <service android:name=".RemoteService"/>
 
     </application>
 </manifest>
