@@ -34,14 +34,12 @@ import androidx.fragment.app.FragmentTransaction
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val main_layout = LinearLayout(this).apply {
-            addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
-        }
-        setContentView(main_layout)
+        val frameLayout = FrameLayout(this@MainActivity).apply {id = View.generateViewId()}
+        setContentView(frameLayout)
 
         val fragment = MainFragment.newInstance("Hello", "World!")
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(main_layout.getChildAt(0).id, fragment)
+        transaction.replace(frameLayout.id, fragment)
         transaction.commit()
     }
 }
@@ -76,7 +74,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
 }
 ```
 
