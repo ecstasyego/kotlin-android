@@ -23,16 +23,30 @@ Activity, Fragment
   viewmodel = viewmodelfactory(db)
 ```
 
-### Repository
+### Repository, Database
 
-``
+`lifecycleScope.launch(Dispatchers.IO){}`
 ```
-Activity, Fragment
+Activity
   db = room()
   repo = repository(db)
 ```
+```
+Activity
+  db = room()
+```
+`viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
+```
+Fragment
+  db = room()
+  repo = repository(db)
+```
+```
+Fragment
+  db = room()
+```
 
 
 
-### Database
+
 
