@@ -18,17 +18,17 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
+    lateinit var widget:SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val textView = TextView(this)
-        textView.text = "Hello, Kotlin!"
-        setContentView(textView)
+        widget = SeekBar(this)
+        setContentView(widget)
     }
 }
 ```
