@@ -48,6 +48,10 @@ Fragment
   db = room()
 ```
 
+### Service
+- `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){}`
+- `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
+
 
 ### Thread
 - `Thread{Runnable{}}`
