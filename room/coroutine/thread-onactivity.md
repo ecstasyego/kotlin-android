@@ -22,6 +22,8 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -38,33 +40,26 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(LinearLayout(this))
 
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        val thread00 = Thread(Runnable {
+        Thread(Runnable {
             db.historyDao().insert(History(null, "Hello", "World!"))
-        })
-
-        val thread01 = Thread(Runnable {
-            val historyList:List<History> = db.historyDao().get()
-        })
-
-        val thread02 = Thread(Runnable {
+            db.historyDao().get()
             db.historyDao().delete()
-        })
 
-        thread00.start()
-        thread01.start()
-        thread02.start()
+            runOnUiThread {
+                Toast.makeText(this, "Hello, World!", Toast.LENGTH_SHORT).show()
+            }
+        }).start()
 
-        thread00.join()
-        thread01.join()
-        thread02.join()
     }
 }
 
@@ -92,20 +87,6 @@ data class History(
     @ColumnInfo(name = "result") val result: String?
 )
 ```
-
-`main_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
-```
-
-
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
