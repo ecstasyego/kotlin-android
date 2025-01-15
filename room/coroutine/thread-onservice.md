@@ -1,7 +1,5 @@
 ## Examples
 ### Example01: Thread with UI Update
-- Thread(Runnable{}).start()
-- Thread(Runnable{ runOnUiThread{} }).start()
 
 #### File System
 ```
@@ -10,7 +8,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -21,8 +18,15 @@
 ```kotlin
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import android.app.Service
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -32,42 +36,47 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlin.concurrent.thread
 
 class MainActivity : ComponentActivity() {
-    lateinit var db: AppDatabase
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(LinearLayout(this))
 
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
-        ).build()
+        val intent = Intent(this, RemoteService::class.java)
+        startService(intent)
+    }
+}
 
-        val thread00 = Thread(Runnable {
+
+class RemoteService : Service() {
+    lateinit var db: AppDatabase
+
+    override fun onCreate() {
+        super.onCreate()
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        thread {
             db.historyDao().insert(History(null, "Hello", "World!"))
-        })
-
-        val thread01 = Thread(Runnable {
-            val historyList:List<History> = db.historyDao().get()
-            runOnUiThread {
-                // Process the list, update UI, etc.
-            }
-        })
-
-        val thread02 = Thread(Runnable {
+            db.historyDao().get()
             db.historyDao().delete()
-        })
+            Handler(Looper.getMainLooper()).post {
+                // Process the list, update UI, etc.
+                Toast.makeText(applicationContext, "Database operation completed", Toast.LENGTH_SHORT).show()
+            }
+        }
 
-        thread00.start()
-        thread01.start()
-        thread02.start()
+        return START_NOT_STICKY
+    }
 
-        thread00.join()
-        thread01.join()
-        thread02.join()
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
 
@@ -76,7 +85,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 }
 
-@Dao // DAO: Data Access Object
+@Dao
 interface HistoryDao {
     @Query("DELETE FROM history")
     fun delete()
@@ -96,19 +105,42 @@ data class History(
 )
 ```
 
-`main_layout.xml`
+`AndroidManifest.xml`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".RemoteService" android:enabled="true" android:exported="false"/>
+
+    </application>
+</manifest>
 ```
-
-
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
