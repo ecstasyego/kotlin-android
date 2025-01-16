@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Coroutine with UI Update on Fragment
+### Example01: Not Recommended
 - viewModelScope.launch{}
 
 #### File System
