@@ -3,6 +3,35 @@
 - GlobalScope.launch(Dispatchers.IO){}
 - GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}
 
+### AndroidViewModel
+```
+Activity, Fragment
+  viewmodel = viewmodelfactory(uc)
+
+AndroidViewModel
+  db = room()
+  repo = repository(db)
+  uc = usecase(repo)
+```
+
+```
+Activity, Fragment
+  viewmodel = viewmodelfactory(uc)
+
+AndroidViewModel
+  db = room()
+  repo = repository(db)
+```
+
+```
+Activity, Fragment
+  viewmodel = viewmodelfactory(uc)
+
+AndroidViewModel
+  db = room()
+```
+
+
 ### ViewModel
 - `viewModelScope.launch{}`
 ```
