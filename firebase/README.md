@@ -114,3 +114,15 @@ dependencies {
 
 }
 ```
+
+
+## Realtime Database
+### rule
+```json
+{
+  "rules": {
+    ".read": false,
+    ".write": false
+  }
+}
+```
