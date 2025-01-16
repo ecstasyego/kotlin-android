@@ -113,7 +113,7 @@ dependencies {
 
 
 
-### Example02: limitToFirst
+### Example02: limitToFirst, limitToLast
 #### File System
 ```
 .Project
@@ -225,7 +225,7 @@ dependencies {
 
 
 
-### Example03: limitToLast
+### Example03: equalTo + limitToFirst, limitToLast
 #### File System
 ```
 .Project
