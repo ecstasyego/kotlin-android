@@ -1,14 +1,15 @@
 ```kotlin
-{
-    val Singleton = object {
-        var count = 0
-        fun onClick() { count++; println(count) }
-        fun onTouch() { count--; println(count) }
-    }
+object {
+    var count = 0
+    fun onClick() { count++; println(count) }
+    fun onTouch() { count--; println(count) }
+}.onClick()
 
-    Singleton.onClick()
-    Singleton.onTouch()
-}()
+object {
+    var count = 0
+    fun onClick() { count++; println(count) }
+    fun onTouch() { count--; println(count) }
+}.onTouch()
 ```
 
 
@@ -19,14 +20,17 @@ interface Listener {
     fun onTouch()
 }
 
-val Singleton = object : Listener {
+object : Listener {
     override var count = 0
     override fun onClick() { count++; println(count) }
     override fun onTouch() { count--; println(count) }
-}
+}.onClick()
 
-Singleton.onClick()
-Singleton.onTouch()
+object : Listener {
+    override var count = 0
+    override fun onClick() { count++; println(count) }
+    override fun onTouch() { count--; println(count) }
+}.onTouch()
 ```
 
 
@@ -37,11 +41,13 @@ open class Listener {
     open fun onTouch(){}
 }
 
-val Singleton = object : Listener() {
+object : Listener() {
     override fun onClick() { count++; println(count) }
     override fun onTouch() { count--; println(count) }
-}
+}.onClick()
 
-Singleton.onClick()
-Singleton.onTouch()
+object : Listener() {
+    override fun onClick() { count++; println(count) }
+    override fun onTouch() { count--; println(count) }
+}.onTouch()
 ```
