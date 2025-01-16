@@ -49,6 +49,36 @@
 
 `google-services.json`
 ```json
+{
+  "project_info": {
+    "project_number": "------------",
+    "firebase_url": "https://[project-name]-default-rtdb.firebaseio.com",
+    "project_id": "[project-name]",
+    "storage_bucket": "ailever-beta.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "-:------------:android:----------------------",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "---------------------------------------"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
 ```
 
 `build.gradle.kts(PROJECT-LEVEL)`
