@@ -35,8 +35,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -50,20 +48,12 @@ import androidx.room.RoomDatabase
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    lateinit var db: AppDatabase
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val main_layout = LinearLayout(this).apply {
             addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
         }
         setContentView(main_layout)
-
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
-        ).build()
 
         val fragment = MainFragment()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -73,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(requireActivity().application, (requireActivity() as MainActivity).db) }
+    private val viewModel: HistoryViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -93,16 +83,14 @@ class MainFragment : Fragment() {
     }
 }
 
-class HistoryViewModelFactory(private val application: Application, private val database: AppDatabase) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-            return HistoryViewModel(application, HistoryRepository(database)) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+class HistoryViewModel(application:Application) : AndroidViewModel(application) {
+    private val db = Room.databaseBuilder(
+        application.applicationContext,
+        AppDatabase::class.java,
+        "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
+    ).build()
+    private val repository = HistoryRepository(db)
 
-class HistoryViewModel(application:Application, private val repository: HistoryRepository) : AndroidViewModel(application) {
     private val _historyList = MutableLiveData<List<History>>()
     val historyList: LiveData<List<History>> get() = _historyList
 
