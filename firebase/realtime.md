@@ -61,6 +61,18 @@ class MainActivity : ComponentActivity() {
         myRef01.setValue(User("John", 25))
         myRef01.setValue(User("John", 30))
 
+
+        val myRefAll = database.reference
+        myRefAll.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@MainActivity, "Failed to read value: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
 
