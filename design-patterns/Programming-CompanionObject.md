@@ -1,5 +1,5 @@
 ```kotlin
-class Fragment {
+class ApplicationComponent {
     companion object {
         const val CONSTANT = 9999
 
@@ -9,6 +9,6 @@ class Fragment {
     }
 }
 
-Fragment.CONSTANT
-Fragment.newInstance()
+ApplicationComponent.CONSTANT
+ApplicationComponent.newInstance()
 ```
