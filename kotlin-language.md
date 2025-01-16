@@ -9,9 +9,9 @@ import java.text.SimpleDateFormat
 String.format(Locale.getDefault(), "%,.2f", 100000.123456)
 
 // From Date
-SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(1701388800000L))
-SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00"))
+SimpleDateFormat("yyyy-MM-dd EEEE HH:mm:ss").format(Date())
+SimpleDateFormat("yyyy-MM-dd EEEE HH:mm:ss").format(Date(1701388800000L))
+SimpleDateFormat("yyyy-MM-dd EEEE HH:mm:ss").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00"))
 ```
 
 
