@@ -25,8 +25,7 @@ import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -37,6 +36,8 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -47,8 +48,10 @@ class MainActivity : ComponentActivity() {
         setContentView(LinearLayout(this))
 
         // Observe the LiveData from ViewModel > withContext(Dispatchers.Main)
-        viewModel.historyList.observe(this) { historyList ->
-            // Update UI with historyList
+        lifecycleScope.launch {
+            viewModel.historyList.collect { historyList ->
+                // Update UI with historyList
+            }
         }
         viewModel.addHistory(History(null, "Hello", "World!"))
         viewModel.loadHistory()
@@ -65,13 +68,13 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
     ).build()
     private val repository = HistoryRepository(db)
 
-    private val _historyList = MutableLiveData<List<History>>()
-    val historyList: LiveData<List<History>> get() = _historyList
+    private val _historyList = MutableStateFlow<List<History>>(emptyList())
+    val historyList: StateFlow<List<History>> get() = _historyList
 
     fun loadHistory() {
         viewModelScope.launch {
             val data = repository.getHistoryList()
-            _historyList.postValue(data)
+            _historyList.emit(data) // emit data to StateFlow
         }
     }
 
