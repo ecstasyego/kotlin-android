@@ -121,8 +121,8 @@ dependencies {
 ```json
 {
   "rules": {
-    ".read": false,
-    ".write": false
+    ".read": true,
+    ".write": true
   }
 }
 ```
