@@ -67,6 +67,20 @@ plugins {
 
 dependencies {
   implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+
+  implementation("com.google.firebase:firebase-auth")
+  implementation("com.google.firebase:firebase-database")
   implementation("com.google.firebase:firebase-analytics")
+  implementation("com.google.firebase:firebase-firestore")
+  implementation("com.google.firebase:firebase-messaging")
+  implementation("com.google.firebase:firebase-storage")
+  implementation("com.google.firebase:firebase-config")
+  implementation("com.google.firebase:firebase-crashlytics")
+  implementation("com.google.firebase:firebase-perf")
+  implementation("com.google.firebase:firebase-dynamic-links")
+  implementation("com.google.firebase:firebase-ml-vision")
+  implementation("com.google.firebase:firebase-ml-natural-language")
+  implementation("com.google.firebase:firebase-inappmessaging")
+
 }
 ```
