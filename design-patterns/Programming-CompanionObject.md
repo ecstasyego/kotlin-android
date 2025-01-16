@@ -4,8 +4,8 @@ class ApplicationComponent {
         const val CONSTANT = 9999
 
         fun newInstance():ApplicationComponent {
-            val applicationComponent = ApplicationComponent()
-            return applicationComponent
+            val component = ApplicationComponent()
+            return component
         }
     }
 }
