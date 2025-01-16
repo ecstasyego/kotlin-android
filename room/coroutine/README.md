@@ -3,7 +3,7 @@
 - GlobalScope.launch(Dispatchers.IO){}
 - GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}
 
-### AndroidViewModel
+### AndroidViewModel(Not Recommended)
 ```
 Activity, Fragment
   viewmodel = viewmodelfactory(uc)
