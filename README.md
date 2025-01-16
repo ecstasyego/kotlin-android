@@ -426,6 +426,10 @@ maven (url  = "https://jitpack.io")
 
 
 
+<br><br><br>
 
-
-
+## Kotlin-Jupyter
+```bash
+$ pip install jupyterlab
+$ pip install kotlin-jupyter-kernel
+```
