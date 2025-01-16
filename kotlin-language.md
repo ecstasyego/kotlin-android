@@ -1,7 +1,14 @@
 ### String
 
 ```kotlin
+import java.text.SimpleDateFormat
+
+// From Number
 String.format(Locale.getDefault(), "%,.2f", 100000.123456)
+
+// From Date
+SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(1701388800000L))
+SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00"))
 ```
 
 
@@ -17,8 +24,4 @@ SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00") // from tim
 // Timestamp: ~ milliseconds after 1970-01-01 00:00:00 UTC
 Date(1701388800000L).time
 SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00").time
-
-// Timestring
-SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(1701388800000L))
-SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-12-01 00:00:00"))
 ```
