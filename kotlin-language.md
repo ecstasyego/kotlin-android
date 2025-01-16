@@ -1,6 +1,8 @@
 ### String
 
 ```kotlin
+import java.util.Locale
+import java.util.Date
 import java.text.SimpleDateFormat
 
 // From Number
