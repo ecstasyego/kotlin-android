@@ -31,7 +31,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -75,11 +74,12 @@ class MainActivity : AppCompatActivity() {
 
 class MainFragment : Fragment() {
     private lateinit var db: AppDatabase
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(requireActivity().application, db) }
+    private lateinit var viewModel: HistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = (requireActivity() as MainActivity).db
+        viewModel = ViewModelProvider(requireActivity(), HistoryViewModelFactory(requireActivity().application, db)).get(HistoryViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
