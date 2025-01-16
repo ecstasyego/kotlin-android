@@ -22,7 +22,6 @@ package com.example.myapplication
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -42,7 +41,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(db) }
+    lateinit var viewModel: HistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +52,7 @@ class MainActivity : ComponentActivity() {
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
+        viewModel = ViewModelProvider(this, HistoryViewModelFactory(db)).get(HistoryViewModel::class.java)
 
         // Collect the StateFlow from ViewModel
         lifecycleScope.launch {
