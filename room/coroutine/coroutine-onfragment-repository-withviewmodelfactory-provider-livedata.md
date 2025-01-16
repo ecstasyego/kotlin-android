@@ -30,7 +30,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -72,11 +71,12 @@ class MainActivity : AppCompatActivity() {
 
 class MainFragment : Fragment() {
     private lateinit var db: AppDatabase
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(db) }
+    private lateinit var viewModel: HistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = (requireActivity() as MainActivity).db
+        viewModel = ViewModelProvider(requireActivity(), HistoryViewModelFactory(db)).get(HistoryViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -87,7 +87,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.historyList.observe(viewLifecycleOwner) { historyList ->
         }
         viewModel.addHistory(History(null, "Hello", "World!"))
