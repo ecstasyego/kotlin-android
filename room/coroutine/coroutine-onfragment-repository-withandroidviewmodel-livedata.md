@@ -20,6 +20,7 @@
 ```kotlin
 package com.example.myapplication
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory((requireActivity() as MainActivity).db) }
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(requireActivity().application, (requireActivity() as MainActivity).db) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -91,16 +93,16 @@ class MainFragment : Fragment() {
     }
 }
 
-class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
+class HistoryViewModelFactory(private val application: Application, private val database: AppDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-            return HistoryViewModel(HistoryRepository(database)) as T
+            return HistoryViewModel(application, HistoryRepository(database)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 
-class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() {
+class HistoryViewModel(application:Application, private val repository: HistoryRepository) : AndroidViewModel(application) {
     private val _historyList = MutableLiveData<List<History>>()
     val historyList: LiveData<List<History>> get() = _historyList
 
