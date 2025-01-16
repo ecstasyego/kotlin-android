@@ -55,7 +55,7 @@ Activity, Fragment
   viewmodel = viewmodelfactory(db)
 ```
   
-### Repository, Database
+### Activity, Fragment
 - `lifecycleScope.launch(Dispatchers.IO){}`
 - `lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
 ```
