@@ -43,6 +43,10 @@ class MainActivity : ComponentActivity() {
         myRef00 = myRefAll.child("message00")
         myRef01 = myRefAll.child("message01")
 
+        myRef00.setValue("Hello, World!")
+        myRef01.setValue(User("John", 25))
+        myRefAll.child("message00").setValue("Hello, Android!")
+        myRefAll.child("message01").setValue(User("John", 30))
     }
 }
 
