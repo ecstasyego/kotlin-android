@@ -22,7 +22,6 @@ package com.example.myapplication
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
@@ -41,7 +40,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     lateinit var db: AppDatabase
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(db) }
+    lateinit var viewModel: HistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +51,7 @@ class MainActivity : ComponentActivity() {
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
+        viewModel = ViewModelProvider(this, HistoryViewModelFactory(db)).get(HistoryViewModel::class.java)
 
         // Observe the LiveData from ViewModel > withContext(Dispatchers.Main)
         viewModel.historyList.observe(this) { historyList ->
