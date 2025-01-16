@@ -23,10 +23,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: FirebaseDatabase
@@ -37,31 +34,25 @@ class MainActivity : ComponentActivity() {
 
 
         val myRef00 = database.getReference("message00")
-        myRef00.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Toast.makeText(this@MainActivity, dataSnapshot.getValue(String::class.java), Toast.LENGTH_SHORT).show()
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@MainActivity, databaseError.toException().toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
         myRef00.setValue("Hello, Android!")
         myRef00.setValue("Hello, Firebase!")
+        myRef00.get().addOnSuccessListener { dataSnapshot ->
+            Toast.makeText(this@MainActivity, dataSnapshot.getValue(String::class.java), Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this@MainActivity, "Failed to read value: ${exception.message}", Toast.LENGTH_SHORT).show()
+        }
 
 
         val myRef01 = database.getReference("message01")
-        myRef01.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Toast.makeText(this@MainActivity, dataSnapshot.key, Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@MainActivity, dataSnapshot.value.toString(), Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@MainActivity, dataSnapshot.getValue(User::class.java).toString(), Toast.LENGTH_SHORT).show()
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@MainActivity, databaseError.toException().toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
         myRef01.setValue(User("John", 25))
         myRef01.setValue(User("John", 30))
+        myRef01.get().addOnSuccessListener { dataSnapshot ->
+            Toast.makeText(this@MainActivity, dataSnapshot.key, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, dataSnapshot.value.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, dataSnapshot.getValue(User::class.java).toString(), Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this@MainActivity, "Failed to read value: ${exception.message}", Toast.LENGTH_SHORT).show()
+        }
 
     }
 }
