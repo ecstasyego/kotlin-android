@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: FirebaseDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
@@ -47,9 +48,12 @@ class MainActivity : ComponentActivity() {
         myRef01.setValue(User("John", 25))
         myRef01.setValue(User("John", 30))
         myRef01.get().addOnSuccessListener { dataSnapshot ->
+            Toast.makeText(this@MainActivity, dataSnapshot.getValue(User::class.java).toString(), Toast.LENGTH_SHORT).show()
             Toast.makeText(this@MainActivity, dataSnapshot.key, Toast.LENGTH_SHORT).show()
             Toast.makeText(this@MainActivity, dataSnapshot.value.toString(), Toast.LENGTH_SHORT).show()
-            Toast.makeText(this@MainActivity, dataSnapshot.getValue(User::class.java).toString(), Toast.LENGTH_SHORT).show()
+            for (snapshot in dataSnapshot.children) {
+                Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+            }
         }.addOnFailureListener { exception ->
             Toast.makeText(this@MainActivity, "Failed to read value: ${exception.message}", Toast.LENGTH_SHORT).show()
         }
