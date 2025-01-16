@@ -48,10 +48,20 @@
 
 `build.gradle.kts(PROJECT-LEVEL)`
 ```kotlin
-
+plugins {
+  id("com.google.gms.google-services") version "4.4.2" apply false
+}
 ```
 
 `build.gradle.kts(APP-LEVEL)`
 ```kotlin
+plugins {
+  id("com.android.application")
+  id("com.google.gms.google-services")
+}
 
+dependencies {
+  implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+  implementation("com.google.firebase:firebase-analytics")
+}
 ```
