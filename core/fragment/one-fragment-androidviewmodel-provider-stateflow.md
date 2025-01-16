@@ -35,6 +35,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MyViewModel  // Access ViewModel
@@ -73,7 +74,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.item.collect { newData ->
                 Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
             }
