@@ -33,8 +33,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -45,6 +44,8 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -74,7 +75,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.historyList.observe(viewLifecycleOwner) { historyList ->
+        lifecycleScope.launch {
+            viewModel.historyList.collect { historyList ->
+            }
         }
         viewModel.addHistory(History(null, "Hello", "World!"))
         viewModel.loadHistory()
@@ -83,7 +86,7 @@ class MainFragment : Fragment() {
     }
 }
 
-class HistoryViewModel(application:Application) : AndroidViewModel(application) {
+class HistoryViewModel(application: Application) : AndroidViewModel(application) {
     private val db = Room.databaseBuilder(
         application.applicationContext,
         AppDatabase::class.java,
@@ -91,30 +94,33 @@ class HistoryViewModel(application:Application) : AndroidViewModel(application) 
     ).build()
     private val repository = HistoryRepository(db)
 
-    private val _historyList = MutableLiveData<List<History>>()
-    val historyList: LiveData<List<History>> get() = _historyList
+    private val _historyList = MutableStateFlow<List<History>>(emptyList())
+    val historyList: StateFlow<List<History>> get() = _historyList
 
     fun loadHistory() {
         viewModelScope.launch {
             val data = repository.getHistoryList()
-            _historyList.postValue(data)
+            _historyList.value = data // Update StateFlow with new data
         }
     }
 
+    // Function to add history
     fun addHistory(history: History) {
         viewModelScope.launch {
             repository.insertHistory(history)
-            loadHistory() // 새 데이터 로드
+            loadHistory() // Reload history after insertion
         }
     }
 
+    // Function to clear history
     fun clearHistory() {
         viewModelScope.launch {
             repository.deleteAllHistory()
-            loadHistory() // Refresh the list after deletion
+            loadHistory() // Reload history after deletion
         }
     }
 }
+
 
 class HistoryRepository(private val database: AppDatabase) {
     suspend fun insertHistory(history: History) {
