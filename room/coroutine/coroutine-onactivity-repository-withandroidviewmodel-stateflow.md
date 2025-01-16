@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.historyList.collect { historyList ->
                 // Update UI with historyList
             }
