@@ -9,6 +9,7 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       └── AndroidManifest.xml
+│   ├── google-services.json
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
 ```
@@ -44,6 +45,10 @@
 
     </application>
 </manifest>
+```
+
+`google-services.json`
+```json
 ```
 
 `build.gradle.kts(PROJECT-LEVEL)`
