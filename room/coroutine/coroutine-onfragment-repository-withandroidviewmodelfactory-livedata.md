@@ -73,7 +73,14 @@ class MainActivity : AppCompatActivity() {
 }
 
 class MainFragment : Fragment() {
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(requireActivity().application, (requireActivity() as MainActivity).db) }
+    private lateinit var db: AppDatabase
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(requireActivity().application, db) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        db = (requireActivity() as MainActivity).db
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
