@@ -52,9 +52,12 @@ class MainActivity : ComponentActivity() {
         val myRef01 = database.getReference("message01")
         myRef01.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Toast.makeText(this@MainActivity, dataSnapshot.getValue(User::class.java).toString(), Toast.LENGTH_SHORT).show()
                 Toast.makeText(this@MainActivity, dataSnapshot.key, Toast.LENGTH_SHORT).show()
                 Toast.makeText(this@MainActivity, dataSnapshot.value.toString(), Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@MainActivity, dataSnapshot.getValue(User::class.java).toString(), Toast.LENGTH_SHORT).show()
+                for (snapshot in dataSnapshot.children) {
+                    Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+                }
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(this@MainActivity, databaseError.toException().toString(), Toast.LENGTH_SHORT).show()
