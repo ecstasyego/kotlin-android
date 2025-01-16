@@ -35,6 +35,8 @@ class MainActivity : ComponentActivity() {
         setContentView(LinearLayout(this))
         database = FirebaseDatabase.getInstance()
 
+
+
         val myRef00 = database.getReference("message00")
         myRef00.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -47,6 +49,8 @@ class MainActivity : ComponentActivity() {
         })
         myRef00.setValue("Hello, Android!")
         myRef00.setValue("Hello, Firebase!")
+
+
 
         val myRef01 = database.getReference("message01")
         myRef01.addValueEventListener(object : ValueEventListener {
@@ -62,6 +66,7 @@ class MainActivity : ComponentActivity() {
         myRef01.setValue(User("John", 30))
 
 
+
         val myRefAll = database.reference
         myRefAll.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -73,6 +78,44 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this@MainActivity, "Failed to read value: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+        myRefAll.child("message00").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@MainActivity, "Failed to read value: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+        myRefAll.child("message01").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@MainActivity, "Failed to read value: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        myRefAll.child("message00").get().addOnSuccessListener { dataSnapshot ->
+            for (snapshot in dataSnapshot.children) {
+                Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this@MainActivity, "Failed to read value: $exception", Toast.LENGTH_SHORT).show()
+        }
+        myRefAll.child("message01").get().addOnSuccessListener { dataSnapshot ->
+            for (snapshot in dataSnapshot.children) {
+                Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this@MainActivity, "Failed to read value: $exception", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 }
 
