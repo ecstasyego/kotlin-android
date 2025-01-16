@@ -105,14 +105,14 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener { exception ->
-            Toast.makeText(this@MainActivity, "Failed to read value: $exception", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "Failed to read value: ${exception.message}", Toast.LENGTH_SHORT).show()
         }
         myRefAll.child("message01").get().addOnSuccessListener { dataSnapshot ->
             for (snapshot in dataSnapshot.children) {
                 Toast.makeText(this@MainActivity, "${snapshot.key}, ${snapshot.value}", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener { exception ->
-            Toast.makeText(this@MainActivity, "Failed to read value: $exception", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "Failed to read value: ${exception.message}", Toast.LENGTH_SHORT).show()
         }
 
 
