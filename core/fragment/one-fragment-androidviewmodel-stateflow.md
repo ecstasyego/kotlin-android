@@ -74,6 +74,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         lifecycleScope.launch {
             viewModel.item.collect { newData ->
                 Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
