@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -78,6 +79,21 @@ class MainFragment : Fragment() {
                 Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
             }
         }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.whenStarted {
+                viewModel.item.collect { newData ->
+                    Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.item.collect { newData ->
+                Toast.makeText(requireContext(), newData, Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }
 
