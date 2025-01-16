@@ -83,6 +83,15 @@ Fragment
 ### Service
 - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){}`
 - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){withContext(Dispatchers.Main) {}}`
+```
+Service
+  db = room()
+  repo = repository(db)
+```
+```
+Service
+  db = room()
+```
 
 
 ### Thread
