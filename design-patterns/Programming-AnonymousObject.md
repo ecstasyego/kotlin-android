@@ -7,6 +7,7 @@
     }
 
     Singleton.onClick()
+    Singleton.onTouch()
 }()
 ```
 
