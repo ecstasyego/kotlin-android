@@ -227,6 +227,15 @@ class MainFragment : Fragment() {
     private lateinit var _activity: MainActivity
     private lateinit var _inflater: LayoutInflater
 
+    companion object {
+        fun newInstance(): MainFragment {
+            val fragment = MainFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context) // activity
         _context = context
