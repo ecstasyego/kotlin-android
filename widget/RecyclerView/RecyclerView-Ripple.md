@@ -68,4 +68,28 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
 data class Item(var option:String)
 ```
 
+`ripple_background.xml`
+```xml
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@android:color/darker_gray" >
+
+    <item android:id="@android:id/mask">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@android:color/transparent"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+
+</ripple>
+```
+
+
+
 
