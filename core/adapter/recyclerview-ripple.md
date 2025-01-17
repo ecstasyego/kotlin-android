@@ -51,6 +51,11 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        val textView = itemView.findViewById<TextView>(R.id.textView)
+        textView.isClickable = true
+        textView.isFocusable = true
+        textView.setBackgroundResource(R.drawable.ripple_background)
+
         return ViewHolder(view)
     }
 
