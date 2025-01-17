@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         }
-
+        bottomNavigationView.post { viewPagerFrame.viewPager2.layoutParams = (viewPagerFrame.viewPager2.layoutParams as ViewGroup.MarginLayoutParams).apply{bottomMargin = bottomNavigationView.height} }
 
         viewPagerFrame.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
