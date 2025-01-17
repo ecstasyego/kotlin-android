@@ -104,6 +104,7 @@ import androidx.activity.ComponentActivity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -122,6 +123,7 @@ class MainActivity : ComponentActivity() {
 
 class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val cardView: CardView = itemView as CardView
         val textView: TextView = itemView.findViewById(R.id.textView)
     }
 
