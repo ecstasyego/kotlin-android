@@ -19,8 +19,10 @@
 ```kotlin
 package com.example.myapplication
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.ComponentActivity
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -39,6 +41,7 @@ class MainActivity : ComponentActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CustomAdapter(List(20) { Item("ITEM: $it") })
+        recyclerView.addItemDecoration(SpaceItemDecoration(0))
     }
 }
 
@@ -58,6 +61,15 @@ class CustomAdapter(private val items: List<Item>) : RecyclerView.Adapter<Custom
     }
 
     override fun getItemCount(): Int = items.size
+}
+
+class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        outRect.bottom = space
+        outRect.left = space
+        outRect.right = space
+        outRect.top = space
+    }
 }
 
 data class Item(var option:String)
