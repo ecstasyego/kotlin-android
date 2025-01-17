@@ -1,5 +1,5 @@
 ## Examples
-### Example01: Ripple RecyclerView
+### Example01: Spacing Item
 #### File System
 ```
 .Project
