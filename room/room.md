@@ -8,7 +8,6 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
-│   │       ├── res/layout/main_layout.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -20,6 +19,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -36,18 +36,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_layout)
+        setContentView(LinearLayout(this))
 
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
-
-        val dbFile = applicationContext.getDatabasePath("historyDB")
-        if (dbFile.exists()) {
-            dbFile.delete()
-        }
 
     }
 }
@@ -76,19 +73,6 @@ data class History(
     @ColumnInfo(name = "result") val result: String?
 )
 ```
-
-`main_layout.xml`
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
-```
-
 
 
 `build.gradle.kts(APP-LEVEL)`
