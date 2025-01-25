@@ -415,6 +415,34 @@ maven (url  = "https://jitpack.io")
 
 <br><br><br>
 
+
+## Debugging
+`Toast`
+```kotlin
+import android.widget.Toast
+
+Toast.makeText(this, "MESSAGE", Toast.LENGTH_SHORT).show() // activity
+Toast.makeText(requireContext(), "MESSAGE", Toast.LENGTH_SHORT).show() // fragment
+Toast.makeText(applicationContext, "MESSAGE", Toast.LENGTH_SHORT).show() // service
+```
+
+`Log`
+```kotlin
+import android.util.Log
+
+Log.v("TAG", "This is a verbose log.") // Verbose(v)
+Log.d("TAG", "This is a debug log.") // Debug(d)
+Log.i("TAG", "This is an info log.") // Info(i)
+Log.w("TAG", "This is a warning log.") // Warn(w)
+// + Error(e), What a Terrible Failure(wtf)
+
+```
+
+
+
+
+<br><br><br>
+
 ## Android Studio
 ### Keymap
 - Alt + Enter: Build
