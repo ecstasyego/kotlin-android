@@ -22,6 +22,10 @@ dependencies {
 
 ## Usage
 ```kotlin
+// DELETE DATABASE
+val dbFile = applicationContext.getDatabasePath("historyDB")
+if (dbFile.exists()) {dbFile.delete()}
+
 // BUILD
 db = Room.databaseBuilder(
     applicationContext,
@@ -32,11 +36,6 @@ db = Room.databaseBuilder(
 // CLEAR TABLES
 db.clearAllTables()
 
-// DELETE DATABASE
-val dbFile = applicationContext.getDatabasePath("historyDB")
-if (dbFile.exists()) {
-    dbFile.delete()
-}
 
 ```
 
