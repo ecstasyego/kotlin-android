@@ -420,6 +420,7 @@ maven (url  = "https://jitpack.io")
 - Alt + Enter: Build
 - Alt + Arrow: Tab Shift
 - Alt + 1: Explorer
+- Alt + F7: Find Usages
 - Ctrl + Alt + X
     - File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
 - Shift + ESC: Hide Bottom Window
