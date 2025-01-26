@@ -59,11 +59,10 @@ class MainActivity : ComponentActivity() {
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        // Data
-        val data = dataLoader()
-
         // UI Update on background
         Thread(Runnable {
+            val data = dataLoader()
+
             // [DATA] DAO DELETE
             db.historyDao().delete()
 
