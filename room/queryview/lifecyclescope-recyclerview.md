@@ -28,6 +28,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.ColumnInfo
@@ -39,6 +40,9 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -63,32 +67,34 @@ class MainActivity : AppCompatActivity() {
         ).build()
 
         // UI Update on background
-        Thread(Runnable {
-            val data = dataLoader()
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val data = dataLoader()
 
-            // [DATA] DAO DELETE
-            db.historyDao().delete()
+                // [DATA] DAO DELETE
+                db.historyDao().delete()
 
-            // [DATA] DAO INSERTALL
-            db.historyDao().insertAll(
-                data.map{ row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
-            )
-
-            // [DATA] DAO INSERT
-            data.forEach{row ->
-                db.historyDao().insert(
-                    History(null, row["C1"] as String, row["C2"] as String)
+                // [DATA] DAO INSERTALL
+                db.historyDao().insertAll(
+                    data.map { row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
                 )
-            }
 
-            // [DATA] DAO GET
-            val daolist = db.historyDao().get().reversed()
+                // [DATA] DAO INSERT
+                data.forEach { row ->
+                    db.historyDao().insert(
+                        History(null, row["C1"] as String, row["C2"] as String)
+                    )
+                }
 
-            // UI
-            runOnUiThread {
-                display(daolist)
+                // [DATA] DAO GET
+                val daolist = db.historyDao().get().reversed()
+
+                // UI
+                withContext(Dispatchers.Main) {
+                    display(daolist)
+                }
             }
-        }).start()
+        }
     }
 
     private fun dataLoader(): List<Map<String, Any?>> {
