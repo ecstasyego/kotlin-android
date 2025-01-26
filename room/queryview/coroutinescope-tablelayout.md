@@ -61,33 +61,34 @@ class MainActivity : ComponentActivity() {
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val daolist = intent.getSerializableExtra("data") as List<History>
-
             lifecycleScope.launch {
-                val rows = mutableListOf<TableRow>()
-                for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
-                    if (idx==0){
-                        rows.add(
-                            TableRow(this@MainActivity).apply {
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "UID" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
-                            }
-                        ) // columns
-                    }
+                display(daolist)
+            }
+        }
+
+        private fun display(data: List<History>){
+            val rows = mutableListOf<TableRow>()
+            for ((idx, dao) in (0 until data.size).zip(data)) {
+                if (idx==0){
                     rows.add(
                         TableRow(this@MainActivity).apply {
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "UID" })
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
                         }
-                    )
+                    ) // columns
                 }
-
-                rows.forEach { mainLayout.tableLayout.addView(it) }
-
+                rows.add(
+                    TableRow(this@MainActivity).apply {
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
+                    }
+                )
             }
+            rows.forEach { mainLayout.tableLayout.addView(it) }
         }
     }
 
