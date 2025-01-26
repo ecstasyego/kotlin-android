@@ -113,15 +113,19 @@ class MainActivity : ComponentActivity() {
 
 
 class DatabaseService : Service() {
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    private lateinit var coroutineScope: CoroutineScope
     private lateinit var db: AppDatabase
 
     override fun onCreate() {
         super.onCreate()
+
         val dbFile = applicationContext.getDatabasePath("historyDB")
         if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build()
+        coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 // [DATA] DAO DELETE
@@ -147,9 +151,6 @@ class DatabaseService : Service() {
                 LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
             }
         }
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         return START_STICKY
     }
 
