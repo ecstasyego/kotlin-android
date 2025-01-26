@@ -19,9 +19,11 @@ package com.example.myapplication
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -40,60 +42,84 @@ import androidx.room.RoomDatabase
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-    lateinit var db: AppDatabase
+    private lateinit var horizontalScrollView: HorizontalScrollView
+    private lateinit var recyclerView:RecyclerView
+    private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val recyclerView = RecyclerView(this)
-        setContentView(recyclerView)
-
+        horizontalScrollView = HorizontalScrollView(this)
+        recyclerView = RecyclerView(this)
+        horizontalScrollView.addView(recyclerView)
+        setContentView(horizontalScrollView)
 
         // Database
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) {dbFile.delete()}
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        // Data
-        val upperCases: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-        val lowerCases: List<String> = upperCases.map{ it.lowercase() }
-        var data = rowsIter(mutableMapOf<String, List<Any?>>(
-            "C0" to (0 until 100).toList(),
-            "C1" to List(100){ upperCases[Random.nextInt(0, 26)]},
-            "C2" to List(100){ lowerCases[Random.nextInt(0, 26)]},
-        ))
-
         // UI Update on background
         Thread(Runnable {
+            val data = dataLoader()
+
             // [DATA] DAO DELETE
             db.historyDao().delete()
-            data.forEach{datum ->
-                // [DATA] DAO INSERT
+
+            // [DATA] DAO INSERTALL
+            db.historyDao().insertAll(
+                data.map{ row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
+            )
+
+            // [DATA] DAO INSERT
+            data.forEach{row ->
                 db.historyDao().insert(
-                    History(datum["C0"] as Int, datum["C1"] as String, datum["C2"] as String)
+                    History(null, row["C1"] as String, row["C2"] as String)
                 )
             }
 
             // [DATA] DAO GET
-            val serializedData = mutableListOf<String>()
             val daolist = db.historyDao().get().reversed()
-            for ( (idx, dao) in (0 until daolist.size).zip(daolist)){
-                serializedData.add(idx.toString())
-                serializedData.add(dao.uid.toString())
-                serializedData.add(dao.expression.toString())
-                serializedData.add(dao.result.toString())
-            }
 
-            // UI ATTACH
+            // UI
             runOnUiThread {
-                recyclerView.layoutManager = GridLayoutManager(this, 4)
-                recyclerView.adapter = CustomAdapter(serializedData)
-                recyclerView.addItemDecoration(GridSpacingItemDecoration(10))
+                display(daolist)
             }
         }).start()
     }
 
+    private fun dataLoader(): List<Map<String, Any?>> {
+        val upperCases: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+        val lowerCases: List<String> = upperCases.map{ it.lowercase() }
+        return rowsIter(mutableMapOf<String, List<Any?>>(
+            "C0" to (0 until 100).toList(),
+            "C1" to List(100){ upperCases[Random.nextInt(0, 26)]},
+            "C2" to List(100){ lowerCases[Random.nextInt(0, 26)]},
+        ))
+    }
+
+    private fun display(data: List<History>){
+        val serializedData = mutableListOf<String>()
+        for ( (idx, dao) in (0 until data.size).zip(data)){
+            if (idx==0){
+                serializedData.add("INDEX")
+                serializedData.add("UID")
+                serializedData.add("EXPRESSION")
+                serializedData.add("RESULT")
+            }
+            serializedData.add(idx.toString())
+            serializedData.add(dao.uid.toString())
+            serializedData.add(dao.expression.toString())
+            serializedData.add(dao.result.toString())
+        }
+
+        recyclerView.layoutManager = GridLayoutManager(this, 4)
+        recyclerView.adapter = CustomAdapter(serializedData)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(5))
+    }
 }
 
 class CustomAdapter(private val items: MutableList<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -113,6 +139,7 @@ class CustomAdapter(private val items: MutableList<String>) : RecyclerView.Adapt
         val textView = TextView(parent.context).apply{
             id = View.generateViewId()
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            gravity = Gravity.CENTER
             maxLines = 1 // one line option
             ellipsize = android.text.TextUtils.TruncateAt.END // one line option
             setSingleLine(true) // one line option
@@ -126,7 +153,6 @@ class CustomAdapter(private val items: MutableList<String>) : RecyclerView.Adapt
             }
 
         }
-
         return ViewHolder(cardView)
     }
 
@@ -171,6 +197,9 @@ interface HistoryDao {
 
     @Insert
     fun insert(history: History)
+
+    @Insert
+    fun insertAll(histories: List<History>)
 }
 
 @Entity(tableName = "history")
