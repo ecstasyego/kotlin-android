@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
         ).build()
 
         // Data
+        val data = dataLoader()
 
         // UI Update on background
         Thread(Runnable {
@@ -67,7 +68,6 @@ class MainActivity : ComponentActivity() {
             db.historyDao().delete()
 
             // [DATA] DAO INSERTALL
-            val data = dataLoader()
             db.historyDao().insertAll(
                 data.map{ row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
             )
