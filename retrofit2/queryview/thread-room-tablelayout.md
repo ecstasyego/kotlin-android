@@ -56,24 +56,22 @@ import java.io.InputStreamReader
 class MainActivity : AppCompatActivity() {
     private lateinit var mainLayout: QueryView
     private lateinit var db: AppDatabase
+    private lateinit var retrofit: Retrofit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainLayout = QueryView(this)
         setContentView(mainLayout)
 
-        // Local
         val dbFile = applicationContext.getDatabasePath("historyDB")
         if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build()
-
-        // Remote
-        val retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
             .baseUrl("https://raw.githubusercontent.com/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
-        val apiService = retrofit.create(GithubApiService::class.java)
 
+        val apiService = retrofit.create(GithubApiService::class.java)
         val fileName = "005930.csv"
         val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
@@ -139,25 +137,25 @@ class MainActivity : AppCompatActivity() {
                     if (idx==0){
                         rows.add(
                             TableRow(this@MainActivity).apply {
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RID" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "DATE" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "OPEN" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "HIGH" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "LOW" })
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "CLOSE" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "INDEX" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "RID" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "DATE" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "OPEN" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "HIGH" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "LOW" })
+                                addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "CLOSE" })
                             }
                         ) // columns
                     }
                     rows.add(
                         TableRow(this@MainActivity).apply {
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.rid.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.date.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.open.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.high.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.low.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.close.toString() }) // data
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.rid.toString() }) // data
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.date.toString() }) // data
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.open.toString() }) // data
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.high.toString() }) // data
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.low.toString() }) // data
+                            addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.close.toString() }) // data
                         }
                     )
                 }
