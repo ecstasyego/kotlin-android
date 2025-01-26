@@ -59,6 +59,8 @@ class MainActivity : ComponentActivity() {
 
 
         // Database
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) {dbFile.delete()}
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
