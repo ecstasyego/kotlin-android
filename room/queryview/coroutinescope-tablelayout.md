@@ -64,18 +64,18 @@ class MainActivity : ComponentActivity() {
 
             lifecycleScope.launch {
                 // UI
-                val rows = mutableListOf<TableRow>().apply {
-                    add(
-                        TableRow(this@MainActivity).apply {
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "UID" })
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
-                        }
-                    ) // columns
-                }
-
+                val rows = mutableListOf<TableRow>()
                 for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
+                    if (idx==0){
+                        rows.add(
+                            TableRow(this@MainActivity).apply {
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "UID" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
+                            }
+                        ) // columns
+                    }
                     rows.add(
                         TableRow(this@MainActivity).apply {
                             addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
