@@ -63,7 +63,6 @@ class MainActivity : ComponentActivity() {
             val daolist = intent.getSerializableExtra("data") as List<History>
 
             lifecycleScope.launch {
-                // UI
                 val rows = mutableListOf<TableRow>()
                 for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
                     if (idx==0){
@@ -86,7 +85,6 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
-                // UI ATTACH
                 rows.forEach { mainLayout.tableLayout.addView(it) }
 
             }
@@ -146,6 +144,7 @@ class DatabaseService : Service() {
 
                 // [DATA] DAO GET
                 val daolist = db.historyDao().get().reversed()
+
                 val intent = Intent("com.example.myapplication.DATABASE_OPERATION")
                 intent.putExtra("data", ArrayList(daolist))
                 LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
