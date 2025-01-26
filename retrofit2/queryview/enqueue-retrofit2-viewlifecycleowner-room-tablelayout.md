@@ -166,38 +166,38 @@ class MainFragment : Fragment() {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(requireContext(), "ERROR: ${t.message}", Toast.LENGTH_SHORT).show()
             }
-
-            private fun display(data: List<History>){
-                val rows = mutableListOf<TableRow>()
-                for ((idx, dao) in (0 until data.size).zip(data)) {
-                    if (idx==0){
-                        rows.add(
-                            TableRow(requireContext()).apply {
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "INDEX" })
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "RID" })
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "DATE" })
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "OPEN" })
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "HIGH" })
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "LOW" })
-                                addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "CLOSE" })
-                            }
-                        ) // columns
-                    }
-                    rows.add(
-                        TableRow(requireContext()).apply {
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.rid.toString() }) // data
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.date.toString() }) // data
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.open.toString() }) // data
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.high.toString() }) // data
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.low.toString() }) // data
-                            addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.close.toString() }) // data
-                        }
-                    )
-                }
-                rows.forEach { mainLayout.tableLayout.addView(it) }
-            }
         })
+    }
+
+    private fun display(data: List<History>){
+        val rows = mutableListOf<TableRow>()
+        for ((idx, dao) in (0 until data.size).zip(data)) {
+            if (idx==0){
+                rows.add(
+                    TableRow(requireContext()).apply {
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "INDEX" })
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "RID" })
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "DATE" })
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "OPEN" })
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "HIGH" })
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "LOW" })
+                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "CLOSE" })
+                    }
+                ) // columns
+            }
+            rows.add(
+                TableRow(requireContext()).apply {
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.rid.toString() }) // data
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.date.toString() }) // data
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.open.toString() }) // data
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.high.toString() }) // data
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.low.toString() }) // data
+                    addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.close.toString() }) // data
+                }
+            )
+        }
+        rows.forEach { mainLayout.tableLayout.addView(it) }
     }
 }
 
