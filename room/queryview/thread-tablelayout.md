@@ -59,13 +59,6 @@ class MainActivity : ComponentActivity() {
         ).build()
 
         // Data
-        val upperCases: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-        val lowerCases: List<String> = upperCases.map{ it.lowercase() }
-        var data = rowsIter(mutableMapOf<String, List<Any?>>(
-            "C0" to (0 until 100).toList(),
-            "C1" to List(100){ upperCases[Random.nextInt(0, 26)]},
-            "C2" to List(100){ lowerCases[Random.nextInt(0, 26)]},
-        ))
 
         // UI Update on background
         Thread(Runnable {
@@ -73,6 +66,7 @@ class MainActivity : ComponentActivity() {
             db.historyDao().delete()
 
             // [DATA] DAO INSERTALL
+            val data = dataLoader()
             db.historyDao().insertAll(
                 data.map{ row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
             )
@@ -114,6 +108,16 @@ class MainActivity : ComponentActivity() {
                 rows.forEach { mainLayout.tableLayout.addView(it) }
             }
         }).start()
+    }
+
+    private fun dataLoader(): List<Map<String, Any?>> {
+        val upperCases: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+        val lowerCases: List<String> = upperCases.map{ it.lowercase() }
+        return rowsIter(mutableMapOf<String, List<Any?>>(
+            "C0" to (0 until 100).toList(),
+            "C1" to List(100){ upperCases[Random.nextInt(0, 26)]},
+            "C2" to List(100){ lowerCases[Random.nextInt(0, 26)]},
+        ))
     }
 
 }
