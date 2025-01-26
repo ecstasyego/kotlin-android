@@ -29,6 +29,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -38,6 +39,9 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -51,63 +55,78 @@ class MainActivity : ComponentActivity() {
 
         // Database
         val dbFile = applicationContext.getDatabasePath("historyDB")
-        if (dbFile.exists()) {dbFile.delete()}
+        if (dbFile.exists()) {
+            dbFile.delete()
+        }
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
 
-        // Data
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                // [DATA] DAO DELETE
+                db.historyDao().delete()
 
-        // UI Update on background
-        Thread(Runnable {
-            // [DATA] DAO DELETE
-            db.historyDao().delete()
-
-            // [DATA] DAO INSERTALL
-            val data = dataLoader()
-            db.historyDao().insertAll(
-                data.map{ row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
-            )
-
-            // [DATA] DAO INSERT
-            data.forEach{row ->
-                db.historyDao().insert(
-                    History(null, row["C1"] as String, row["C2"] as String)
+                // [DATA] DAO INSERTALL
+                val data = dataLoader()
+                db.historyDao().insertAll(
+                    data.map { row ->
+                        History(
+                            row["C0"] as Int,
+                            row["C1"] as String,
+                            row["C2"] as String
+                        )
+                    }.toList()
                 )
-            }
 
-            // UI
-            val rows = mutableListOf<TableRow>().apply{
-                add(
-                    TableRow(this@MainActivity).apply{
-                        addView(TextView(this@MainActivity).apply { text = "INDEX" })
-                        addView(TextView(this@MainActivity).apply { text = "UID" })
-                        addView(TextView(this@MainActivity).apply { text = "EXPRESSION" })
-                        addView(TextView(this@MainActivity).apply { text = "RESULT" })
-                    }
-                ) // columns
-            }
+                // [DATA] DAO INSERT
+                data.forEach { row ->
+                    db.historyDao().insert(
+                        History(null, row["C1"] as String, row["C2"] as String)
+                    )
+                }
 
-            // [DATA] DAO GET
-            val daolist = db.historyDao().get().reversed()
-            for ( (idx, dao) in (0 until daolist.size).zip(daolist)){
-                rows.add(
-                    TableRow(this).apply{
-                        addView(TextView(this@MainActivity).apply { text = idx.toString() }) // INDEX
-                        addView(TextView(this@MainActivity).apply { text = dao.uid.toString() } ) // data
-                        addView(TextView(this@MainActivity).apply { text = dao.expression.toString() } ) // data
-                        addView(TextView(this@MainActivity).apply { text = dao.result.toString() } ) // data
-                    }
-                )
-            }
+                // UI
+                val rows = mutableListOf<TableRow>().apply {
+                    add(
+                        TableRow(this@MainActivity).apply {
+                            addView(TextView(this@MainActivity).apply { text = "INDEX" })
+                            addView(TextView(this@MainActivity).apply { text = "UID" })
+                            addView(TextView(this@MainActivity).apply { text = "EXPRESSION" })
+                            addView(TextView(this@MainActivity).apply { text = "RESULT" })
+                        }
+                    ) // columns
+                }
 
-            // UI ATTACH
-            runOnUiThread {
-                rows.forEach { mainLayout.tableLayout.addView(it) }
+                // [DATA] DAO GET
+                val daolist = db.historyDao().get().reversed()
+                for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
+                    rows.add(
+                        TableRow(this@MainActivity).apply {
+                            addView(TextView(this@MainActivity).apply {
+                                text = idx.toString()
+                            }) // INDEX
+                            addView(TextView(this@MainActivity).apply {
+                                text = dao.uid.toString()
+                            }) // data
+                            addView(TextView(this@MainActivity).apply {
+                                text = dao.expression.toString()
+                            }) // data
+                            addView(TextView(this@MainActivity).apply {
+                                text = dao.result.toString()
+                            }) // data
+                        }
+                    )
+                }
+
+                // UI ATTACH
+                withContext(Dispatchers.Main) {
+                    rows.forEach { mainLayout.tableLayout.addView(it) }
+                }
             }
-        }).start()
+        }
     }
 
     private fun dataLoader(): List<Map<String, Any?>> {
