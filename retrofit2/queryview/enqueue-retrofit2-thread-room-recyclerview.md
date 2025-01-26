@@ -131,33 +131,33 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(applicationContext, "ERROR: ${t.message}", Toast.LENGTH_SHORT).show()
             }
-
-            private fun display(data: List<History>){
-                val serializedData = mutableListOf<String>()
-                for ( (idx, dao) in (0 until data.size).zip(data)){
-                    if (idx==0){
-                        serializedData.add("INDEX")
-                        serializedData.add("RID")
-                        serializedData.add("DATE")
-                        serializedData.add("OPEN")
-                        serializedData.add("HIGH")
-                        serializedData.add("LOW")
-                        serializedData.add("CLOSE")
-                    }
-                    serializedData.add(idx.toString())
-                    serializedData.add(dao.rid.toString())
-                    serializedData.add(dao.date.toString())
-                    serializedData.add(dao.open.toString())
-                    serializedData.add(dao.high.toString())
-                    serializedData.add(dao.low.toString())
-                    serializedData.add(dao.close.toString())
-                }
-
-                recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 7)
-                recyclerView.adapter = CustomAdapter(serializedData)
-                recyclerView.addItemDecoration(GridSpacingItemDecoration(5))
-            }
         })
+    }
+
+    private fun display(data: List<History>){
+        val serializedData = mutableListOf<String>()
+        for ( (idx, dao) in (0 until data.size).zip(data)){
+            if (idx==0){
+                serializedData.add("INDEX")
+                serializedData.add("RID")
+                serializedData.add("DATE")
+                serializedData.add("OPEN")
+                serializedData.add("HIGH")
+                serializedData.add("LOW")
+                serializedData.add("CLOSE")
+            }
+            serializedData.add(idx.toString())
+            serializedData.add(dao.rid.toString())
+            serializedData.add(dao.date.toString())
+            serializedData.add(dao.open.toString())
+            serializedData.add(dao.high.toString())
+            serializedData.add(dao.low.toString())
+            serializedData.add(dao.close.toString())
+        }
+
+        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 7)
+        recyclerView.adapter = CustomAdapter(serializedData)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(5))
     }
 }
 
