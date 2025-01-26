@@ -25,9 +25,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.TextView
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,28 +49,49 @@ import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+    lateinit var frameLayout: FrameLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        frameLayout = FrameLayout(this).apply{ id = View.generateViewId()}
+        setContentView(frameLayout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(frameLayout.id, fragment)
+        transaction.commit()
+    }
+}
+
+class MainFragment : Fragment() {
     private lateinit var horizontalScrollView: HorizontalScrollView
     private lateinit var recyclerView:RecyclerView
     private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        horizontalScrollView = HorizontalScrollView(this)
-        recyclerView = RecyclerView(this)
-        horizontalScrollView.addView(recyclerView)
-        setContentView(horizontalScrollView)
 
         // Database
-        val dbFile = applicationContext.getDatabasePath("historyDB")
-        if (dbFile.exists()) {dbFile.delete()}
+        val dbFile = requireContext().getDatabasePath("historyDB")
+        if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(
-            applicationContext,
+            requireContext(),
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
+    }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        horizontalScrollView = HorizontalScrollView(requireContext())
+        recyclerView = RecyclerView(requireContext())
+        horizontalScrollView.addView(recyclerView)
+        return horizontalScrollView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // UI Update on background
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val data = dataLoader()
 
@@ -122,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             serializedData.add(dao.result.toString())
         }
 
-        recyclerView.layoutManager = GridLayoutManager(this, 4)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
         recyclerView.adapter = CustomAdapter(serializedData)
         recyclerView.addItemDecoration(GridSpacingItemDecoration(5))
     }
