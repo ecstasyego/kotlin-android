@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
                                 // UI
                                 runOnUiThread{
-                                    display(daolist.slice(0 until 200))
+                                    display(daolist)
                                     Toast.makeText(applicationContext, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
                                 }
                             }
