@@ -17,7 +17,10 @@
 ```kotlin
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -25,6 +28,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -37,26 +41,13 @@ import androidx.room.RoomDatabase
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
+    lateinit var mainLayout: QueryView
     lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mainLayout = LinearLayout(this)
-        val horizontalScrollView = HorizontalScrollView(this)
-        val scrollView = ScrollView(this)
-        val tableLayout = TableLayout(this).apply{
-            layoutParams = TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT
-            )
-            setPadding(16, 16, 16, 16)
-        }
-
-        scrollView.addView(tableLayout)
-        horizontalScrollView.addView(scrollView)
-        mainLayout.addView(horizontalScrollView)
+        mainLayout = QueryView(this)
         setContentView(mainLayout)
-
 
         // Database
         val dbFile = applicationContext.getDatabasePath("historyDB")
@@ -114,11 +105,34 @@ class MainActivity : ComponentActivity() {
 
             // UI ATTACH
             runOnUiThread {
-                rows.forEach { tableLayout.addView(it) }
+                rows.forEach { mainLayout.tableLayout.addView(it) }
             }
         }).start()
     }
 
+}
+
+class QueryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
+    val tableLayout = TableLayout(context)
+    val horizontalScrollView = HorizontalScrollView(context)
+    val scrollView = ScrollView(context)
+
+    init {
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
+        orientation = VERTICAL
+
+        horizontalScrollView.apply{ id = View.generateViewId() }
+        scrollView.apply{ id = View.generateViewId() }
+        tableLayout.apply{
+            id = View.generateViewId()
+            layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT)
+            setPadding(16, 16, 16, 16)
+        }
+
+        scrollView.addView(tableLayout)
+        horizontalScrollView.addView(scrollView)
+        addView(horizontalScrollView)
+    }
 }
 
 
