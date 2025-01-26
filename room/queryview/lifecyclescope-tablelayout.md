@@ -98,16 +98,15 @@ class MainActivity : ComponentActivity() {
                                 addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
                             }
                         ) // columns
-                    } else {
-                        rows.add(
-                            TableRow(this@MainActivity).apply {
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
-                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
-                            }
-                        )
                     }
+                    rows.add(
+                        TableRow(this@MainActivity).apply {
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
+                        }
+                    )
                 }
 
                 // UI ATTACH
