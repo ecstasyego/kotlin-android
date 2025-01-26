@@ -109,21 +109,22 @@ class MainFragment : Fragment() {
                     )
                 }
 
-                // UI
-                val rows = mutableListOf<TableRow>().apply {
-                    add(
-                        TableRow(requireContext()).apply {
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "INDEX" })
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "UID" })
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "RESULT" })
-                        }
-                    ) // columns
-                }
-
                 // [DATA] DAO GET
                 val daolist = db.historyDao().get().reversed()
+
+                // UI
+                val rows = mutableListOf<TableRow>()
                 for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
+                    if (idx == 0) {
+                        rows.add(
+                            TableRow(requireContext()).apply {
+                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "UID" })
+                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
+                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "RESULT" })
+                            }
+                        ) // columns
+                    }
                     rows.add(
                         TableRow(requireContext()).apply {
                             addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
