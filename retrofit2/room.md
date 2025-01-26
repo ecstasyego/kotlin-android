@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         val mainLayout = LinearLayout(this)
         setContentView(mainLayout)
 
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) {dbFile.delete()}
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
             .build()
 
