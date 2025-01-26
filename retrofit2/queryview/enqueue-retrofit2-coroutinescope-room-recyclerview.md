@@ -24,22 +24,23 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.IBinder
-import android.util.AttributeSet
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TableLayout
 import android.widget.Toast
 import android.view.View
-import android.widget.TableRow
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -68,13 +69,13 @@ import java.io.InputStreamReader
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mainLayout: QueryView
-
+    private lateinit var horizontalScrollView: HorizontalScrollView
+    private lateinit var recyclerView: RecyclerView
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val daolist = intent.getSerializableExtra("data") as List<History>
             lifecycleScope.launch {
-                display(daolist.slice(0 until 200))
+                display(daolist)
                 Toast.makeText(context, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
             }
         }
@@ -82,8 +83,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainLayout = QueryView(this)
-        setContentView(mainLayout)
+        horizontalScrollView = HorizontalScrollView(this)
+        recyclerView = RecyclerView(this)
+        horizontalScrollView.addView(recyclerView)
+        setContentView(horizontalScrollView)
 
         val intent = Intent(this, RemoteService::class.java)
         startService(intent)
@@ -98,34 +101,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun display(data: List<History>){
-        val rows = mutableListOf<TableRow>()
-        for ((idx, dao) in (0 until data.size).zip(data)) {
+        val serializedData = mutableListOf<String>()
+        for ( (idx, dao) in (0 until data.size).zip(data)){
             if (idx==0){
-                rows.add(
-                    TableRow(this@MainActivity).apply {
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "INDEX" })
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "RID" })
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "DATE" })
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "OPEN" })
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "HIGH" })
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "LOW" })
-                        addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "CLOSE" })
-                    }
-                ) // columns
+                serializedData.add("INDEX")
+                serializedData.add("RID")
+                serializedData.add("DATE")
+                serializedData.add("OPEN")
+                serializedData.add("HIGH")
+                serializedData.add("LOW")
+                serializedData.add("CLOSE")
             }
-            rows.add(
-                TableRow(this@MainActivity).apply {
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.rid.toString() }) // data
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.date.toString() }) // data
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.open.toString() }) // data
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.high.toString() }) // data
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.low.toString() }) // data
-                    addView(TextView(this@MainActivity).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = dao.close.toString() }) // data
-                }
-            )
+            serializedData.add(idx.toString())
+            serializedData.add(dao.rid.toString())
+            serializedData.add(dao.date.toString())
+            serializedData.add(dao.open.toString())
+            serializedData.add(dao.high.toString())
+            serializedData.add(dao.low.toString())
+            serializedData.add(dao.close.toString())
         }
-        rows.forEach { mainLayout.tableLayout.addView(it) }
+
+        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 7)
+        recyclerView.adapter = CustomAdapter(serializedData)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(5))
     }
 }
 
@@ -218,26 +216,62 @@ class RemoteService : Service() {
 
 }
 
-class QueryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
-    val tableLayout = TableLayout(context)
-    val horizontalScrollView = HorizontalScrollView(context)
-    val scrollView = ScrollView(context)
+class CustomAdapter(private val items: MutableList<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val cardView: CardView = itemView as CardView
+        val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
+    }
 
-    init {
-        setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
-        orientation = VERTICAL
-
-        horizontalScrollView.apply{ id = View.generateViewId() }
-        scrollView.apply{ id = View.generateViewId() }
-        tableLayout.apply{
-            id = View.generateViewId()
-            layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT)
-            setPadding(16, 16, 16, 16)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val cardView = CardView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            radius = 8f // set corner radius
+            elevation = 4f // set elevation for shadow
+            setContentPadding(16, 16, 16, 16) // add padding inside CardView
         }
 
-        scrollView.addView(tableLayout)
-        horizontalScrollView.addView(scrollView)
-        addView(horizontalScrollView)
+        val textView = TextView(parent.context).apply{
+            id = View.generateViewId()
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            gravity = Gravity.CENTER
+            maxLines = 1 // one line option
+            ellipsize = android.text.TextUtils.TruncateAt.END // one line option
+            setSingleLine(true) // one line option
+            setPadding(16, 16, 16, 16)
+        }
+        cardView.addView(textView)
+        cardView.setOnClickListener {
+            TextFragment().apply {
+                arguments = Bundle().apply { putString("text", textView.text.toString()) }
+                show((parent.context as MainActivity).supportFragmentManager.beginTransaction(), "dialog")
+            }
+
+        }
+        return ViewHolder(cardView)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.textView.text = items[position]
+    }
+
+    override fun getItemCount(): Int = items.size
+}
+
+class TextFragment : DialogFragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var cellText = arguments?.getString("text", "Default Text")
+        return TextView(requireContext()).apply {text = cellText }
+    }
+}
+
+class GridSpacingItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        super.getItemOffsets(outRect, view, parent, state)
+
+        outRect.left = spacing
+        outRect.right = spacing
+        outRect.top = spacing
+        outRect.bottom = spacing
     }
 }
 
