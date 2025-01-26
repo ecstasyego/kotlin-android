@@ -56,8 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         val dbFile = applicationContext.getDatabasePath("historyDB")
         if (dbFile.exists()) {dbFile.delete()}
-        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
-            .build()
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://raw.githubusercontent.com/")
