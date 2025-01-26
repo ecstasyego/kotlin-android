@@ -152,9 +152,9 @@ class MainFragment : Fragment() {
                                 // UI
                                 withContext(Dispatchers.Main) {
                                     display(daolist.slice(0 until 200))
+                                    Toast.makeText(requireContext(), "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
                                 }
                             }
-                            Toast.makeText(requireContext(), "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
                         }
 
                     }
