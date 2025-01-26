@@ -113,31 +113,8 @@ class MainFragment : Fragment() {
                 val daolist = db.historyDao().get().reversed()
 
                 // UI
-                val rows = mutableListOf<TableRow>()
-                for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
-                    if (idx == 0) {
-                        rows.add(
-                            TableRow(requireContext()).apply {
-                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "INDEX" })
-                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "UID" })
-                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
-                                addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "RESULT" })
-                            }
-                        ) // columns
-                    }
-                    rows.add(
-                        TableRow(requireContext()).apply {
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
-                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
-                        }
-                    )
-                }
-
-                // UI ATTACH
                 withContext(Dispatchers.Main) {
-                    rows.forEach { mainLayout.tableLayout.addView(it) }
+                    display(daolist)
                 }
             }
         }
@@ -153,6 +130,30 @@ class MainFragment : Fragment() {
         ))
     }
 
+    private fun display(data: List<History>){
+        val rows = mutableListOf<TableRow>()
+        for ((idx, dao) in (0 until data.size).zip(data)) {
+            if (idx == 0) {
+                rows.add(
+                    TableRow(requireContext()).apply {
+                        addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                        addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "UID" })
+                        addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
+                        addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "RESULT" })
+                    }
+                ) // columns
+            }
+            rows.add(
+                TableRow(requireContext()).apply {
+                    addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                    addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
+                    addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
+                    addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
+                }
+            )
+        }
+        rows.forEach { mainLayout.tableLayout.addView(it) }
+    }
 }
 
 class QueryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
