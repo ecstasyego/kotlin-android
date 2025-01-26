@@ -127,11 +127,12 @@ class DatabaseService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
+                val data = dataLoader()
+
                 // [DATA] DAO DELETE
                 db.historyDao().delete()
 
                 // [DATA] DAO INSERTALL
-                val data = dataLoader()
                 db.historyDao().insertAll(
                     data.map { row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
                 )
