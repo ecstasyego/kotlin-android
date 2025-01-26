@@ -22,15 +22,20 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -46,27 +51,47 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
-class MainActivity : ComponentActivity() {
-    lateinit var mainLayout: QueryView
+class MainActivity : AppCompatActivity() {
+    lateinit var frameLayout: FrameLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        frameLayout = FrameLayout(this).apply{ id = View.generateViewId()}
+        setContentView(frameLayout)
+
+        val fragment = MainFragment()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(frameLayout.id, fragment)
+        transaction.commit()
+    }
+
+}
+
+class MainFragment : Fragment() {
+    private lateinit var mainLayout: QueryView
     lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainLayout = QueryView(this)
-        setContentView(mainLayout)
 
         // Database
-        val dbFile = applicationContext.getDatabasePath("historyDB")
-        if (dbFile.exists()) {
-            dbFile.delete()
-        }
+        val dbFile = requireContext().getDatabasePath("historyDB")
+        if (dbFile.exists()) { dbFile.delete() }
         db = Room.databaseBuilder(
-            applicationContext,
+            requireContext(),
             AppDatabase::class.java,
             "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
         ).build()
+    }
 
-        lifecycleScope.launch {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mainLayout = QueryView(requireContext())
+        return mainLayout
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 // [DATA] DAO DELETE
                 db.historyDao().delete()
@@ -87,11 +112,11 @@ class MainActivity : ComponentActivity() {
                 // UI
                 val rows = mutableListOf<TableRow>().apply {
                     add(
-                        TableRow(this@MainActivity).apply {
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "UID" })
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
+                        TableRow(requireContext()).apply {
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "UID" })
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = "RESULT" })
                         }
                     ) // columns
                 }
@@ -100,11 +125,11 @@ class MainActivity : ComponentActivity() {
                 val daolist = db.historyDao().get().reversed()
                 for ((idx, dao) in (0 until daolist.size).zip(daolist)) {
                     rows.add(
-                        TableRow(this@MainActivity).apply {
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
-                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
+                        TableRow(requireContext()).apply {
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.uid.toString() }) // data
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.expression.toString() }) // data
+                            addView(TextView(requireContext()).apply { gravity = Gravity.CENTER; text = dao.result.toString() }) // data
                         }
                     )
                 }
