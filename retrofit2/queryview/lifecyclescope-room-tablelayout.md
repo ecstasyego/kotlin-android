@@ -121,9 +121,9 @@ class MainActivity : AppCompatActivity() {
                                 // UI
                                 withContext(Dispatchers.Main) {
                                     display(daolist.slice(0 until 200))
+                                    Toast.makeText(applicationContext, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
                                 }
                             }
-                            Toast.makeText(applicationContext, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
                         }
 
                     }
