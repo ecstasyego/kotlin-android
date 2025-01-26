@@ -20,6 +20,7 @@ package com.example.myapplication
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
@@ -82,10 +83,10 @@ class MainActivity : ComponentActivity() {
             val rows = mutableListOf<TableRow>().apply{
                 add(
                     TableRow(this@MainActivity).apply{
-                        addView(TextView(this@MainActivity).apply { text = "INDEX" })
-                        addView(TextView(this@MainActivity).apply { text = "UID" })
-                        addView(TextView(this@MainActivity).apply { text = "EXPRESSION" })
-                        addView(TextView(this@MainActivity).apply { text = "RESULT" })
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "UID" })
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "EXPRESSION" })
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RESULT" })
                     }
                 ) // columns
             }
@@ -95,10 +96,10 @@ class MainActivity : ComponentActivity() {
             for ( (idx, dao) in (0 until daolist.size).zip(daolist)){
                 rows.add(
                     TableRow(this).apply{
-                        addView(TextView(this@MainActivity).apply { text = idx.toString() }) // INDEX
-                        addView(TextView(this@MainActivity).apply { text = dao.uid.toString() } ) // data
-                        addView(TextView(this@MainActivity).apply { text = dao.expression.toString() } ) // data
-                        addView(TextView(this@MainActivity).apply { text = dao.result.toString() } ) // data
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.uid.toString() } ) // data
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.expression.toString() } ) // data
+                        addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.result.toString() } ) // data
                     }
                 )
             }
