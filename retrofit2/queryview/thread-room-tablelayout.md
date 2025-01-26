@@ -19,11 +19,20 @@
 ```kotlin
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.Gravity
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TableLayout
 import android.widget.Toast
+import android.view.View
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.core.content.ContextCompat
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -33,9 +42,6 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,21 +54,24 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var mainLayout: QueryView
     private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mainLayout = LinearLayout(this)
+        mainLayout = QueryView(this)
         setContentView(mainLayout)
 
-        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB")
-            .build()
+        // Local
+        val dbFile = applicationContext.getDatabasePath("historyDB")
+        if (dbFile.exists()) { dbFile.delete() }
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build()
 
+        // Remote
         val retrofit = Retrofit.Builder()
             .baseUrl("https://raw.githubusercontent.com/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
-
         val apiService = retrofit.create(GithubApiService::class.java)
 
         val fileName = "005930.csv"
@@ -91,13 +100,29 @@ class MainActivity : AppCompatActivity() {
                         }
                         Toast.makeText(applicationContext, "RETROFIT: SUCCESS", Toast.LENGTH_SHORT).show()
 
-                        lifecycleScope.launch {
-                            withContext(Dispatchers.IO) {
-                                saveDataToRoom(csvDaoData)
-                            }
-                            Toast.makeText(applicationContext, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
-                        }
+                        Thread(
+                            Runnable{
+                                // [DATA] DAO DELETE
+                                db.historyDao().delete()
 
+                                // [DATA] DAO INSERTALL
+                                db.historyDao().insertAll(csvDaoData)
+
+                                // [DATA] DAO INSERT
+                                csvDaoData.forEach {
+                                    db.historyDao().insert(it)
+                                }
+
+                                // [DATA] DAO GET
+                                val daolist = db.historyDao().get().reversed()
+
+                                // UI
+                                runOnUiThread{
+                                    display(daolist.slice(0 until 200))
+                                    Toast.makeText(applicationContext, "ROOM: SUCCESS", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        ).start()
                     }
                 } else {
                     Toast.makeText(applicationContext, "FAIL: ${response.message()}", Toast.LENGTH_SHORT).show()
@@ -107,17 +132,63 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(applicationContext, "ERROR: ${t.message}", Toast.LENGTH_SHORT).show()
             }
-        })
-    }
 
-    private suspend fun saveDataToRoom(csvDaoData: List<History>) {
-        db.historyDao().delete()
-        csvDaoData.forEach {
-            db.historyDao().insert(it)
-        }
+            private fun display(data: List<History>){
+                val rows = mutableListOf<TableRow>()
+                for ((idx, dao) in (0 until data.size).zip(data)) {
+                    if (idx==0){
+                        rows.add(
+                            TableRow(this@MainActivity).apply {
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "INDEX" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "RID" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "DATE" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "OPEN" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "HIGH" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "LOW" })
+                                addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = "CLOSE" })
+                            }
+                        ) // columns
+                    }
+                    rows.add(
+                        TableRow(this@MainActivity).apply {
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = idx.toString() }) // INDEX
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.rid.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.date.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.open.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.high.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.low.toString() }) // data
+                            addView(TextView(this@MainActivity).apply { gravity = Gravity.CENTER; text = dao.close.toString() }) // data
+                        }
+                    )
+                }
+                rows.forEach { mainLayout.tableLayout.addView(it) }
+            }
+        })
     }
 }
 
+class QueryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
+    val tableLayout = TableLayout(context)
+    val horizontalScrollView = HorizontalScrollView(context)
+    val scrollView = ScrollView(context)
+
+    init {
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
+        orientation = VERTICAL
+
+        horizontalScrollView.apply{ id = View.generateViewId() }
+        scrollView.apply{ id = View.generateViewId() }
+        tableLayout.apply{
+            id = View.generateViewId()
+            layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT)
+            setPadding(16, 16, 16, 16)
+        }
+
+        scrollView.addView(tableLayout)
+        horizontalScrollView.addView(scrollView)
+        addView(horizontalScrollView)
+    }
+}
 
 interface GithubApiService {
     @GET("ecstasyego/CSV/main/{fileName}")
@@ -132,13 +203,16 @@ abstract class AppDatabase : RoomDatabase() {
 @Dao // DAO: Data Access Object
 interface HistoryDao {
     @Query("DELETE FROM history")
-    suspend fun delete()
+    fun delete()
 
     @Query("SELECT * FROM history")
-    suspend fun get(): List<History>
+    fun get(): List<History>
 
     @Insert
-    suspend fun insert(history: History)
+    fun insert(history: History)
+
+    @Insert
+    fun insertAll(histories: List<History>)
 }
 
 @Entity(tableName = "history")
