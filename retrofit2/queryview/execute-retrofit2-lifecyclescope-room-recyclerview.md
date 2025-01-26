@@ -126,10 +126,14 @@ class MainActivity : AppCompatActivity() {
 
                 }
             } else {
-                Toast.makeText(applicationContext, "FAIL: ${response.message()}", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    Toast.makeText(applicationContext, "FAIL: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
             }
         } catch (e: Exception) {
-            Toast.makeText(applicationContext, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch(Dispatchers.Main) {
+                Toast.makeText(applicationContext, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
