@@ -71,10 +71,16 @@ class MainActivity : ComponentActivity() {
         Thread(Runnable {
             // [DATA] DAO DELETE
             db.historyDao().delete()
-            data.forEach{datum ->
-                // [DATA] DAO INSERT
+
+            // [DATA] DAO INSERTALL
+            db.historyDao().insertAll(
+                data.map{ row -> History(row["C0"] as Int, row["C1"] as String, row["C2"] as String) }.toList()
+            )
+
+            // [DATA] DAO INSERT
+            data.forEach{row ->
                 db.historyDao().insert(
-                    History(datum["C0"] as Int, datum["C1"] as String, datum["C2"] as String)
+                    History(null, row["C1"] as String, row["C2"] as String)
                 )
             }
 
@@ -151,6 +157,9 @@ interface HistoryDao {
 
     @Insert
     fun insert(history: History)
+
+    @Insert
+    fun insertAll(histories: List<History>)
 }
 
 @Entity(tableName = "history")
