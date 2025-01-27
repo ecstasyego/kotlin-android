@@ -453,6 +453,9 @@ Log.w("TAG", "This is a warning log.") // Warn(w)
     - File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
 - Shift + ESC: Hide Bottom Window
 
+### Version Control
+- File > Settings(Ctrl + Alt + S) > GitHub > `+` > `OK`
+
 
 
 <br><br><br>
