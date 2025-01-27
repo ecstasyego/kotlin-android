@@ -25,13 +25,13 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TableLayout
 import android.widget.Toast
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +61,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
     lateinit var frameLayout: FrameLayout
@@ -105,9 +106,13 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val apiService = retrofit.create(GithubApiService::class.java)
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            dataLoader("005930.csv")
+        }
+    }
 
-        val fileName = "005930.csv"
+    private fun dataLoader(fileName: String){
+        val apiService = retrofit.create(GithubApiService::class.java)
         val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -156,7 +161,6 @@ class MainFragment : Fragment() {
                                 }
                             }
                         }
-
                     }
                 } else {
                     Toast.makeText(requireContext(), "FAIL: ${response.message()}", Toast.LENGTH_SHORT).show()
@@ -175,13 +179,13 @@ class MainFragment : Fragment() {
             if (idx==0){
                 rows.add(
                     TableRow(requireContext()).apply {
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "INDEX" })
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "RID" })
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "DATE" })
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "OPEN" })
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "HIGH" })
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "LOW" })
-                        addView(TextView(requireContext()).apply {setPadding(5, 5, 5, 5); gravity = Gravity.CENTER; text = "CLOSE" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "INDEX" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "RID" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "DATE" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "OPEN" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "HIGH" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "LOW" })
+                        addView(TextView(requireContext()).apply {setPadding(5,5,5,5); gravity = Gravity.CENTER; text = "CLOSE" })
                     }
                 ) // columns
             }
@@ -199,6 +203,7 @@ class MainFragment : Fragment() {
         }
         rows.forEach { mainLayout.tableLayout.addView(it) }
     }
+
 }
 
 class QueryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
@@ -237,16 +242,16 @@ abstract class AppDatabase : RoomDatabase() {
 @Dao // DAO: Data Access Object
 interface HistoryDao {
     @Query("DELETE FROM history")
-    fun delete()
+    suspend fun delete()
 
     @Query("SELECT * FROM history")
-    fun get(): List<History>
+    suspend fun get(): List<History>
 
     @Insert
-    fun insert(history: History)
+    suspend fun insert(history: History)
 
     @Insert
-    fun insertAll(histories: List<History>)
+    suspend fun insertAll(histories: List<History>)
 }
 
 @Entity(tableName = "history")
@@ -257,7 +262,7 @@ data class History(
     @ColumnInfo(name = "high") val high: Double?,
     @ColumnInfo(name = "low") val low: Double?,
     @ColumnInfo(name = "close") val close: Double?
-)
+): Serializable
 ```
 
 `AndroidManifest.xml`
