@@ -33,20 +33,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val graph = GraphView(this)
-        val series = LineGraphSeries<DataPoint>()
-        for (i in 0 until 10) {
-            val x = i.toDouble()
-            val y = Random.nextDouble(-3.0, 3.0)
-            series.appendData(DataPoint(x, y), true, 10)
+
+        val seriesNames = listOf("s0", "s1", "s2")
+        for (seriesName in seriesNames){
+            val series = LineGraphSeries<DataPoint>().apply{ title = seriesName }
+            for (i in 0 until 10) {
+                val x = i.toDouble()
+                val y = Random.nextDouble(-3.0, 3.0)
+                series.appendData(DataPoint(x, y), true, 10)
+            }
+            graph.addSeries(series)
         }
 
-        graph.addSeries(series)
-        graph.viewport.isScalable = true
-        graph.viewport.isScrollable = true
-        graph.gridLabelRenderer.isHorizontalLabelsVisible = true
-        graph.gridLabelRenderer.isVerticalLabelsVisible = true
-        graph.gridLabelRenderer.labelVerticalWidth = 20
+        graph.removeSeries( graph.series.find{it.title == "s0"} )
+        graph.removeSeries( graph.series.find{it.title == "s1"} )
+        graph.removeSeries( graph.series.find{it.title == "s2"} )
 
+        graph.removeAllSeries()
         setContentView(graph)
     }
 }
