@@ -106,12 +106,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            dataLoader("005930.csv")
-        }
-    }
-
-    private fun dataLoader(fileName: String){
+        val fileName = "005930.csv"
         val apiService = retrofit.create(GithubApiService::class.java)
         val call = apiService.downloadCsvFile(fileName)
         call.enqueue(object : Callback<ResponseBody> {
