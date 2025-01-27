@@ -455,7 +455,7 @@ Log.w("TAG", "This is a warning log.") // Warn(w)
 
 ### Version Control
 - File > Settings(Ctrl + Alt + S) > GitHub > `+` > `OK`
-
+- Git > Mange Remotes 
 
 
 <br><br><br>
