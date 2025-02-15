@@ -7,6 +7,7 @@
 
 ## Install
 ```powershell
+wsl --list --online
 wsl --list --verbose
 ```
 
