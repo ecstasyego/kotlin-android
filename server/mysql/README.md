@@ -1,6 +1,6 @@
 # Server
 
-## MySQL
+## Ubuntu
 `Installation`
 ```bash
 $ sudo apt update
