@@ -35,5 +35,6 @@ datadir = /mnt/d/mysql
 $ sudo service mysql stop
 $ sudo mv /var/lib/mysql /mnt/d/mysql
 $ sudo chown -R mysql:mysql /mnt/d/mysql
+$ sudo chmod -R 755 /mnt/d/mysql
 $ sudo service mysql start
 ```
