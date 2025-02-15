@@ -38,3 +38,10 @@ $ sudo chown -R mysql:mysql /mnt/d/mysql
 $ sudo chmod -R 755 /mnt/d/mysql
 $ sudo service mysql start
 ```
+
+## Query
+```sql
+SHOW DATABASES;
+USE [DATABASE];
+SHOW TABLES;
+```
