@@ -23,6 +23,7 @@ $ sudo service mysql stop
 `Auto:systemctl`
 ```bash
 $ sudo systemctl enable mysql
+$ sudo systemctl status mysql
 ```
 
 `Data:/etc/mysql/my.cnf`
