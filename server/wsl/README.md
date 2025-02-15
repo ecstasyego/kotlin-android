@@ -1,5 +1,11 @@
 # WSL(Windows Subsystem for Linux)
 
+## Drive
+`regedit:HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss`
+> `DefaultBasePath`: `D:\WSL\`
+
+
+## Install
 ```powershell
 wsl --list --verbose
 ```
