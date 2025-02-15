@@ -12,3 +12,16 @@ sudo apt install mysql-server -y
 ```bash
 mysql --version
 ```
+
+`Manual:service`
+```bash
+sudo service mysql start
+sudo service mysql status
+sudo service mysql restart
+sudo service mysql stop
+```
+
+`Auto:systemctl`
+```bash
+sudo systemctl enable mysql
+```
