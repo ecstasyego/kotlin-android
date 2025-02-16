@@ -1,4 +1,19 @@
 ## Python
+
+### MySQL
+```bash
+$ sudo mysql
+```
+```mysql
+mysql> CREATE DATABASE testdb;
+mysql> USE mysql;
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'temppw';
+mysql> FLUSH PRIVILEGES;
+mysql> EXIT;
+```
+
+### PyMySQL
+
 ```bash
 $ pip install pymysql sqlalchemy pandas
 ```
