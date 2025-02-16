@@ -24,6 +24,7 @@ $ sudo service mysql stop
 ```bash
 $ sudo systemctl enable mysql
 $ sudo systemctl status mysql
+$ sudo systemctl restart mysql
 ```
 
 `Data:/etc/mysql/my.cnf`
