@@ -45,10 +45,8 @@ except pymysql.MySQLError as e:
     print(f"Connection Fail: {e}")
 ```
 
-`PyMySQL with Pandas`
+`SQLAlchemy`
 ```python
-import pymysql
-import pandas as pd
 from sqlalchemy import create_engine
 
 user = "root"        
