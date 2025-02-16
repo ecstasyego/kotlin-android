@@ -27,6 +27,12 @@ $ sudo systemctl status mysql
 $ sudo systemctl restart mysql
 ```
 
+`Access`
+```bash
+$ sudo mysql
+$ sudo mysql -u root -p
+```
+
 ### Configuration
 
 `/etc/mysql/mysql.conf.d/mysqld.cnf`
