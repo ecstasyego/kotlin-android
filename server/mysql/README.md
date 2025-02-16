@@ -27,10 +27,16 @@ $ sudo systemctl status mysql
 $ sudo systemctl restart mysql
 ```
 
+### Configuration
+
 `/etc/mysql/mysql.conf.d/mysqld.cnf`
 ```bash
 [mysqld]
 socket  = /var/run/mysqld/mysqld.sock
+```
+`/tmp/mysql.sock`
+```bash
+$ sudo ln -s /var/run/mysqld/mysqld.sock /tmp/mysql.sock
 ```
 
 
@@ -46,6 +52,7 @@ $ sudo chown -R mysql:mysql /mnt/d/mysql
 $ sudo chmod -R 755 /mnt/d/mysql
 $ sudo service mysql start
 ```
+
 
 ## Query
 ```sql
