@@ -18,6 +18,34 @@ mysql> EXIT;
 $ pip install pymysql sqlalchemy pandas
 ```
 
+`PyMySQL`
+```python
+import pymysql
+
+user = "root"        
+password = "temppw"  
+host = "localhost"   
+port = 3306          
+
+try:
+    connection = pymysql.connect(
+        host=host,
+        user=user,
+        password=password,
+        port=port
+    )
+    print("Connection Success")
+
+    cursor = connection.cursor()    
+    cursor.execute("""CREATE DATABASE IF NOT EXISTS testdb;""")
+    
+    cursor.close()
+    connection.close()
+except pymysql.MySQLError as e:
+    print(f"Connection Fail: {e}")
+```
+
+`PyMySQL with Pandas`
 ```python
 import pymysql
 import pandas as pd
