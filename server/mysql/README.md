@@ -27,6 +27,13 @@ $ sudo systemctl status mysql
 $ sudo systemctl restart mysql
 ```
 
+`/etc/mysql/mysql.conf.d/mysqld.cnf`
+```bash
+[mysqld]
+socket  = /var/run/mysqld/mysqld.sock
+```
+
+
 `Data:/etc/mysql/my.cnf`
 ```ini
 [mysqld]
