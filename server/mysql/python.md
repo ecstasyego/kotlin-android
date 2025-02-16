@@ -13,7 +13,7 @@ mysql> FLUSH PRIVILEGES;
 mysql> EXIT;
 ```
 
-### PyMySQL
+### PyMySQL: Raw Query
 
 ```bash
 $ pip install pymysql sqlalchemy pandas
@@ -47,7 +47,7 @@ except pymysql.MySQLError as e:
 ```
 
 
-### SQLAlchemy
+### SQLAlchemy: DataFrame
 
 `SQLAlchemy`
 ```python
