@@ -45,6 +45,7 @@ except pymysql.MySQLError as e:
     print(f"Connection Fail: {e}")
 ```
 
+
 ### SQLAlchemy
 
 `SQLAlchemy`
@@ -61,6 +62,32 @@ try:
     engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
     with engine.connect() as conn:
         print("Connection Success")
+except Exception as e:
+    print(f"Connection Fail: {e}")
+```
+
+
+`SQLAlchemy with Pandas`
+```python
+import numpy as np
+import pandas as pd
+from sqlalchemy import create_engine
+
+user = "root"        
+password = "temppw"  
+host = "localhost"   
+port = 3306          
+dbname = "testdb"
+
+engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
+
+try:
+    with engine.connect() as conn:
+        print("Connection Success")
+        
+        pd.DataFrame(data=np.random.normal(size=(30, 5)), columns=list('ABCDE')).to_sql(name="testtable", con=engine, if_exists=["replace", "append"][0], index=False)
+        pd.read_sql("""select * from testtable""", engine)
+
 except Exception as e:
     print(f"Connection Fail: {e}")
 ```
