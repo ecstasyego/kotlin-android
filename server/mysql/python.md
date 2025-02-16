@@ -3,6 +3,7 @@
 ### MySQL
 ```bash
 $ sudo mysql
+$ sudo mysql -u root -p
 ```
 ```mysql
 mysql> CREATE DATABASE testdb;
