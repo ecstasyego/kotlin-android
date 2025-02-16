@@ -57,7 +57,6 @@ host = "localhost"
 port = 3306          
 dbname = "testdb"
 
-
 try:
     engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
     with engine.connect() as conn:
