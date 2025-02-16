@@ -57,9 +57,9 @@ host = "localhost"
 port = 3306          
 dbname = "testdb"
 
-engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
 
 try:
+    engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
     with engine.connect() as conn:
         print("Connection Success")
 except Exception as e:
