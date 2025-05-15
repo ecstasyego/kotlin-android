@@ -4,7 +4,9 @@
     - Mobile Developer Mode
         - 소프트웨어 정보 -> 빌드번호
         - 개발자 옵션 -> USB Debugging
-    - Android Studio: Troubleshoot Device Connections(USB Debugging ON/OFF)
+    - Android Studio
+        - Troubleshoot Device Connections(USB Debugging ON/OFF)
+        - Tools -> SDK Manager -> Android SDK & SDK Tools -> Android Emulator -> Apply & OK
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
