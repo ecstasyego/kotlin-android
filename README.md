@@ -6,7 +6,9 @@
         - 개발자 옵션 -> USB Debugging
     - Android Studio
         - Troubleshoot Device Connections(USB Debugging ON/OFF)
-        - Tools -> SDK Manager -> Android SDK & SDK Tools -> Android Emulator -> Apply & OK
+        - Tools -> SDK Manager -> Android SDK & SDK Tools
+            - Google USB Driver -> Apply & OK
+            - Android Emulator -> Apply & OK
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
