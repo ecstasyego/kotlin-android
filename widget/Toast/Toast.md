@@ -1,7 +1,4 @@
 ## Toast
-
----
-
 ## Example01
 ### Usage: *.kt
 #### File System
