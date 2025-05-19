@@ -9,6 +9,9 @@
         - Tools -> SDK Manager -> Android SDK & SDK Tools
             - Google USB Driver -> Apply & OK
             - Android Emulator -> Apply & OK
+        - ADB Server
+            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe kill-server`
+            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe start-server`
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
