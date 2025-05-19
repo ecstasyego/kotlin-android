@@ -12,6 +12,7 @@
         - ADB Server
             - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe kill-server`
             - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe start-server`
+            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe devices`
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
