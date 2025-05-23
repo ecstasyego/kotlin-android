@@ -452,7 +452,7 @@ Log.w("TAG", "This is a warning log.") // Warn(w)
 <br><br><br>
 
 ## Android Studio
-### Keymap
+### Keymap: File > Settings > Keymap
 - Alt + Enter: Build
 - Alt + Arrow: Tab Shift
 - Alt + 1: Explorer
