@@ -1,22 +1,24 @@
 ## Coroutines by Application Architecture
 ### Application: GlobalScope
 - Dispatchers.IO
-    - `GlobalScope.launch(Dispatchers.IO){}`
-    - `GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
-    - `GlobalScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
-    - `GlobalScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
+    - GlobalScope.launch(Dispatchers.IO) { ... }
+        - `GlobalScope.launch(Dispatchers.IO){}`
+        - `GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
+        - `GlobalScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
+        - `GlobalScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
 - Dispatchers.Main
-    - `GlobalScope.launch(Dispatchers.Main){}`
-    - `GlobalScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
-    - `GlobalScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
-    - `GlobalScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+    - GlobalScope.launch(Dispatchers.Main) { ... }
+        - `GlobalScope.launch(Dispatchers.Main){}`
+        - `GlobalScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
+        - `GlobalScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
+        - `GlobalScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
 - Dispatchers.Default
-    - Explicit
+    - GlobalScope.launch(Dispatchers.Default) { ... }
         - `GlobalScope.launch(Dispatchers.Default){}`
         - `GlobalScope.launch(Dispatchers.Default){withContext(Dispatchers.IO){}; }`
         - `GlobalScope.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
         - `GlobalScope.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
-    - Implicit
+    - GlobalScope.launch { ... }
         - `GlobalScope.launch{}`
         - `GlobalScope.launch{withContext(Dispatchers.IO){}; }`
         - `GlobalScope.launch{async(Dispatchers.IO){}.await(); }`
@@ -69,22 +71,24 @@ GlobalScope.launch {
   
 ### Activity: lifecycleScope
 - Dispatchers.IO
-    - `lifecycleScope.launch(Dispatchers.IO){}`
-    - `lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
-    - `lifecycleScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
-    - `lifecycleScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
+    - lifecycleScope.launch(Dispatchers.IO) { ... }
+        - `lifecycleScope.launch(Dispatchers.IO){}`
+        - `lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
+        - `lifecycleScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
+        - `lifecycleScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
 - Dispatchers.Main
-    - `lifecycleScope.launch(Dispatchers.Main){}`
-    - `lifecycleScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
-    - `lifecycleScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
-    - `lifecycleScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+    - lifecycleScope.launch(Dispatchers.Main) { ... }
+        - `lifecycleScope.launch(Dispatchers.Main){}`
+        - `lifecycleScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
+        - `lifecycleScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
+        - `lifecycleScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
 - Dispatchers.Default
-    - Explicit
+    - lifecycleScope.launch(Dispatchers.Default) { ... }
         - `lifecycleScope.launch(Dispatchers.Default){}`
         - `lifecycleScope.launch(Dispatchers.Default){withContext(Dispatchers.IO){}; }`
         - `lifecycleScope.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
         - `lifecycleScope.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
-    - Implicit
+    - lifecycleScope.launch { ... }
         - `lifecycleScope.launch{}`
         - `lifecycleScope.launch{withContext(Dispatchers.IO){}; }`
         - `lifecycleScope.launch{async(Dispatchers.IO){}.await(); }`
@@ -134,22 +138,24 @@ lifecycleScope.launch {
 
 ### Fragment: viewLifecycleOwner.lifecycleScope
 - Dispatchers.IO
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
+    - viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { ... }
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
 - Dispatchers.Main
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){}`
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
-    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+    - viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) { ... }
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){}`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
 - Dispatchers.Default
-    - Explicit
+    - viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) { ... }
         - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){}`
         - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){withContext(Dispatchers.IO){}; }`
         - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
         - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
-    - Implicit
+    - viewLifecycleOwner.lifecycleScope.launch { ... }
         - `viewLifecycleOwner.lifecycleScope.launch{}`
         - `viewLifecycleOwner.lifecycleScope.launch{withContext(Dispatchers.IO){}; }`
         - `viewLifecycleOwner.lifecycleScope.launch{async(Dispatchers.IO){}.await(); }`
