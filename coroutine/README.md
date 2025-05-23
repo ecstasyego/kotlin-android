@@ -381,6 +381,20 @@ CoroutineScope(Dispatchers.Default).launch {
 }
 ```
 
+
+### launch
+- **launch { ... }**
+    - `launch{}`
+    - `launch(Dispatchers.Default){}`
+    - `launch(Dispatchers.Main){}`
+    - `launch(Dispatchers.IO){}`
+- **{ ... }.launch { ... }**
+    - `GlobalScope.launch{}`
+    - `lifecycleScope.launch{}`
+    - `viewLifecycleOwner.lifecycleScope.launch{}`
+    - `CoroutineScope(Dispatchers.Default).launch{}`
+
+
 ### Thread
 - `Thread{}`
 - `Thread(Runnable{})`
