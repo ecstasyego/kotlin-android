@@ -7,10 +7,32 @@
 
 ```kts
 GlobalScope.launch {
+    withContext(Dispatchers.IO) {
+        task()
+    }
+
+    // post-processing
+}
+```
+
+```kts
+GlobalScope.launch {
+    async(Dispatchers.IO) {
+        task()
+    }.await()
+
+    // post-processing
+}
+```
+
+```kts
+GlobalScope.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     val result1 = deferred1.await()
     val result2 = deferred2.await()
+
+    // post-processing
 }
 ```
 
@@ -19,6 +41,8 @@ GlobalScope.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     awaitAll(deferred1, deferred2)
+
+    // post-processing
 }
 ```
 
@@ -34,10 +58,32 @@ GlobalScope.launch {
 
 ```kts
 lifecycleScope.launch {
+    withContext(Dispatchers.IO) {
+        task()
+    }
+
+    // post-processing
+}
+```
+
+```kts
+lifecycleScope.launch {
+    async(Dispatchers.IO) {
+        task()
+    }.await()
+
+    // post-processing
+}
+```
+
+```kts
+lifecycleScope.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     val result1 = deferred1.await()
     val result2 = deferred2.await()
+
+    // post-processing
 }
 ```
 
@@ -46,6 +92,8 @@ lifecycleScope.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     awaitAll(deferred1, deferred2)
+
+    // post-processing
 }
 ```
 
@@ -58,10 +106,32 @@ lifecycleScope.launch {
 
 ```kts
 viewLifecycleOwner.launch {
+    withContext(Dispatchers.IO) {
+        task()
+    }
+
+    // post-processing
+}
+```
+
+```kts
+viewLifecycleOwner.launch {
+    async(Dispatchers.IO) {
+        task()
+    }.await()
+
+    // post-processing
+}
+```
+
+```kts
+viewLifecycleOwner.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     val result1 = deferred1.await()
     val result2 = deferred2.await()
+
+    // post-processing
 }
 ```
 
@@ -70,6 +140,8 @@ viewLifecycleOwner.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     awaitAll(deferred1, deferred2)
+
+    // post-processing
 }
 ```
 
@@ -82,10 +154,32 @@ viewLifecycleOwner.launch {
 
 ```kts
 CoroutineScope(Dispatchers.Default).launch {
+    withContext(Dispatchers.IO) {
+        task()
+    }
+
+    // post-processing
+}
+```
+
+```kts
+CoroutineScope(Dispatchers.Default).launch {
+    async(Dispatchers.IO) {
+        task()
+    }.await()
+
+    // post-processing
+}
+```
+
+```kts
+CoroutineScope(Dispatchers.Default).launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     val result1 = deferred1.await()
     val result2 = deferred2.await()
+
+    // post-processing
 }
 ```
 
@@ -94,6 +188,8 @@ CoroutineScope(Dispatchers.Default).launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
     awaitAll(deferred1, deferred2)
+
+    // post-processing
 }
 ```
 
