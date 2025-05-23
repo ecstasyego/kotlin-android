@@ -66,16 +66,24 @@ GlobalScope.launch {
 ```
 
 ```kts
-val job1 = GlobalScope.launch { task1() }
-val job2 = GlobalScope.launch { task2() }
-job1.join()
-job2.join()
+GlobalScope.launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    task1.join()
+    task2.join()
+
+    postprocessing()
+}
 ```
 
 ```kts
-val job1 = GlobalScope.launch { task1() }
-val job2 = GlobalScope.launch { task2() }
-joinAll(job1, job2)
+GlobalScope.launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    joinAll(task1, task2)
+
+    postprocessing()
+}
 ```
 
 
