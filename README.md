@@ -456,6 +456,7 @@ Log.w("TAG", "This is a warning log.") // Warn(w)
 - Alt + Enter: Build
 - Alt + Arrow: Tab Shift
 - Alt + 1: Explorer
+- Alt + 6: Logcat
 - Alt + F7: Find Usages
 - Ctrl + Alt + X
     - File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
