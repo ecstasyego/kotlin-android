@@ -377,5 +377,17 @@ task1.join()
 task2.join()
 ```
 
+```kts
+val job = Thread{
+    val task1 = Thread{ preprocessing1() }
+    val task2 = Thread{ preprocessing1() }
+    task1.start()
+    task2.start()
+    task1.join()
+    task2.join()
+}
+job.start()
+job.join()
+```
 
 
