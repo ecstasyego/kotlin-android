@@ -8,13 +8,19 @@
 GlobalScope.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
-
     val result1 = deferred1.await()
     val result2 = deferred2.await()
-
-    updateUI(result1, result2)
 }
 ```
+
+```kts
+GlobalScope.launch {
+    val deferred1 = async(Dispatchers.IO) { task1() }
+    val deferred2 = async(Dispatchers.IO) { task2() }
+    awaitAll(deferred1, deferred2)
+}
+```
+
 
 ### ViewModel
 - `viewModelScope.launch{}`
@@ -28,13 +34,19 @@ GlobalScope.launch {
 lifecycleScope.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
-
     val result1 = deferred1.await()
     val result2 = deferred2.await()
-
-    updateUI(result1, result2)
 }
 ```
+
+```kts
+lifecycleScope.launch {
+    val deferred1 = async(Dispatchers.IO) { task1() }
+    val deferred2 = async(Dispatchers.IO) { task2() }
+    awaitAll(deferred1, deferred2)
+}
+```
+
 
 ### Fragment  
 - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
@@ -45,13 +57,19 @@ lifecycleScope.launch {
 viewLifecycleOwner.launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
-
     val result1 = deferred1.await()
     val result2 = deferred2.await()
-
-    updateUI(result1, result2)
 }
 ```
+
+```kts
+viewLifecycleOwner.launch {
+    val deferred1 = async(Dispatchers.IO) { task1() }
+    val deferred2 = async(Dispatchers.IO) { task2() }
+    awaitAll(deferred1, deferred2)
+}
+```
+
 
 ### Service
 - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){}`
@@ -62,13 +80,19 @@ viewLifecycleOwner.launch {
 CoroutineScope(Dispatchers.Default).launch {
     val deferred1 = async(Dispatchers.IO) { task1() }
     val deferred2 = async(Dispatchers.IO) { task2() }
-
     val result1 = deferred1.await()
     val result2 = deferred2.await()
-
-    updateUI(result1, result2)
 }
 ```
+
+```kts
+CoroutineScope(Dispatchers.Default).launch {
+    val deferred1 = async(Dispatchers.IO) { task1() }
+    val deferred2 = async(Dispatchers.IO) { task2() }
+    awaitAll(deferred1, deferred2)
+}
+```
+
 
 ### Thread
 - `Thread{Runnable{}}`
