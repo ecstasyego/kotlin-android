@@ -420,6 +420,68 @@ CoroutineScope(Dispatchers.Default).launch {
     - `CoroutineScope(Dispatchers.Main).launch(Dispatchers.Main){}`
     - `CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO){}`
 
+```kts
+launch {
+    withContext(Dispatchers.IO) {
+        preprocessing()
+    }
+
+    postprocessing()
+}
+```
+
+```kts
+launch {
+    async(Dispatchers.IO) {
+        preprocessing()
+    }.await()
+
+    postprocessing()
+}
+```
+
+```kts
+launch {
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    task1.await()
+    task2.await()
+
+    postprocessing()
+}
+```
+
+```kts
+launch {
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    awaitAll(task1, task2)
+
+    postprocessing()
+}
+```
+
+```kts
+launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    task1.join()
+    task2.join()
+
+    postprocessing()
+}
+```
+
+```kts
+launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    joinAll(task1, task2)
+
+    postprocessing()
+}
+```
+
 
 ### Thread
 - `Thread{}`
