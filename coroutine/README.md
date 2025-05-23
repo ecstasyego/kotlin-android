@@ -8,41 +8,41 @@
 ```kts
 GlobalScope.launch {
     withContext(Dispatchers.IO) {
-        task()
+        preprocessing()
     }
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 GlobalScope.launch {
     async(Dispatchers.IO) {
-        task()
+        preprocessing()
     }.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 GlobalScope.launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    val result1 = deferred1.await()
-    val result2 = deferred2.await()
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    task1.await()
+    task2.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 GlobalScope.launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    awaitAll(deferred1, deferred2)
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    awaitAll(task1, task2)
 
-    // post-processing
+    postprocessing()
 }
 ```
 
@@ -59,41 +59,41 @@ GlobalScope.launch {
 ```kts
 lifecycleScope.launch {
     withContext(Dispatchers.IO) {
-        task()
+        preprocessing()
     }
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 lifecycleScope.launch {
     async(Dispatchers.IO) {
-        task()
+        preprocessing()
     }.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 lifecycleScope.launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    val result1 = deferred1.await()
-    val result2 = deferred2.await()
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    task1.await()
+    task2.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 lifecycleScope.launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    awaitAll(deferred1, deferred2)
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    awaitAll(task1, task2)
 
-    // post-processing
+    postprocessing()
 }
 ```
 
@@ -107,41 +107,41 @@ lifecycleScope.launch {
 ```kts
 viewLifecycleOwner.launch {
     withContext(Dispatchers.IO) {
-        task()
+        preprocessing()
     }
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 viewLifecycleOwner.launch {
     async(Dispatchers.IO) {
-        task()
+        preprocessing()
     }.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 viewLifecycleOwner.launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    val result1 = deferred1.await()
-    val result2 = deferred2.await()
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    task1.await()
+    task2.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 viewLifecycleOwner.launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    awaitAll(deferred1, deferred2)
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    awaitAll(task1, task2)
 
-    // post-processing
+    postprocessing()
 }
 ```
 
@@ -155,41 +155,41 @@ viewLifecycleOwner.launch {
 ```kts
 CoroutineScope(Dispatchers.Default).launch {
     withContext(Dispatchers.IO) {
-        task()
+        preprocessing()
     }
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 CoroutineScope(Dispatchers.Default).launch {
     async(Dispatchers.IO) {
-        task()
+        preprocessing()
     }.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 CoroutineScope(Dispatchers.Default).launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    val result1 = deferred1.await()
-    val result2 = deferred2.await()
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    task1.await()
+    task2.await()
 
-    // post-processing
+    postprocessing()
 }
 ```
 
 ```kts
 CoroutineScope(Dispatchers.Default).launch {
-    val deferred1 = async(Dispatchers.IO) { task1() }
-    val deferred2 = async(Dispatchers.IO) { task2() }
-    awaitAll(deferred1, deferred2)
+    val task1 = async(Dispatchers.IO) { preprocessing1() }
+    val task2 = async(Dispatchers.IO) { preprocessing2() }
+    awaitAll(task1, task2)
 
-    // post-processing
+    postprocessing()
 }
 ```
 
