@@ -65,6 +65,19 @@ GlobalScope.launch {
 }
 ```
 
+```kts
+val job1 = GlobalScope.launch { task1() }
+val job2 = GlobalScope.launch { task2() }
+job1.join()
+job2.join()
+```
+
+```kts
+val job1 = GlobalScope.launch { task1() }
+val job2 = GlobalScope.launch { task2() }
+joinAll(job1, job2)
+```
+
 
 ### ViewModel
 - `viewModelScope.launch{}`
@@ -135,6 +148,18 @@ lifecycleScope.launch {
 }
 ```
 
+```kts
+val job1 = lifecycleScope.launch { task1() }
+val job2 = lifecycleScope.launch { task2() }
+job1.join()
+job2.join()
+```
+
+```kts
+val job1 = lifecycleScope.launch { task1() }
+val job2 = lifecycleScope.launch { task2() }
+joinAll(job1, job2)
+```
 
 ### Fragment: viewLifecycleOwner.lifecycleScope
 - Dispatchers.IO
@@ -200,6 +225,19 @@ viewLifecycleOwner.lifecycleScope.launch {
 
     postprocessing()
 }
+```
+
+```kts
+val job1 = viewLifecycleOwner.lifecycleScope.launch { task1() }
+val job2 = viewLifecycleOwner.lifecycleScope.launch { task2() }
+job1.join()
+job2.join()
+```
+
+```kts
+val job1 = viewLifecycleOwner.lifecycleScope.launch { task1() }
+val job2 = viewLifecycleOwner.lifecycleScope.launch { task2() }
+joinAll(job1, job2)
 ```
 
 
@@ -279,6 +317,18 @@ CoroutineScope(Dispatchers.Default).launch {
 }
 ```
 
+```kts
+val job1 = CoroutineScope(Dispatchers.Default).launch { task1() }
+val job2 = CoroutineScope(Dispatchers.Default).launch { task2() }
+job1.join()
+job2.join()
+```
+
+```kts
+val job1 = CoroutineScope(Dispatchers.Default).launch { task1() }
+val job2 = CoroutineScope(Dispatchers.Default).launch { task2() }
+joinAll(job1, job2)
+```
 
 ### Thread
 - `Thread{Runnable{}}`
