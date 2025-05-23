@@ -364,10 +364,18 @@ CoroutineScope(Dispatchers.Default).launch {
 ```
 
 ### Thread
-- `Thread{Runnable{}}`
-- `Thread{Runnable{runOnUiThread{}}}`
+- `Thread{}`
+- `Thread(Runnable{})`
+- `Thread(Runnable{runOnUiThread{}})`
 
-
+```kts
+val task1 = Thread{ preprocessing1() }
+val task2 = Thread{ preprocessing2() }
+task1.start()
+task2.start()
+task1.join()
+task2.join()
+```
 
 
 
