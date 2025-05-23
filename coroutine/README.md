@@ -17,7 +17,7 @@
         - `GlobalScope.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
         - `GlobalScope.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
     - Implicit
-          `GlobalScope.launch{}`
+        - `GlobalScope.launch{}`
         - `GlobalScope.launch{withContext(Dispatchers.IO){}; }`
         - `GlobalScope.launch{async(Dispatchers.IO){}.await(); }`
         - `GlobalScope.launch{awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
