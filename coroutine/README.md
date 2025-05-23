@@ -382,7 +382,13 @@ CoroutineScope(Dispatchers.Default).launch {
 ```
 
 
-### launch
+<br><br><br>
+
+---
+
+
+## Coroutine & Thread
+### Coroutine: launch
 - `launch{}`
 - **launch() { ... }**
     - `launch{}`
@@ -483,7 +489,7 @@ launch {
 ```
 
 
-### Thread
+### Thread: Thread
 - `Thread{}`
 - `Thread(Runnable{})`
 - `Thread(Runnable{runOnUiThread{}})`
