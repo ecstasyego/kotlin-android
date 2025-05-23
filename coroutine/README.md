@@ -395,8 +395,8 @@ CoroutineScope(Dispatchers.Default).launch {
     - `launch(Dispatchers.Default){}`
     - `launch(Dispatchers.Main){}`
     - `launch(Dispatchers.IO){}`
-- **_____.launch { ... }**
-    - `launch{}`
+- **[SCOPE].launch { ... }**
+    - `runBlocking{launch{}}`
     - `GlobalScope.launch{}`
     - `viewModelScope.launch{}`
     - `lifecycleScope.launch{}`
@@ -404,7 +404,7 @@ CoroutineScope(Dispatchers.Default).launch {
     - `CoroutineScope(Dispatchers.Default).launch{}`
     - `CoroutineScope(Dispatchers.Main).launch{}`
     - `CoroutineScope(Dispatchers.IO).launch{}`
-- **_____.launch() { ... }**
+- **[SCOPE].launch() { ... }**
     - `GlobalScope.launch{}`
     - `GlobalScope.launch(Dispatchers.Default){}`
     - `GlobalScope.launch(Dispatchers.Main){}`
