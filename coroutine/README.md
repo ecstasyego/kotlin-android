@@ -208,6 +208,10 @@ viewLifecycleOwner.lifecycleScope.launch {
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
 - Dispatchers.Main
+    - `CoroutineScope(Dispatchers.Main).launch{}`
+    - `CoroutineScope(Dispatchers.Main).launch{withContext(Dispatchers.IO){}; }`
+    - `CoroutineScope(Dispatchers.Main).launch{async(Dispatchers.IO){}.await(); }`
+    - `CoroutineScope(Dispatchers.Main).launch{awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.Main){}`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
