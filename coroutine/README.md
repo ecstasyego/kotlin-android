@@ -132,31 +132,31 @@ lifecycleScope.launch {
 ```
 
 
-### Fragment: viewLifecycleOwner
+### Fragment: viewLifecycleOwner.lifecycleScope
 - Dispatchers.IO
-    - `viewLifecycleOwner.launch(Dispatchers.IO){}`
-    - `viewLifecycleOwner.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
-    - `viewLifecycleOwner.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
-    - `viewLifecycleOwner.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
 - Dispatchers.Main
-    - `viewLifecycleOwner.launch(Dispatchers.Main){}`
-    - `viewLifecycleOwner.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
-    - `viewLifecycleOwner.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
-    - `viewLifecycleOwner.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){}`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
 - Dispatchers.Default
     - Explicit
-        - `viewLifecycleOwner.launch(Dispatchers.Default){}`
-        - `viewLifecycleOwner.launch(Dispatchers.Default){withContext(Dispatchers.IO){}; }`
-        - `viewLifecycleOwner.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
-        - `viewLifecycleOwner.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){}`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){withContext(Dispatchers.IO){}; }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
+        - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
     - Implicit
-        - `viewLifecycleOwner.launch{}`
-        - `viewLifecycleOwner.launch{withContext(Dispatchers.IO){}; }`
-        - `viewLifecycleOwner.launch{async(Dispatchers.IO){}.await(); }`
-        - `viewLifecycleOwner.launch{awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+        - `viewLifecycleOwner.lifecycleScope.launch{}`
+        - `viewLifecycleOwner.lifecycleScope.launch{withContext(Dispatchers.IO){}; }`
+        - `viewLifecycleOwner.lifecycleScope.launch{async(Dispatchers.IO){}.await(); }`
+        - `viewLifecycleOwner.lifecycleScope.launch{awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
 
 ```kts
-viewLifecycleOwner.launch {
+viewLifecycleOwner.lifecycleScope.launch {
     withContext(Dispatchers.IO) {
         preprocessing()
     }
@@ -166,7 +166,7 @@ viewLifecycleOwner.launch {
 ```
 
 ```kts
-viewLifecycleOwner.launch {
+viewLifecycleOwner.lifecycleScope.launch {
     async(Dispatchers.IO) {
         preprocessing()
     }.await()
@@ -176,7 +176,7 @@ viewLifecycleOwner.launch {
 ```
 
 ```kts
-viewLifecycleOwner.launch {
+viewLifecycleOwner.lifecycleScope.launch {
     val task1 = async(Dispatchers.IO) { preprocessing1() }
     val task2 = async(Dispatchers.IO) { preprocessing2() }
     task1.await()
@@ -187,7 +187,7 @@ viewLifecycleOwner.launch {
 ```
 
 ```kts
-viewLifecycleOwner.launch {
+viewLifecycleOwner.lifecycleScope.launch {
     val task1 = async(Dispatchers.IO) { preprocessing1() }
     val task2 = async(Dispatchers.IO) { preprocessing2() }
     awaitAll(task1, task2)
