@@ -199,6 +199,10 @@ viewLifecycleOwner.lifecycleScope.launch {
 
 ### Service
 - Dispatchers.IO
+    - `CoroutineScope(Dispatchers.IO).launch{}`
+    - `CoroutineScope(Dispatchers.IO).launch{withContext(Dispatchers.Main){}; }`
+    - `CoroutineScope(Dispatchers.IO).launch{async(Dispatchers.Main){}.await(); }`
+    - `CoroutineScope(Dispatchers.IO).launch{awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){}`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
     - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
