@@ -1,9 +1,26 @@
 ## Coroutines by Application Architecture
 ### Application
-- `GlobalScope.launch(Dispatchers.IO){}`
-- `GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
-- `GlobalScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
-- `GlobalScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
+- Dispatchers.IO
+    - `GlobalScope.launch(Dispatchers.IO){}`
+    - `GlobalScope.launch(Dispatchers.IO){withContext(Dispatchers.Main){}; }`
+    - `GlobalScope.launch(Dispatchers.IO){async(Dispatchers.Main){}.await(); }`
+    - `GlobalScope.launch(Dispatchers.IO){awaitAll( async(Dispatchers.Main){}, async(Dispatchers.Main){}, ... ); }`
+- Dispatchers.Main
+    - `GlobalScope.launch(Dispatchers.Main){}`
+    - `GlobalScope.launch(Dispatchers.Main){withContext(Dispatchers.IO){}; }`
+    - `GlobalScope.launch(Dispatchers.Main){async(Dispatchers.IO){}.await(); }`
+    - `GlobalScope.launch(Dispatchers.Main){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+- Dispatchers.Default
+    - Explicit
+        - `GlobalScope.launch(Dispatchers.Default){}`
+        - `GlobalScope.launch(Dispatchers.Default){withContext(Dispatchers.IO){}; }`
+        - `GlobalScope.launch(Dispatchers.Default){async(Dispatchers.IO){}.await(); }`
+        - `GlobalScope.launch(Dispatchers.Default){awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
+    - Implicit
+          `GlobalScope.launch{}`
+        - `GlobalScope.launch{withContext(Dispatchers.IO){}; }`
+        - `GlobalScope.launch{async(Dispatchers.IO){}.await(); }`
+        - `GlobalScope.launch{awaitAll( async(Dispatchers.IO){}, async(Dispatchers.IO){}, ... ); }`
 
 ```kts
 GlobalScope.launch {
