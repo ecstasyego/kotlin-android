@@ -390,6 +390,7 @@ CoroutineScope(Dispatchers.Default).launch {
     - `launch(Dispatchers.IO){}`
 - **{ ... }.launch { ... }**
     - `GlobalScope.launch{}`
+    - `viewModelScope.launch{}`
     - `lifecycleScope.launch{}`
     - `viewLifecycleOwner.lifecycleScope.launch{}`
     - `CoroutineScope(Dispatchers.Default).launch{}`
