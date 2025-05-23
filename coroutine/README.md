@@ -157,17 +157,26 @@ lifecycleScope.launch {
 ```
 
 ```kts
-val job1 = lifecycleScope.launch { task1() }
-val job2 = lifecycleScope.launch { task2() }
-job1.join()
-job2.join()
+lifecycleScope.launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    task1.join()
+    task2.join()
+
+    postprocessing()
+}
 ```
 
 ```kts
-val job1 = lifecycleScope.launch { task1() }
-val job2 = lifecycleScope.launch { task2() }
-joinAll(job1, job2)
+lifecycleScope.launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    joinAll(task1, task2)
+
+    postprocessing()
+}
 ```
+
 
 ### Fragment: viewLifecycleOwner.lifecycleScope
 - Dispatchers.IO
@@ -236,16 +245,24 @@ viewLifecycleOwner.lifecycleScope.launch {
 ```
 
 ```kts
-val job1 = viewLifecycleOwner.lifecycleScope.launch { task1() }
-val job2 = viewLifecycleOwner.lifecycleScope.launch { task2() }
-job1.join()
-job2.join()
+viewLifecycleOwner.lifecycleScope.launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    task1.join()
+    task2.join()
+
+    postprocessing()
+}
 ```
 
 ```kts
-val job1 = viewLifecycleOwner.lifecycleScope.launch { task1() }
-val job2 = viewLifecycleOwner.lifecycleScope.launch { task2() }
-joinAll(job1, job2)
+viewLifecycleOwner.lifecycleScope.launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    joinAll(task1, task2)
+
+    postprocessing()
+}
 ```
 
 
@@ -326,16 +343,24 @@ CoroutineScope(Dispatchers.Default).launch {
 ```
 
 ```kts
-val job1 = CoroutineScope(Dispatchers.Default).launch { task1() }
-val job2 = CoroutineScope(Dispatchers.Default).launch { task2() }
-job1.join()
-job2.join()
+CoroutineScope(Dispatchers.Default).launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    task1.join()
+    task2.join()
+
+    postprocessing()
+}
 ```
 
 ```kts
-val job1 = CoroutineScope(Dispatchers.Default).launch { task1() }
-val job2 = CoroutineScope(Dispatchers.Default).launch { task2() }
-joinAll(job1, job2)
+CoroutineScope(Dispatchers.Default).launch {
+    val task1 = launch { preprocessing1() }
+    val task2 = launch { preprocessing2() }
+    joinAll(task1, task2)
+
+    postprocessing()
+}
 ```
 
 ### Thread
