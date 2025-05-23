@@ -383,17 +383,42 @@ CoroutineScope(Dispatchers.Default).launch {
 
 
 ### launch
-- **launch { ... }**
+- `launch{}`
+- **launch() { ... }**
     - `launch{}`
     - `launch(Dispatchers.Default){}`
     - `launch(Dispatchers.Main){}`
     - `launch(Dispatchers.IO){}`
-- **{ ... }.launch { ... }**
+- **_____.launch { ... }**
+    - `launch{}`
     - `GlobalScope.launch{}`
     - `viewModelScope.launch{}`
     - `lifecycleScope.launch{}`
     - `viewLifecycleOwner.lifecycleScope.launch{}`
     - `CoroutineScope(Dispatchers.Default).launch{}`
+    - `CoroutineScope(Dispatchers.Main).launch{}`
+    - `CoroutineScope(Dispatchers.IO).launch{}`
+- **_____.launch() { ... }**
+    - `GlobalScope.launch{}`
+    - `GlobalScope.launch(Dispatchers.Default){}`
+    - `GlobalScope.launch(Dispatchers.Main){}`
+    - `GlobalScope.launch(Dispatchers.IO){}`
+    - `viewModelScope.launch{}`
+    - `viewModelScope.launch(Dispatchers.Default){}`
+    - `viewModelScope.launch(Dispatchers.Main){}`
+    - `viewModelScope.launch(Dispatchers.IO){}`
+    - `lifecycleScope.launch{}`
+    - `lifecycleScope.launch(Dispatchers.Default){}`
+    - `lifecycleScope.launch(Dispatchers.Main){}`
+    - `lifecycleScope.launch(Dispatchers.IO){}`
+    - `viewLifecycleOwner.lifecycleScope.launch{}`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default){}`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){}`
+    - `viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){}`
+    - `CoroutineScope(Dispatchers.Default).launch{}`
+    - `CoroutineScope(Dispatchers.Default).launch(Dispatchers.Default){}`
+    - `CoroutineScope(Dispatchers.Main).launch(Dispatchers.Main){}`
+    - `CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO){}`
 
 
 ### Thread
