@@ -19,8 +19,8 @@
 - Context Switching: withContext( Dispatchers.___ )
 
 ## Coroutine: Heap
-- launch, async
-
+- Concurrency by suspension point: launch, async, await, suspend fun
+    - examples: I/O, delay, context switch
 
 <br><br><br>
 
