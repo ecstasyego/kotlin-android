@@ -28,12 +28,14 @@
     
 `async`
 ```kts
-val task:Deferred<Int> = CoroutineScope(Dispatchers.IO).async{ func(); return@async 1}
+suspend fun function(){}
+val task:Deferred<Int> = CoroutineScope(Dispatchers.IO).async{ function(); return@async 1}
 val result = task.await()
 ```
 
 `launch`
 ```kts
+suspend fun function(){}
 val task = CoroutineScope(Dispatchers.IO).launch{ func() }
 task.join()
 ```
