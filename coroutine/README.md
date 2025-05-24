@@ -1,5 +1,7 @@
 ## Process
 ### Process State
+![image](https://github.com/user-attachments/assets/93c8c3b8-637f-4e2f-b3d7-638915fb7759)
+
 - create
 - running
 - ready
