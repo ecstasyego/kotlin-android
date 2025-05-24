@@ -19,7 +19,7 @@
 - Context Switching: withContext( Dispatchers.___ )
 
 ## Coroutine: Heap
-- async
+- launch, async
 
 
 <br><br><br>
