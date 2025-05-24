@@ -28,7 +28,7 @@
     
 `async`
 ```kts
-val task:Deferred<Int> = CoroutineScope(Dispatchers.IO).async{ func(); 1}
+val task:Deferred<Int> = CoroutineScope(Dispatchers.IO).async{ func(); return@async 1}
 val result = task.await()
 ```
 
