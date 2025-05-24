@@ -589,6 +589,22 @@ launch {
 - `Thread(Runnable{})`
 - `Thread(Runnable{runOnUiThread{}})`
 
+
+
+```kts
+preprocessing()
+Thread( Runnable{ preprocessing() } ).run()
+Thread{ preprocessing() }.run()
+```
+
+
+```kts
+val task = Thread{ preprocessing() }
+task.start()
+task.join()
+```
+
+
 ```kts
 val task1 = Thread{ preprocessing1() }
 val task2 = Thread{ preprocessing2() }
