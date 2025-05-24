@@ -28,6 +28,9 @@ dependencies {
     - `Room`: `/data/data/[COM].[EXAMPLE].[APPLICATION]/databases`
         - Copy(Ctrl + Shift + S) > `C:\Users\[USER]\AppData\Local\Google\AndroidStudio[VERSION]\device-explorer\[EMULATOR]\_\data\data\[COM].[EXAMPLE].[APPLICATION]\databases\[DATABASE].db`
 
+## Sqlite3
+- https://www.sqlite.org/download.html
+
 
 <br><br><br>
 
