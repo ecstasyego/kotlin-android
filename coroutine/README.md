@@ -1,3 +1,21 @@
+## Process
+### Process State
+- create
+- running
+- ready
+- waiting
+- terminated
+
+
+## Thread
+
+## Coroutine
+
+
+<br><br><br>
+
+---
+
 ## Coroutines by Application Architecture
 ### Application: GlobalScope
 - Dispatchers.IO
