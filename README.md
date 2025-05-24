@@ -20,9 +20,7 @@
             - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe shell`
         - View > Tools Windows > Device Explorer
             - `Room`: `/data/data/[COM].[EXAMPLE].[APPLICATION]/databases`
-    - on Window Explorer
-        - `C:\Users\[USER]\AppData\Local\Google\AndroidStudio[VERSION]\device-explorer\[EMULATOR]`
-            - `Room`: `\_\data\data\[COM].[EXAMPLE].[APPLICATION]\databases`
+                - Copy path on Window Explorer: `C:\Users\[USER]\AppData\Local\Google\AndroidStudio[VERSION]\device-explorer\[EMULATOR]\_\data\data\[COM].[EXAMPLE].[APPLICATION]\databases`
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
