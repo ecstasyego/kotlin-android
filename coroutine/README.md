@@ -19,7 +19,7 @@
 - Context Switching: withContext( Dispatchers.___ )
 
 ## Coroutine: Heap
-- Concurrency by suspension point: launch/async, join/await, suspend fun
+- Concurrency by suspension point(suspend fun): launch{}/async{}, .join()/.await(), .cancel() 
     - examples: I/O, delay, context switch
         - `CoroutineScope(Dispatchers.IO).launch{}`
         - `CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO){}`
