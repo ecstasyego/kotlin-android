@@ -2,12 +2,17 @@
 ### Process State
 ![ProcessState](https://github.com/user-attachments/assets/37e0c347-fcfe-4e4c-840d-1977127d2976)
 
-- new(create)
-- running
-- ready
-- waiting
-- terminated
-
+- Process States
+    - New (Create)
+    - Running
+    - Ready
+    - Waiting
+    - Terminated
+- Process Transition
+    - Dispatch: Ready > Running
+    - Timer Runout: Running > Ready
+    - Block: Running > Waiting
+    - Wake-up: Waiting > Ready
 
 ## Thread
 
