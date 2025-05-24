@@ -1,6 +1,6 @@
 ## Process
 ### Process State
-![image](https://github.com/user-attachments/assets/93c8c3b8-637f-4e2f-b3d7-638915fb7759)
+![ProcessState](https://github.com/user-attachments/assets/37e0c347-fcfe-4e4c-840d-1977127d2976)
 
 - create
 - running
