@@ -14,9 +14,12 @@
     - Block: Running > Waiting
     - Wake-up: Waiting > Ready
 
-## Thread
+## Thread: Stack
+- Context Fixed: CoroutineScope(Dispatchers.IO)
+- Context Switching: withContext( Dispatchers.___ )
 
-## Coroutine
+## Coroutine: Heap
+- async
 
 
 <br><br><br>
