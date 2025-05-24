@@ -9,17 +9,19 @@
         - Tools -> SDK Manager -> Android SDK & SDK Tools
             - Google USB Driver -> Apply & OK
             - Android Emulator -> Apply & OK
-        - ADB Server
-            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe kill-server`
-            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe start-server`
-            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe devices`
+        - ADB Server: `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe`
+            - `adb kill-server`
+            - `adb start-server`
+            - `adb devices`
+            - `adb root`
+            - `adb shell`
+            - `adb pull [PATH]`
 - Device Explorer
     - on Android Studio
         - ADB Shell: `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe`
             - `adb root`        
             - `adb shell`
                 - `run-as [COM].[EXAMPLE].[APPLICATION]`
-            - `adb pull /data/data/[COM].[EXAMPLE].[APPLICATION]/databases/[DATABASE].db .`
         - View > Tools Windows > Device Explorer
 - Image Asset Icons
     - Configure Image Asset
