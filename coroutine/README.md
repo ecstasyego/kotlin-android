@@ -21,6 +21,10 @@
 ## Coroutine: Heap
 - Concurrency by suspension point: launch/async, join/await, suspend fun
     - examples: I/O, delay, context switch
+        - `CoroutineScope(Dispatchers.IO).launch{}`
+        - `CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO){}`
+        - `CoroutineScope(Dispatchers.IO).async{}`
+        - `CoroutineScope(Dispatchers.IO).async(Dispatchers.IO){}`
 
 <br><br><br>
 
