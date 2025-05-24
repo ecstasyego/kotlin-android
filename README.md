@@ -21,8 +21,6 @@
                 - `run-as [COM].[EXAMPLE].[APPLICATION]`
             - `adb pull /data/data/[COM].[EXAMPLE].[APPLICATION]/databases/[DATABASE].db .`
         - View > Tools Windows > Device Explorer
-            - `Room`: `/data/data/[COM].[EXAMPLE].[APPLICATION]/databases`
-                - Copy(Ctrl + Shift + S) > `C:\Users\[USER]\AppData\Local\Google\AndroidStudio[VERSION]\device-explorer\[EMULATOR]\_\data\data\[COM].[EXAMPLE].[APPLICATION]\databases\[DATABASE].db`
 - Image Asset Icons
     - Configure Image Asset
         - Name, Source Asset(type: Image)
