@@ -407,6 +407,22 @@ CoroutineScope(Dispatchers.Default).launch {
 ```
 
 
+### runBlocking
+- `runBlocking{}`
+- `runBlocking{ launch{} }`
+- `runBlocking{ async }`
+
+```kts
+runBlocking {
+    val task1 = async { preprocessing1() }
+    val task2 = async { preprocessing2() }
+    task1.await()
+    task2.await()
+
+    postprocessing()
+}
+```
+
 <br><br><br>
 
 ---
