@@ -15,9 +15,9 @@
             - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe devices`
 - Device Explorer
     - on Android Studio
-        - ADB Shell
-            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe root`        
-            - `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe shell`
+        - ADB Shell: `C:\Users\[USER]\AppData\Local\Android\Sdk\platform-tools\adb.exe`
+            - `adb root`        
+            - `adb shell`
                 - `run-as [COM].[EXAMPLE].[APPLICATION]`
             - `adb pull /data/data/[COM].[EXAMPLE].[APPLICATION]/databases/[DATABASE].db .`
         - View > Tools Windows > Device Explorer
