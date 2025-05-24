@@ -25,6 +25,19 @@
         - `CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO){}`
         - `CoroutineScope(Dispatchers.IO).async{}`
         - `CoroutineScope(Dispatchers.IO).async(Dispatchers.IO){}`
+    
+`async`
+```kts
+val task:Deferred<Int> = CoroutineScope(Dispatchers.IO).async{ func(); 1}
+val result = task.await()
+```
+
+`launch`
+```kts
+val task = CoroutineScope(Dispatchers.IO).launch{ func() }
+task.join()
+```
+
 
 <br><br><br>
 
