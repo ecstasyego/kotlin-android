@@ -2,7 +2,7 @@
 ### Process State
 ![ProcessState](https://github.com/user-attachments/assets/37e0c347-fcfe-4e4c-840d-1977127d2976)
 
-- create
+- new(create)
 - running
 - ready
 - waiting
