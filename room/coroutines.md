@@ -31,6 +31,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
                 "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
             ).build()
 
-            db.runInTransaction{
+            db.withTransaction{
                 db.historyDao().insert(History(null, "Hello", "World!")) // Insert data into the database using coroutines
                 db.historyDao().get() // Query the database
                 db.historyDao().delete() // Delete all records from the database
