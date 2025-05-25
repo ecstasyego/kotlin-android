@@ -57,4 +57,22 @@
 
 
 
+## Presentation Layer
+```kotlin
+```
+
+
+
+## Data Layer
+```kotlin
+```
+
+
+
+## Domain Layer
+```kotlin
+```
+
+
+
 
