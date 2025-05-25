@@ -78,6 +78,17 @@ db.clearAllTables()
           - Database(Room)
             - DAO(Low-Level SQL Interface) 
               - Table(Entity): ORM
+
+```kotlin
+db = Database()
+repo = Repository(db)
+uow = UnitOfWork(repo)
+uc = UseCase(uow)
+vm = ViewModel(uc)
+ViewModelFactory(db)
+```
+
+
                   
 ### Entity: Table
 ```kotlin
