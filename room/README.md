@@ -130,9 +130,32 @@ class HistoryRepository(private val database: AppDatabase) {
 }
 ```
 
+### UnitOfWork
+```kotlin
+class UnitOfWork(private val db: AppDatabase) {
+    val historyRepository = HistoryRepository(db.historyDao())
+
+    suspend fun <T> runInTransaction(block: suspend UnitOfWork.() -> T): T {
+        return db.withTransaction {
+            this.block()
+        }
+    }
+}
+```
+
 ### Usecase
 ```kotlin
+class SaveHistoryUseCase(private val uow: UnitOfWork) {
+    suspend fun execute() {
+        uow.runInTransaction {
+            historyRepository.deleteAll()
+            historyRepository.insert(History(expression = "1 + 1", result = "2"))
+        }
+    }
+}
 ```
+
+
 
 ### ViewModel
 ```kotlin
