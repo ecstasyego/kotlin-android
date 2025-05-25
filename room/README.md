@@ -72,11 +72,12 @@ db.clearAllTables()
 ## Core
 - ViewModelFactory: Dependency Injection
   - ViewModel: View
-    - UseCase: Business Logic
-      - Repository(Retrofit2): API
-        - Database(Room)
-          - SQL(DAO Interface) 
-            - Table(Entity): ORM
+    - UseCase(Transaction): Business Logic
+      - UnitOfWork
+        - Repository(Retrofit2): API
+          - Database(Room)
+            - SQL(DAO Interface) 
+              - Table(Entity): ORM
                   
 ### Entity: Table
 ```kotlin
