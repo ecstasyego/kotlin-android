@@ -179,7 +179,7 @@ class HistoryViewModel(private val saveHistoryUseCase: SaveHistoryUseCase) : Vie
 class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-            return HistoryViewModel(SaveHistoryUseCase(UnitOfWork(HistoryRepository(database)))) as T
+            return HistoryViewModel(SaveHistoryUseCase(UnitOfWork(database))) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
