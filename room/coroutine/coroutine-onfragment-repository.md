@@ -161,6 +161,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.6.1") // Theme
     implementation("androidx.activity:activity-ktx:1.7.2")  // Required for activityViewModels()
     implementation("androidx.fragment:fragment-ktx:1.6.1")  // Fragment KTX for enhanced features
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")  // ViewModel KTX
