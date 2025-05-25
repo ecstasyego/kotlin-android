@@ -132,13 +132,12 @@ class HistoryRepository(private val database: AppDatabase) {
 
 ### UnitOfWork
 ```kotlin
-class UnitOfWork(
-    private val db: AppDatabase,
-    val historyRepository: HistoryRepository
-) {
+class UnitOfWork(private val db: AppDatabase) {
+    val historyRepository = HistoryRepository(db.historyDao())
+
     suspend fun <T> runInTransaction(block: suspend UnitOfWork.() -> T): T {
         return db.withTransaction {
-            this.block()
+            this@UnitOfWork.block()
         }
     }
 }
@@ -147,10 +146,11 @@ class UnitOfWork(
 ### Usecase
 ```kotlin
 class SaveHistoryUseCase(private val uow: UnitOfWork) {
-    suspend fun execute() {
-        uow.runInTransaction {
+    suspend fun execute(): List<History> {
+        return uow.runInTransaction {
             historyRepository.deleteAll()
             historyRepository.insert(History(expression = "1 + 1", result = "2"))
+            historyRepository.getHistoryList()
         }
     }
 }
@@ -160,30 +160,17 @@ class SaveHistoryUseCase(private val uow: UnitOfWork) {
 
 ### ViewModel
 ```kotlin
-class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() {
+class HistoryViewModel(private val saveHistoryUseCase: SaveHistoryUseCase) : ViewModel() {
     private val _historyList = MutableLiveData<List<History>>()
     val historyList: LiveData<List<History>> get() = _historyList
 
     fun loadHistory() {
         viewModelScope.launch {
-            val data = repository.getHistoryList()
-            _historyList.postValue(data)
+            val updatedList = saveHistoryUseCase.execute()
+            _historyList.postValue(updatedList)
         }
     }
 
-    fun addHistory(history: History) {
-        viewModelScope.launch {
-            repository.insertHistory(history)
-            loadHistory() // Refresh the list after insertion
-        }
-    }
-
-    fun clearHistory() {
-        viewModelScope.launch {
-            repository.deleteAllHistory()
-            loadHistory() // Refresh the list after deletion
-        }
-    }
 }
 ```
 
@@ -192,7 +179,7 @@ class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() 
 class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-            return HistoryViewModel(HistoryRepository(database)) as T
+            return HistoryViewModel(SaveHistoryUseCase(UnitOfWork(HistoryRepository(database)))) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
