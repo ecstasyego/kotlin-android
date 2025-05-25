@@ -5,15 +5,15 @@
 
 ```
 - Context
-    - Application 
-        - Main Thread(UI): Activity, Fragement
+    - Application[GlobalScope.launch] 
+        - Main Thread(UI): Activity[lifecycleScope.launch], Fragement[viewLifecycleOwner.lifecycleScope.launch]
             - Intent, State, Bundle, SharedPreferences 
             - View
                 - DataBinding, LayoutInflater
                     - findViewById
             - ViewModel
                 - LiveData, StateFlow
-        - Background Thread: Service
+        - Background Thread: Service[CoroutineScope(Dispatchers.*).launch]
             - Intent, BroadcastReceiver
 ``` 
 
