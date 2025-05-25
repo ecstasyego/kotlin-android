@@ -72,8 +72,8 @@ db.clearAllTables()
 ## Core
 - ViewModelFactory: Dependency Injection
   - ViewModel: View
-    - UseCase(Transaction): Business Logic
-      - UnitOfWork
+    - UseCase: Business Logic
+      - UnitOfWork: Transaction
         - Repository(Retrofit2): API
           - Database(Room)
             - SQL(DAO Interface) 
