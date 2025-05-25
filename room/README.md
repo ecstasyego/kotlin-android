@@ -22,6 +22,17 @@ dependencies {
 }
 ```
 
+`DB`
+```kts
+android {
+    buildTypes {
+        debug {
+            debuggable true
+        }
+    }
+}
+```
+
 ## Device Explorer
 - `adb pull /data/data/[COM].[EXAMPLE].[APPLICATION]/databases/[DATABASE].db .`
 - View > Tools Windows > Device Explorer
