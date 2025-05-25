@@ -111,6 +111,17 @@ abstract class AppDatabase : RoomDatabase() {
 }
 ```
 
+### Repository
+```kotlin
+```
+
+### ViewModel
+```kotlin
+```
+
+### ViewModelFactory
+```kotlin
+```
 
 
 ### Transaction
