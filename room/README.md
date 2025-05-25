@@ -72,8 +72,8 @@ db.clearAllTables()
 ## Core
 - ViewModelFactory: Dependency Injection
   - ViewModel: View
-    - Repository: API
-      - Database(Room Database)
+    - Repository(Retrofit2): API
+      - Database(Room)
         - SQL(DAO Interface) 
           - Table(Entity): ORM
                   
