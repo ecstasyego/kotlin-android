@@ -179,13 +179,14 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(main_layout)
 
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
-        ).build()
-        repository = Repository(db)
         lifecycleScope.launch(Dispatchers.IO) {
+            db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java,
+                "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
+            ).build()
+            repository = Repository(db)
+
             repository.insertHistory(History(null, "Hello", "World!"))
             repository.getHistoryList() // Query the database
             repository.deleteAllHistory() // Delete all records from the database
