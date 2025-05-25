@@ -72,10 +72,11 @@ db.clearAllTables()
 ## Core
 - ViewModelFactory: Dependency Injection
   - ViewModel: View
-    - Repository(Retrofit2): API
-      - Database(Room)
-        - SQL(DAO Interface) 
-          - Table(Entity): ORM
+    - UseCase: Business Logic
+      - Repository(Retrofit2): API
+        - Database(Room)
+          - SQL(DAO Interface) 
+            - Table(Entity): ORM
                   
 ### Entity: Table
 ```kotlin
@@ -126,6 +127,10 @@ class HistoryRepository(private val database: AppDatabase) {
         database.historyDao().delete()
     }
 }
+```
+
+### Usecase
+```kotlin
 ```
 
 ### ViewModel
