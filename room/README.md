@@ -40,7 +40,10 @@ android {
         - Copy(Ctrl + Shift + S) > `C:\Users\[USER]\AppData\Local\Google\AndroidStudio[VERSION]\device-explorer\[EMULATOR]\_\data\data\[COM].[EXAMPLE].[APPLICATION]\databases\[DATABASE].db`
 
 ## Sqlite3
-- https://www.sqlite.org/download.html
+- CLI
+    - sqlite-tools-win-x64-*.zip: https://www.sqlite.org/download.html
+- GUI
+    - DB Browser for SQLite - Standard installer for 64-bit Windows: https://sqlitebrowser.org/dl/
 
 
 <br><br><br>
