@@ -25,10 +25,12 @@ dependencies {
 
 ```kts
 android {
-    getByName("debug") {
-        isDebuggable = true
-        applicationIdSuffix = ".debug"
-        versionNameSuffix = "-debug"
+    buildTypes {
+        getByName("debug") {
+            isDebuggable = true
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
     }
 }
 ```
