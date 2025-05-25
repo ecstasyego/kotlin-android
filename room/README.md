@@ -93,13 +93,13 @@ data class History(
 @Dao // DAO: Data Access Object
 interface HistoryDao {
     @Query("DELETE FROM history")
-    fun delete()
+    suspend fun delete()
 
     @Query("SELECT * FROM history")
-    fun get(): List<History>
+    suspend fun get(): List<History>
 
     @Insert
-    fun insert(history: History)
+    suspend fun insert(history: History)
 }
 ```
 
@@ -113,14 +113,60 @@ abstract class AppDatabase : RoomDatabase() {
 
 ### Repository
 ```kotlin
+class HistoryRepository(private val database: AppDatabase) {
+    suspend fun insertHistory(history: History) {
+        database.historyDao().insert(history)
+    }
+
+    suspend fun getHistoryList(): List<History> {
+        return database.historyDao().get()
+    }
+
+    suspend fun deleteAllHistory() {
+        database.historyDao().delete()
+    }
+}
 ```
 
 ### ViewModel
 ```kotlin
+class HistoryViewModel(private val repository: HistoryRepository) : ViewModel() {
+    private val _historyList = MutableLiveData<List<History>>()
+    val historyList: LiveData<List<History>> get() = _historyList
+
+    fun loadHistory() {
+        viewModelScope.launch {
+            val data = repository.getHistoryList()
+            _historyList.postValue(data)
+        }
+    }
+
+    fun addHistory(history: History) {
+        viewModelScope.launch {
+            repository.insertHistory(history)
+            loadHistory() // Refresh the list after insertion
+        }
+    }
+
+    fun clearHistory() {
+        viewModelScope.launch {
+            repository.deleteAllHistory()
+            loadHistory() // Refresh the list after deletion
+        }
+    }
+}
 ```
 
 ### ViewModelFactory
 ```kotlin
+class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
+            return HistoryViewModel(HistoryRepository(database)) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
 ```
 
 
