@@ -11,7 +11,7 @@
             - View
                 - DataBinding, LayoutInflater
                     - findViewById
-            - ViewModel[viewModelScope.launch]: Repository: Room(Database) & Retrofit2(API)
+            - ViewModel[viewModelScope.launch]: Repository: Room(DB) & Retrofit2(API)
                 - LiveData, StateFlow
         - Background Thread: Service[CoroutineScope(Dispatchers.*).launch]
             - Intent, BroadcastReceiver
