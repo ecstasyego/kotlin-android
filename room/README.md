@@ -73,10 +73,10 @@ db.clearAllTables()
 - ViewModelFactory: Dependency Injection
   - ViewModel: View
     - UseCase: Business Logic
-      - UnitOfWork: Transaction
-        - Repository(Retrofit2): API
+      - UnitOfWork(High-Level SQL Interface): Transaction
+        - Repository(Middle-Level SQL Interface): API(Retrofit2)
           - Database(Room)
-            - SQL(DAO Interface) 
+            - DAO(Low-Level SQL Interface) 
               - Table(Entity): ORM
                   
 ### Entity: Table
