@@ -22,7 +22,7 @@ dependencies {
 }
 ```
 
-`DB`
+
 ```kts
 android {
     buildTypes {
