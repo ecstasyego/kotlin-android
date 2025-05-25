@@ -132,9 +132,10 @@ class HistoryRepository(private val database: AppDatabase) {
 
 ### UnitOfWork
 ```kotlin
-class UnitOfWork(private val db: AppDatabase) {
-    val historyRepository = HistoryRepository(db.historyDao())
-
+class UnitOfWork(
+    private val db: AppDatabase,
+    val historyRepository: HistoryRepository
+) {
     suspend fun <T> runInTransaction(block: suspend UnitOfWork.() -> T): T {
         return db.withTransaction {
             this.block()
