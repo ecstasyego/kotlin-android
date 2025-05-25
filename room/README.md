@@ -43,15 +43,13 @@ android {
         - Copy(Ctrl + Shift + S) > `C:\Users\[USER]\AppData\Local\Google\AndroidStudio[VERSION]\device-explorer\[EMULATOR]\_\data\data\[COM].[EXAMPLE].[APPLICATION]\databases\[DATABASE].db`
 
 ## Sqlite3
+### Usage on desktop
 - CLI
     - sqlite-tools-win-x64-*.zip: https://www.sqlite.org/download.html
 - GUI
     - DB Browser for SQLite - Standard installer for 64-bit Windows: https://sqlitebrowser.org/dl/
 
-
-<br><br><br>
-
-## Usage
+### Usage on mobile
 ```kotlin
 // DELETE DATABASE
 val dbFile = applicationContext.getDatabasePath("historyDB")
@@ -66,10 +64,19 @@ db = Room.databaseBuilder(
 
 // CLEAR TABLES
 db.clearAllTables()
-
-
 ```
 
+
+<br><br><br>
+
+## Core
+- ViewModelFactory: Dependency Injection
+  - ViewModel: View
+    - Repository: API
+      - Database(Room Database)
+        - ORM(DAO Interface, SQL) 
+          - Table(Entity)
+                  
 ### Entity: Table
 ```kotlin
 @Entity(tableName = "history")
