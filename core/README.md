@@ -11,7 +11,7 @@
             - View
                 - DataBinding, LayoutInflater
                     - findViewById
-            - ViewModel
+            - ViewModel[viewModelScope.launch]
                 - LiveData, StateFlow
         - Background Thread: Service[CoroutineScope(Dispatchers.*).launch]
             - Intent, BroadcastReceiver
