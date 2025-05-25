@@ -74,8 +74,8 @@ db.clearAllTables()
   - ViewModel: View
     - Repository: API
       - Database(Room Database)
-        - ORM(DAO Interface, SQL) 
-          - Table(Entity)
+        - SQL(DAO Interface) 
+          - Table(Entity): ORM
                   
 ### Entity: Table
 ```kotlin
