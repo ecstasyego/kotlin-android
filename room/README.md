@@ -99,8 +99,6 @@ data class History(
     @ColumnInfo(name = "result") val result: String?
 )
 ```
-```kotlin
-```
 
 
 ### DAO: Query Interface
@@ -118,6 +116,9 @@ interface HistoryDao {
 }
 ```
 ```kotlin
+db.historyDao().delete()
+db.historyDao().get()
+db.historyDao().insert()
 ```
 
 ### Database
@@ -128,6 +129,11 @@ abstract class AppDatabase : RoomDatabase() {
 }
 ```
 ```kotlin
+db = Room.databaseBuilder(
+    applicationContext,
+    AppDatabase::class.java,
+    "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
+).build()
 ```
 
 ### Repository
@@ -147,6 +153,10 @@ class HistoryRepository(private val historyDao: HistoryDao) {
 }
 ```
 ```kotlin
+repository = HistoryRepository(db.historyDao())
+repository.insertHistory()
+repository.getHistoryList()
+repository.deleteAllHistory()
 ```
 
 ### UnitOfWork
@@ -162,6 +172,8 @@ class UnitOfWork(private val db: AppDatabase) {
 }
 ```
 ```kotlin
+uow.runInTransaction{
+}
 ```
 
 ### Usecase
@@ -177,11 +189,13 @@ class SaveHistoryUseCase(private val uow: UnitOfWork) {
 }
 ```
 ```kotlin
+saveHistoryUseCase = SaveHistoryUseCase(UnitOfWork(db))
+saveHistoryUseCase.execute()
 ```
 
 
 
-### ViewModel
+### ViewModel & ViewModelFactory
 ```kotlin
 class HistoryViewModel(private val saveHistoryUseCase: SaveHistoryUseCase) : ViewModel() {
     private val _historyList = MutableLiveData<List<History>>()
@@ -193,14 +207,8 @@ class HistoryViewModel(private val saveHistoryUseCase: SaveHistoryUseCase) : Vie
             _historyList.postValue(updatedList)
         }
     }
-
 }
-```
-```kotlin
-```
 
-### ViewModelFactory
-```kotlin
 class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
@@ -211,7 +219,17 @@ class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProv
 }
 ```
 ```kotlin
+val viewModelFactory = HistoryViewModelFactory(db)
+
+viewModel = ViewModelProvider(this, viewModelFactory).get(HistoryViewModel::class.java)
+viewModel.historyList.observe(this) { historyList ->
+    for (item in historyList) {
+        Log.d("HistoryItem", "${item.expression} = ${item.result}")
+    }
+}
+viewModel.loadHistory()
 ```
+
 
 
 ### Transaction
