@@ -99,6 +99,8 @@ data class History(
     @ColumnInfo(name = "result") val result: String?
 )
 ```
+```kotlin
+```
 
 
 ### DAO: Query Interface
@@ -115,6 +117,8 @@ interface HistoryDao {
     suspend fun insert(history: History)
 }
 ```
+```kotlin
+```
 
 ### Database
 ```kotlin
@@ -123,22 +127,26 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 }
 ```
+```kotlin
+```
 
 ### Repository
 ```kotlin
-class HistoryRepository(private val database: AppDatabase) {
+class HistoryRepository(private val historyDao: HistoryDao) {
     suspend fun insertHistory(history: History) {
-        database.historyDao().insert(history)
+        historyDao.insert(history)
     }
 
     suspend fun getHistoryList(): List<History> {
-        return database.historyDao().get()
+        return historyDao.get()
     }
 
     suspend fun deleteAllHistory() {
-        database.historyDao().delete()
+        historyDao.delete()
     }
 }
+```
+```kotlin
 ```
 
 ### UnitOfWork
@@ -153,6 +161,8 @@ class UnitOfWork(private val db: AppDatabase) {
     }
 }
 ```
+```kotlin
+```
 
 ### Usecase
 ```kotlin
@@ -165,6 +175,8 @@ class SaveHistoryUseCase(private val uow: UnitOfWork) {
         }
     }
 }
+```
+```kotlin
 ```
 
 
@@ -184,6 +196,8 @@ class HistoryViewModel(private val saveHistoryUseCase: SaveHistoryUseCase) : Vie
 
 }
 ```
+```kotlin
+```
 
 ### ViewModelFactory
 ```kotlin
@@ -195,6 +209,8 @@ class HistoryViewModelFactory(private val database: AppDatabase) : ViewModelProv
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+```
+```kotlin
 ```
 
 
