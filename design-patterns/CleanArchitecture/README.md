@@ -59,12 +59,23 @@
 
 ## Presentation Layer
 ```kotlin
+- Activity
+- Fragment
+- Service
 ```
 
 
 
 ## Data Layer
 ```kotlin
+- ViewModelFactory: Dependency Injection
+- ViewModel: View
+- UseCase: Business Logic
+- UnitOfWork(High-Level SQL Interface): Transaction
+- Repository(Middle-Level SQL Interface): API(Retrofit2)
+- Database(Room)
+- DAO(Low-Level SQL Interface)
+- Table(Entity): ORM
 ```
 
 
