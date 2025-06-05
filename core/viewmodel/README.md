@@ -2,6 +2,8 @@
 ## Definition
 ### Late Initialization
 ```kts
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 
