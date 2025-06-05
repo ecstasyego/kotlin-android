@@ -1,6 +1,7 @@
 # kotlin-android
 - APK(s)
     - Build > Build Bundle(s) / APK(s) > Build APK(s)
+    - C:\Users\[USER]\AndroidStudioProjects\[APPLICATION]\app\build\outputs\apk\debug
 - Physical Device Emulator
     - PC Installation: https://developer.android.com/studio/run/oem-usb
     - Mobile Developer Mode
