@@ -247,6 +247,35 @@ transaction.replace(R.id.fragment_container, fragment)
 transaction.commit()
 ```
 
+`lifecycle: viewpager2(offscreenPageLimit=1)`
+```kotlin
+// PAGE1
+[PAGE0] onAttach() → onCreate() → onCreateView() → onViewCreated() → onStart()
+[PAGE1] onAttach() → onCreate() → onCreateView() → onViewCreated() → onStart() → onResume()
+[PAGE2] onAttach() → onCreate() → onCreateView() → onViewCreated() → onStart()
+[PAGE3] 
+
+// PAGE1 → PAGE2
+[PAGE0] onStop() → onDestroyView() 
+[PAGE1] onPause() → onStop() → onDestroyView() → onCreateView() → onViewCreated() → onStart()
+[PAGE2] onResume()
+[PAGE3] onAttach() → onCreate() → onCreateView() → onViewCreated() → onStart()
+
+// PAGE2 → PAGE3
+[PAGE0] 
+[PAGE1] onStop() → onDestroyView()
+[PAGE2] onPause() → onStop() → onDestroyView() → onCreateView() → onViewCreated() → onStart()
+[PAGE3] onResume()
+
+// PAGE3 → PAGE2
+[PAGE0] 
+[PAGE1] onCreateView() → onViewCreated() → onStart()
+[PAGE2] onCreateView() → onViewCreated() → onStart() → onResume() 
+[PAGE3] onPause() → onStop() → onDestroyView() → onCreateView() → onViewCreated() → onStart()
+```
+
+
+
 ### Intent
 ```kotlin
 // Explicit Intent
