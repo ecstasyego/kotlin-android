@@ -229,6 +229,7 @@ finish()
 ```kotlin
 onAttach()
   onCreate()
+  -----------------------------------------
     onCreateView()
     onViewCreated()
     onActivityCreated()
@@ -237,6 +238,7 @@ onAttach()
         onPause()
       onStop()
     onDestroyView()
+  -----------------------------------------
   onDestroy()
 onDetach()
 ```
