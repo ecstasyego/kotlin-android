@@ -36,10 +36,10 @@
             - res/mipmap/logo_launcher/*
             - res/mipmap/logo_launcher_round/*
 - Vector Asset Icons
-    - Remove: C:\Users\user\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt
+    - Remove: `C:\Users\[USER]\AppData\Local\Android\Sdk\icons\material\icons_metadata.txt`
         - Read-Only
 - Caches
-    - Remove: C:\Users\user\\.gradle\caches\\*
+    - Remove: `C:\Users\user\\.gradle\caches\*`
     - Rebuild: Build/Clean Project, Build/Rebuild Project 
 - Permission
     - https://www.privacy.go.kr/front/main/main.do
