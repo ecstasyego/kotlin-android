@@ -506,6 +506,7 @@ Log.w("TAG", "This is a warning log.") // Warn(w)
 - Ctrl + Alt + X
     - File > Settings > Keymap > Search Actions by Name: Show Context Menu: Ctrl + Alt + X
 - Shift + ESC: Hide Bottom Window
+- Ctrl + B / Ctrl + Shift + B / Ctrl + Alt + B : Definition & Declaration & Implemetation
 
 ### Version Control
 - File > Settings(Ctrl + Alt + S) > GitHub > `+` > `OK`
