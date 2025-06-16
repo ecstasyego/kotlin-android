@@ -35,7 +35,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import java.io.Serializable
-
+```
+```koltin
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,8 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 }
-
+```
+```kotlin
 class MainFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
 
