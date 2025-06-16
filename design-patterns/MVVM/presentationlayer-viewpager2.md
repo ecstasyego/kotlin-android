@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity(), ViewPagerNavigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewPager2 = ViewPager2(this)
-        viewPager2.adapter = FragmentAdapter(this, CommonFragmentElement(null))
+        viewPager2 = ViewPager2(this).apply{ adapter = FragmentAdapter(this@MainActivity, CommonFragmentElement(null)) }
         setContentView(viewPager2)
     }
 
