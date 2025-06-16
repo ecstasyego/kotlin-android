@@ -124,7 +124,7 @@ class MainService : Service() {
         item?.let {
             serviceScope.launch {
                 try {
-                    item?.information?.get("info")
+                    it.information?.get("info")
 
                     repository.insertHistory(History(null, "Hello", "World"))
                     val getResponse = repository.getRemote("Toy")
