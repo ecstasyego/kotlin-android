@@ -130,6 +130,9 @@ class MainFragment : Fragment(), SubViewPagerNavigator {
                 else -> "C"
             }
         }.attach()
+
+        navigator?.navigateTo(0)
+        navigateTo(1)
     }
 
     override fun onDetach() {
