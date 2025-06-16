@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 class FragmentA : Fragment() {
     lateinit var repository: Any
     private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
+
     lateinit var recyclerView: RecyclerView
     lateinit var rvAdapter: RVAdapterA
 
@@ -90,6 +91,7 @@ class FragmentA : Fragment() {
 class FragmentB : Fragment() {
     lateinit var repository: Any
     private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
+
     lateinit var recyclerView: RecyclerView
     lateinit var rvAdapter: RVAdapterB
 
