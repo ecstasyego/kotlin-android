@@ -114,6 +114,7 @@ class FragmentB : Fragment() {
 }
 data class ItemA(var option:String)
 data class ItemB(var option:String)
+
 class RVAdapterA(private val items: List<ItemA>, private val listener:(Any)->Unit) : RecyclerView.Adapter<RVAdapterA.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
