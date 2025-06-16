@@ -58,7 +58,7 @@ class FragmentA : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         recyclerView = RecyclerView(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = RVAdapterA(List(5) { Item("ITEM(a): $it") })
+        recyclerView.adapter = RVAdapterA(List(5) { ItemA("ITEM(a): $it") })
         return recyclerView
     }
 }
@@ -69,12 +69,12 @@ class FragmentB : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         recyclerView = RecyclerView(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = RVAdapterB(List(5) { Item("ITEM(b): $it") })
+        recyclerView.adapter = RVAdapterB(List(5) { ItemB("ITEM(b): $it") })
         return recyclerView
     }
 }
 
-class RVAdapterA(private val items: List<Item>) : RecyclerView.Adapter<RVAdapterA.ViewHolder>() {
+class RVAdapterA(private val items: List<ItemA>) : RecyclerView.Adapter<RVAdapterA.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
         val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
@@ -106,7 +106,7 @@ class RVAdapterA(private val items: List<Item>) : RecyclerView.Adapter<RVAdapter
 }
 
 
-class RVAdapterB(private val items: List<Item>) : RecyclerView.Adapter<RVAdapterB.ViewHolder>() {
+class RVAdapterB(private val items: List<ItemB>) : RecyclerView.Adapter<RVAdapterB.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
         val textView: TextView = cardView.findViewById(cardView.getChildAt(0).id)
@@ -131,13 +131,14 @@ class RVAdapterB(private val items: List<Item>) : RecyclerView.Adapter<RVAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = items[position].option
+        holder.textView.text = holder.textView.text.toString() + items[position].option
     }
 
     override fun getItemCount(): Int = items.size
 }
 
-data class Item(var option:String)
+data class ItemA(var option:String)
+data class ItemB(var option:String)
 ```
 
 `themes.xml`
