@@ -66,7 +66,8 @@ class MainFragment : Fragment() {
         return recyclerView
     }
 }
-
+```
+```kotlin
 data class Item(var option:String): Serializable
 ```
 ```kotlin
