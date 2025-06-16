@@ -38,8 +38,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
+    lateinit var repository: Any
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        repository = true
+
         val main_layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
@@ -57,7 +61,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 class FragmentA : Fragment() {
-    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory("Parameter")}
+    private val repository = (requireContext() as MainActivity).repository
+    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -77,7 +82,8 @@ class FragmentA : Fragment() {
 }
 
 class FragmentB : Fragment() {
-    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory("Parameter")}
+    private val repository = (requireContext() as MainActivity).repository
+    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
