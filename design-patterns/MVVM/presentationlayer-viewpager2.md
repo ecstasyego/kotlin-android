@@ -7,6 +7,9 @@
 │   ├── src
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
+│   │       ├── java/com/example/myapplication/Fragment00.kt
+│   │       ├── java/com/example/myapplication/Fragment01.kt
+│   │       ├── java/com/example/myapplication/Fragment02.kt
 │   │       ├── res/values/themes.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -18,7 +21,9 @@
 ```kotlin
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.fragment.app.Fragment
@@ -29,54 +34,187 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import kotlinx.parcelize.Parcelize
 
+interface ViewPagerNavigator {
+    fun navigateTo(position: Int)
+}
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ViewPagerNavigator {
     lateinit var viewPager2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewPager2 = ViewPager2(this).apply { adapter = FragmentAdapter(this@MainActivity) }
+        viewPager2 = ViewPager2(this)
+        viewPager2.adapter = FragmentAdapter(this, CommonFragmentElement(null))
         setContentView(viewPager2)
+    }
+
+    override fun navigateTo(position: Int) {
+        viewPager2.setCurrentItem(position, true)
     }
 }
 
 
-class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class FragmentAdapter(fragmentActivity: FragmentActivity, val commonFragmentElement: CommonFragmentElement) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> Fragment00()
-            1 -> Fragment01()
-            else -> Fragment02()
+            0 -> Fragment00.newInstance(commonFragmentElement)
+            1 -> Fragment01.newInstance(commonFragmentElement)
+            else -> Fragment02.newInstance(commonFragmentElement)
         }
     }
 }
 
+@Parcelize
+data class CommonFragmentElement(val param00:Int?): Parcelable
+```
+
+`Fragment00.kt`
+```kotlin
 class Fragment00 : Fragment() {
+    private var navigator: ViewPagerNavigator? = null
+    private lateinit var cfe: CommonFragmentElement
+
+    companion object {
+        fun newInstance(commonFragmentElement: CommonFragmentElement): Fragment00 {
+            val fragment = Fragment00()
+            val args = Bundle()
+            args.putParcelable("CommonFragmentElement", commonFragmentElement)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ViewPagerNavigator) {
+            navigator = context
+        } else {
+            throw RuntimeException("$context must implement ViewPagerNavigator")
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        cfe = arguments?.getParcelable("CommonFragmentElement")!!
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
             addView( TextView(requireContext()).apply {text = "This is fragment00."} )
         }
     }
-}
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        navigator = null
+    }
+}
+```
+
+`Fragment01.kt`
+```kotlin
 class Fragment01 : Fragment() {
+    private var navigator: ViewPagerNavigator? = null
+    private lateinit var cfe: CommonFragmentElement
+
+    companion object {
+        fun newInstance(commonFragmentElement: CommonFragmentElement): Fragment01 {
+            val fragment = Fragment01()
+            val args = Bundle()
+            args.putParcelable("CommonFragmentElement", commonFragmentElement)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ViewPagerNavigator) {
+            navigator = context
+        } else {
+            throw RuntimeException("$context must implement ViewPagerNavigator")
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        cfe = arguments?.getParcelable("CommonFragmentElement")!!
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
             addView( TextView(requireContext()).apply {text = "This is fragment01."} )
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        navigator = null
+    }
+
 }
 
+```
+
+`Fragment02.kt`
+```kotlin
 class Fragment02 : Fragment() {
+    private var navigator: ViewPagerNavigator? = null
+    private lateinit var cfe: CommonFragmentElement
+
+    companion object {
+        fun newInstance(commonFragmentElement: CommonFragmentElement): Fragment02 {
+            val fragment = Fragment02()
+            val args = Bundle()
+            args.putParcelable("CommonFragmentElement", commonFragmentElement)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ViewPagerNavigator) {
+            navigator = context
+        } else {
+            throw RuntimeException("$context must implement ViewPagerNavigator")
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        cfe = arguments?.getParcelable("CommonFragmentElement")!!
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
             addView( TextView(requireContext()).apply {text = "This is fragment02."} )
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        navigator = null
+    }
+
 }
+
 ```
 
 `themes.xml`
