@@ -20,7 +20,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -28,30 +30,33 @@ import retrofit2.http.*
 
 class MainActivity : ComponentActivity() {
 
-    private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8000").addConverterFactory(GsonConverterFactory.create()).build()
-    private val api = retrofit.create(ApiService::class.java)
+    private lateinit var retrofit: Retrofit
+    private lateinit var api: ApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8000").addConverterFactory(GsonConverterFactory.create()).build()
+        api = retrofit.create(ApiService::class.java)
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
                 try {
                     val getResponse = api.getData("Toy")
                     Log.d("API_GET", getResponse.toString())
-    
+
                     val postResponse = api.postData(Request("Bob", 25))
                     Log.d("API_POST", postResponse.toString())
-    
+
                     val putResponse = api.putData("Toy", Request("Bob", 25))
                     Log.d("API_PUT", putResponse.toString())
-    
+
                     val patchResponse = api.patchData("Toy", mapOf("Bob" to 25))
                     Log.d("API_PATCH", patchResponse.toString())
-    
+
                     val deleteResponse = api.deleteData("Toy")
                     Log.d("API_DELETE", deleteResponse.toString())
-    
+
                 } catch (e: Exception) {
                     Log.e("API_ERROR", "Network call failed", e)
                 }
