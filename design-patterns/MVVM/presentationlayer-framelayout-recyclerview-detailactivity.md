@@ -66,6 +66,8 @@ class MainFragment : Fragment() {
         return recyclerView
     }
 }
+
+data class Item(var option:String): Serializable
 ```
 ```kotlin
 class DetailActivity : ComponentActivity() {
@@ -115,8 +117,6 @@ class RVAdapter(private val items: List<Item>, private val changeActivityListene
 
     override fun getItemCount(): Int = items.size
 }
-
-data class Item(var option:String): Serializable
 ```
 
 `AndroidManifest.xml`
