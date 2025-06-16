@@ -74,6 +74,10 @@ class FragmentB : Fragment() {
     }
 }
 
+data class ItemA(var option:String)
+data class ItemB(var option:String)
+```
+```kotlin
 class RVAdapterA(private val items: List<ItemA>) : RecyclerView.Adapter<RVAdapterA.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
@@ -105,7 +109,6 @@ class RVAdapterA(private val items: List<ItemA>) : RecyclerView.Adapter<RVAdapte
     override fun getItemCount(): Int = items.size
 }
 
-
 class RVAdapterB(private val items: List<ItemB>) : RecyclerView.Adapter<RVAdapterB.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
@@ -136,9 +139,6 @@ class RVAdapterB(private val items: List<ItemB>) : RecyclerView.Adapter<RVAdapte
 
     override fun getItemCount(): Int = items.size
 }
-
-data class ItemA(var option:String)
-data class ItemB(var option:String)
 ```
 
 `themes.xml`
