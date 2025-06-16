@@ -35,6 +35,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class FragmentA : Fragment() {
-    private val viewModel: SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory("Parameter")}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -67,8 +68,8 @@ class FragmentA : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.updateData("Hello, FragementA!")
-        viewModel.data.observe(viewLifecycleOwner) {
+        sharedViewModel.updateData("Hello, FragementA!")
+        sharedViewModel.data.observe(viewLifecycleOwner) {
             val message = it.toString()
             Toast.makeText(requireContext(), "${message}", Toast.LENGTH_SHORT).show()
         }
@@ -76,7 +77,7 @@ class FragmentA : Fragment() {
 }
 
 class FragmentB : Fragment() {
-    private val viewModel: SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory("Parameter")}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LinearLayout(requireContext()).apply {
@@ -87,20 +88,30 @@ class FragmentB : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.updateData("Hello, FragmentB!")
-        viewModel.data.observe(viewLifecycleOwner) {
+        sharedViewModel.updateData("Hello, FragmentB!")
+        sharedViewModel.data.observe(viewLifecycleOwner) {
             val message = it.toString()
             Toast.makeText(requireContext(), "${message}", Toast.LENGTH_SHORT).show()
         }
     }
 }
 
-class SharedViewModel : ViewModel() {
+class SharedViewModel(private val parameter: Any) : ViewModel() {
     private val _data = MutableLiveData("Message")
     val data: LiveData<String> get() = _data
 
     fun updateData(newMessage: String) {
         _data.value = newMessage
+    }
+}
+
+
+class SharedViewModelFactory(private val parameter: Any) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
+            return SharedViewModel(parameter) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 ```
