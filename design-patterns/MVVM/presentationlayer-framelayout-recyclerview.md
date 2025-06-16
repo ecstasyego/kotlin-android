@@ -108,7 +108,8 @@ class RVAdapterA(private val items: List<ItemA>) : RecyclerView.Adapter<RVAdapte
 
     override fun getItemCount(): Int = items.size
 }
-
+```
+```kotlin
 class RVAdapterB(private val items: List<ItemB>) : RecyclerView.Adapter<RVAdapterB.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
