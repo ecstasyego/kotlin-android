@@ -34,25 +34,27 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val getResponse = api.getData("Toy")
-                Log.d("API_GET", getResponse.toString())
-
-                val postResponse = api.postData(Request("Bob", 25))
-                Log.d("API_POST", postResponse.toString())
-
-                val putResponse = api.putData("Toy", Request("Bob", 25))
-                Log.d("API_PUT", putResponse.toString())
-
-                val patchResponse = api.patchData("Toy", mapOf("Bob" to 25))
-                Log.d("API_PATCH", patchResponse.toString())
-
-                val deleteResponse = api.deleteData("Toy")
-                Log.d("API_DELETE", deleteResponse.toString())
-
-            } catch (e: Exception) {
-                Log.e("API_ERROR", "Network call failed", e)
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    val getResponse = api.getData("Toy")
+                    Log.d("API_GET", getResponse.toString())
+    
+                    val postResponse = api.postData(Request("Bob", 25))
+                    Log.d("API_POST", postResponse.toString())
+    
+                    val putResponse = api.putData("Toy", Request("Bob", 25))
+                    Log.d("API_PUT", putResponse.toString())
+    
+                    val patchResponse = api.patchData("Toy", mapOf("Bob" to 25))
+                    Log.d("API_PATCH", patchResponse.toString())
+    
+                    val deleteResponse = api.deleteData("Toy")
+                    Log.d("API_DELETE", deleteResponse.toString())
+    
+                } catch (e: Exception) {
+                    Log.e("API_ERROR", "Network call failed", e)
+                }
             }
         }
     }
