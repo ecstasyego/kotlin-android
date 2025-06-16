@@ -23,7 +23,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import android.widget.FrameLayout
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -33,19 +32,12 @@ import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var viewPager2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val frameLayout = FrameLayout(this).apply { layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT) }
-        setContentView(frameLayout)
-
-        val viewPager2 = ViewPager2(this).apply {
-            layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
-            adapter = FragmentAdapter(this@MainActivity)
-            setPageTransformer { page, position -> page.alpha = 0.5f + (1 - Math.abs(position)) * 0.5f }
-        }
-        frameLayout.addView(viewPager2)
+        viewPager2 = ViewPager2(this).apply { adapter = FragmentAdapter(this@MainActivity) }
+        setContentView(viewPager2)
     }
 }
 
