@@ -69,10 +69,7 @@ interface ApiService {
     suspend fun putData(@Path("param00") param00: String, @Body param01: Request): Map<String, Any>
 
     @PATCH("/src/{param00}")
-    suspend fun patchData(
-        @Path("param00") param00: String,
-        @Body param01: Map<String, @JvmSuppressWildcards Any>
-    ): Map<String, Any>
+    suspend fun patchData(@Path("param00") param00: String, @Body param01: Map<String, @JvmSuppressWildcards Any>): Map<String, Any>
 
     @DELETE("/src/{param00}")
     suspend fun deleteData(@Path("param00") param00: String): Map<String, Any>
