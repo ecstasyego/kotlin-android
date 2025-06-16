@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class FragmentA : Fragment() {
-    private val repository = (requireContext() as MainActivity).repository
+    lateinit var repository: Any
     private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,6 +72,7 @@ class FragmentA : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        repository = (requireActivity() as MainActivity).repository
 
         sharedViewModel.updateData("Hello, FragementA!")
         sharedViewModel.data.observe(viewLifecycleOwner) {
@@ -82,7 +83,7 @@ class FragmentA : Fragment() {
 }
 
 class FragmentB : Fragment() {
-    private val repository = (requireContext() as MainActivity).repository
+    lateinit var repository: Any
     private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,6 +94,7 @@ class FragmentB : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        repository = (requireActivity() as MainActivity).repository
 
         sharedViewModel.updateData("Hello, FragmentB!")
         sharedViewModel.data.observe(viewLifecycleOwner) {
