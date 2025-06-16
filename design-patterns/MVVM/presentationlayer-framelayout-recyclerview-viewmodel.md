@@ -104,10 +104,12 @@ class FragmentB : Fragment() {
     }
 
 }
-
+```
+```kotlin
 data class ItemA(var option:String)
 data class ItemB(var option:String)
-
+```
+```kotlin
 class RVAdapterA(private val items: List<ItemA>, private val listener:(Any)->Unit) : RecyclerView.Adapter<RVAdapterA.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
@@ -177,7 +179,8 @@ class RVAdapterB(private val items: List<ItemB>, private val listener:(Any)->Uni
         listener(data)
     }
 }
-
+```
+```kotlin
 class SharedViewModel(private val parameter: Any) : ViewModel() {
     private val _data = MutableLiveData("Message")
     val data: LiveData<String> get() = _data
