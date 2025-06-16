@@ -45,8 +45,12 @@ class MainActivity : ComponentActivity() {
             db.historyDao().insert(History(null, "Hello", "World!")) // Insert data into the database using coroutines
             db.historyDao().get() // Query the database
             db.historyDao().delete() // Delete all records from the database
-        }
 
+            withContext(Dispatchers.Main) {
+
+            }
+
+        }
     }
 }
 
