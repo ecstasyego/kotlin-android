@@ -75,7 +75,8 @@ class DetailActivity : ComponentActivity() {
         intent.getSerializableExtra("selectedItem") as? Item
     }
 }
-
+```
+```kotlin
 class RVAdapter(private val items: List<Item>, private val changeActivityListener: (Item) -> Unit) : RecyclerView.Adapter<RVAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
