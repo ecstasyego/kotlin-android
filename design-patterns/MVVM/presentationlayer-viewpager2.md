@@ -21,7 +21,6 @@
 ```kotlin
 package com.example.myapplication
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +28,6 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import kotlinx.parcelize.Parcelize
 
 interface ViewPagerNavigator {
@@ -74,6 +68,17 @@ data class CommonFragmentElement(val param00:Int?): Parcelable
 
 `Fragment00.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
 class Fragment00 : Fragment() {
     private var navigator: ViewPagerNavigator? = null
     private lateinit var cfe: CommonFragmentElement
@@ -121,6 +126,17 @@ class Fragment00 : Fragment() {
 
 `Fragment01.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
 class Fragment01 : Fragment() {
     private var navigator: ViewPagerNavigator? = null
     private lateinit var cfe: CommonFragmentElement
@@ -163,13 +179,22 @@ class Fragment01 : Fragment() {
         super.onDetach()
         navigator = null
     }
-
 }
-
 ```
 
 `Fragment02.kt`
 ```kotlin
+package com.example.myapplication
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
 class Fragment02 : Fragment() {
     private var navigator: ViewPagerNavigator? = null
     private lateinit var cfe: CommonFragmentElement
@@ -212,9 +237,7 @@ class Fragment02 : Fragment() {
         super.onDetach()
         navigator = null
     }
-
 }
-
 ```
 
 `themes.xml`
