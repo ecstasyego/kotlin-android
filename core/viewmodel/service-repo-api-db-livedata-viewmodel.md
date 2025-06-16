@@ -8,6 +8,7 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── java/com/example/myapplication/MainService.kt
+│   │       ├── res/drawable/ic_dialog_info.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
 └── build.gradle.kts # PROJECT-LEVEL
@@ -127,6 +128,14 @@ data class Request(
 
 `MainService.kt`
 ```kotlin
+```
+
+`ic_dialog_info.xml`
+```xml
+```
+
+`AndroidManifest.xml`
+```xml
 ```
 
 
