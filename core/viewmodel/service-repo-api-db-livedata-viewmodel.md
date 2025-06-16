@@ -8,6 +8,7 @@
 │   │   └── main
 │   │       ├── java/com/example/myapplication/MainActivity.kt
 │   │       ├── java/com/example/myapplication/MainService.kt
+│   │       ├── java/com/example/myapplication/MainRepository.kt
 │   │       ├── res/drawable/ic_dialog_info.xml
 │   │       └── AndroidManifest.xml
 │   └── build.gradle.kts # APP-LEVEL
@@ -91,12 +92,24 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.room.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainService : Service() {
+    private lateinit var repository: DataRepository
+    private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("MainService", "onCreate called")
+
+        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build()
+        val api = Retrofit.Builder().baseUrl("http://10.0.2.2:8000").addConverterFactory(GsonConverterFactory.create()).build().create(ApiService::class.java)
+        repository = DataRepository(db.historyDao(), api)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -107,7 +120,26 @@ class MainService : Service() {
         startForeground(1, createNotification())
 
         val item = intent?.getSerializableExtra("item") as? Item
-        item?.information?.get("info")
+
+        item?.let {
+            serviceScope.launch {
+                try {
+                    item?.information?.get("info")
+
+                    repository.insertHistory(History(null, "Hello", "World"))
+                    val getResponse = repository.getRemote("Toy")
+                    val postResponse = repository.postRemote(Request("Bob", 25))
+
+                    Log.d("MainService", "API GET: $getResponse")
+                    Log.d("MainService", "API POST: $postResponse")
+
+                    sendResultBroadcast(true)
+                } catch (e: Exception) {
+                    Log.e("MainService", "Data fetch failed", e)
+                    sendResultBroadcast(false)
+                }
+            }
+        }
 
         sendResultBroadcast(success = true)
         return START_NOT_STICKY
@@ -137,6 +169,74 @@ class MainService : Service() {
             .build()
     }
 }
+```
+
+`MainRepository.kt`
+```kotlin
+package com.example.myapplication
+
+import androidx.room.ColumnInfo
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.RoomDatabase
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+
+class DataRepository(
+    private val dao: HistoryDao,
+    private val api: ApiService
+) {
+    suspend fun insertHistory(history: History) = dao.insert(history)
+    suspend fun getHistory(): List<History> = dao.get()
+    suspend fun deleteHistory() = dao.delete()
+
+    suspend fun getRemote(param: String) = api.getData(param)
+    suspend fun postRemote(request: Request) = api.postData(request)
+    suspend fun putRemote(param: String, request: Request) = api.putData(param, request)
+    suspend fun patchRemote(param: String, fields: Map<String, @JvmSuppressWildcards Any>) = api.patchData(param, fields)
+    suspend fun deleteRemote(param: String) = api.deleteData(param)
+}
+
+// Entity, DAO, DB
+@Entity(tableName = "history")
+data class History(
+    @PrimaryKey(autoGenerate = true) val uid: Int? = null,
+    @ColumnInfo(name = "expression") val expression: String?,
+    @ColumnInfo(name = "result") val result: String?
+)
+
+@Dao
+interface HistoryDao {
+    @Insert
+    suspend fun insert(history: History)
+    @Query("SELECT * FROM history") suspend fun get(): List<History>
+    @Query("DELETE FROM history") suspend fun delete()
+}
+
+@Database(entities = [History::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun historyDao(): HistoryDao
+}
+
+// Retrofit interface
+interface ApiService {
+    @GET("/src/{param00}") suspend fun getData(@Path("param00") param00: String): Map<String, Any>
+    @POST("/src") suspend fun postData(@Body param00: Request): Map<String, Any>
+    @PUT("/src/{param00}") suspend fun putData(@Path("param00") param00: String, @Body param01: Request): Map<String, Any>
+    @PATCH("/src/{param00}") suspend fun patchData(@Path("param00") param00: String, @Body param01: Map<String, @JvmSuppressWildcards Any>): Map<String, Any>
+    @DELETE("/src/{param00}") suspend fun deleteData(@Path("param00") param00: String): Map<String, Any>
+}
+
+data class Request(val rqst00: String, val rqst01: Int)
 ```
 
 `ic_dialog_info.xml`
