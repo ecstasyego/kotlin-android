@@ -67,13 +67,22 @@ class MainViewPagerAdapter(fragmentActivity: FragmentActivity, val commonFragmen
         }
     }
 }
+```
+
+```kotlin
+interface SubViewPagerNavigator {
+    fun navigateTo(position: Int)
+}
 
 @Parcelize
 data class CommonMainFragmentElement(val param00:Int?): Parcelable
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), SubViewPagerNavigator {
     private var navigator: MainViewPagerNavigator? = null
     private lateinit var cfe: CommonMainFragmentElement
+
+    private lateinit var tabLayout: TabLayout
+    private lateinit var subViewPager2: ViewPager2
 
     companion object {
         fun newInstance(commonFragmentElement: CommonMainFragmentElement): MainFragment {
@@ -100,67 +109,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LinearLayout(requireContext()).apply {
-            addView( TextView(requireContext()).apply {text = "This is main fragment."} )
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        navigator = null
-    }
-}
-
-interface SubViewPagerNavigator {
-    fun navigateTo(position: Int)
-}
-
-@Parcelize
-data class CommonSubFragmentElement(val param00:Int?): Parcelable
-
-class SubFragment : Fragment(), SubViewPagerNavigator {
-    private var navigator: MainViewPagerNavigator? = null
-    private lateinit var cfe: CommonSubFragmentElement
-
-    private lateinit var tabLayout: TabLayout
-    private lateinit var subViewPager2: ViewPager2
-
-    companion object {
-        fun newInstance(commonFragmentElement: CommonSubFragmentElement): SubFragment {
-            val fragment = SubFragment()
-            val args = Bundle()
-            args.putParcelable("CommonFragmentElement", commonFragmentElement)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is MainViewPagerNavigator) {
-            navigator = context
-        } else {
-            throw RuntimeException("$context must implement MainViewPagerNavigator")
-        }
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        cfe = arguments?.getParcelable("CommonFragmentElement")!!
-    }
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         tabLayout = TabLayout(requireContext())
         subViewPager2 = ViewPager2(requireContext())
         subViewPager2.adapter = SubViewPagerAdapter(this, CommonSubFragmentElement(null))
 
         return LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
             addView(tabLayout)
             addView(subViewPager2)
         }
@@ -176,9 +130,6 @@ class SubFragment : Fragment(), SubViewPagerNavigator {
                 else -> "C"
             }
         }.attach()
-
-        navigator?.navigateTo(0)
-        navigateTo(1)
     }
 
     override fun onDetach() {
@@ -187,7 +138,7 @@ class SubFragment : Fragment(), SubViewPagerNavigator {
     }
 
     override fun navigateTo(position: Int) {
-        subViewPager2.setCurrentItem(position, true)
+        subViewPager2.setCurrentItem(position)
     }
 }
 
@@ -201,6 +152,70 @@ class SubViewPagerAdapter(fragment: Fragment, val commonFragmentElement: CommonS
             1 -> SubFragment.newInstance(commonFragmentElement)
             else -> SubFragment.newInstance(commonFragmentElement)
         }
+    }
+}
+```
+
+```kotlin
+@Parcelize
+data class CommonSubFragmentElement(val param00:Int?): Parcelable
+
+class SubFragment : Fragment() {
+    private var mainNavigator: MainViewPagerNavigator? = null
+    private var subNavigator: SubViewPagerNavigator? = null
+    private lateinit var cfe: CommonSubFragmentElement
+
+    companion object {
+        fun newInstance(commonFragmentElement: CommonSubFragmentElement): SubFragment {
+            val fragment = SubFragment()
+            val args = Bundle()
+            args.putParcelable("CommonFragmentElement", commonFragmentElement)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MainViewPagerNavigator) {
+            mainNavigator = context
+        } else {
+            throw RuntimeException("$context must implement MainViewPagerNavigator")
+        }
+
+        val parent = parentFragment
+        if (parent is SubViewPagerNavigator) {
+            subNavigator = parent
+        } else {
+            throw RuntimeException("$context must implement PortfolioViewPagerNavigator")
+        }
+
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        cfe = arguments?.getParcelable("CommonFragmentElement")!!
+    }
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return LinearLayout(requireContext()).apply {
+            addView( TextView(requireContext()).apply {text = "This is sub fragment."} )
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mainNavigator?.navigateTo(0)
+        subNavigator?.navigateTo(1)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mainNavigator = null
+        subNavigator = null
     }
 }
 ```
