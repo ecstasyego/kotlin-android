@@ -66,7 +66,8 @@ class MainFragment : Fragment() {
         return recyclerView
     }
 }
-
+```
+```kotlin
 class DetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
