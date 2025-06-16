@@ -91,6 +91,7 @@ class Fragment02 : Fragment() {
 ```kotlin
 plugins {
     id("kotlin-kapt") // for Room annotation processing
+    id("kotlin-parcelize") //
 }
 
 android {
