@@ -39,8 +39,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 
 class MainActivity : AppCompatActivity() {
+    lateinit var repository: Any
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        repository = true
+
         val main_layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             addView( FrameLayout(this@MainActivity).apply {id = View.generateViewId()} )
@@ -58,7 +62,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 class FragmentA : Fragment() {
-    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory("Parameter")}
+    lateinit var repository: Any
+    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
     lateinit var recyclerView: RecyclerView
     lateinit var rvAdapter: RVAdapterA
 
@@ -72,6 +77,7 @@ class FragmentA : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        repository = (requireActivity() as MainActivity).repository
 
         sharedViewModel.updateData("Hello, FragementA!")
         sharedViewModel.data.observe(viewLifecycleOwner) {
@@ -82,7 +88,8 @@ class FragmentA : Fragment() {
 }
 
 class FragmentB : Fragment() {
-    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory("Parameter")}
+    lateinit var repository: Any
+    private val sharedViewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(repository)}
     lateinit var recyclerView: RecyclerView
     lateinit var rvAdapter: RVAdapterB
 
@@ -96,6 +103,7 @@ class FragmentB : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        repository = (requireActivity() as MainActivity).repository
 
         sharedViewModel.updateData("Hello, FragementB!")
         sharedViewModel.data.observe(viewLifecycleOwner) {
@@ -104,12 +112,8 @@ class FragmentB : Fragment() {
     }
 
 }
-```
-```kotlin
 data class ItemA(var option:String)
 data class ItemB(var option:String)
-```
-```kotlin
 class RVAdapterA(private val items: List<ItemA>, private val listener:(Any)->Unit) : RecyclerView.Adapter<RVAdapterA.ViewHolder>() {
     class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
@@ -179,8 +183,6 @@ class RVAdapterB(private val items: List<ItemB>, private val listener:(Any)->Uni
         listener(data)
     }
 }
-```
-```kotlin
 class SharedViewModel(private val parameter: Any) : ViewModel() {
     private val _data = MutableLiveData("Message")
     val data: LiveData<String> get() = _data
