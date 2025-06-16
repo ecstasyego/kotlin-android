@@ -39,23 +39,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(LinearLayout(this))
 
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "historyDB" // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
-        ).build()
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "historyDB").build() // historyDB.sqlite, /data/data/<package_name>/databases/historyDB
 
         lifecycleScope.launch(Dispatchers.IO) {
             db.historyDao().insert(History(null, "Hello", "World!")) // Insert data into the database using coroutines
-        }
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            val historyList: List<History> = db.historyDao().get() // Query the database
-        }
-
-        lifecycleScope.launch(Dispatchers.IO) {
+            db.historyDao().get() // Query the database
             db.historyDao().delete() // Delete all records from the database
         }
+
     }
 }
 
